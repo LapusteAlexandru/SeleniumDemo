@@ -12,7 +12,7 @@ pool:
 variables:
   dotnet_sdk_version: 3.1.100
   buildPlatform: 'Any CPU'
-  solution: 'RCS.Automation/RCoS-Automation.sln'
+  solution: 'RCoS-Automation.sln'
   buildConfiguration: 'Release'
   
 
