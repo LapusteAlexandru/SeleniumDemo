@@ -10,9 +10,15 @@ pool:
     vmImage: 'ubuntu-latest'
     
 variables:
-    buildConfiguration: 'Release'
+  dotnet_sdk_version: 3.1.100
+  buildPlatform: 'Any CPU'
+  solution: 'RCS.Automation/RCoS-Automation.sln'
+  buildConfiguration: 'Release'
+  
 
 steps:
+  - template: templates/install-sdks.yml
+  - template: templates/build-solution.yml  
   - template: templates/run-functional-tests.yml
 
 
