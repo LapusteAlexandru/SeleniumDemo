@@ -9,4 +9,4 @@ steps:
     inputs:
       command: test
       projects: '**/*-Automation.csproj'
-      arguments: '--configuration 'Release''
+      arguments: '--configuration $(buildConfiguration)'
