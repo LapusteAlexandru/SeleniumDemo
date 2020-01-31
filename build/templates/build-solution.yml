@@ -6,7 +6,6 @@
 steps:
   - script: dotnet restore
     displayName: Restore NuGet
-    workingDirectory: 'RCS.Automation'
   
   - task: DotNetCoreCLI@2
     displayName: Build .NET 
