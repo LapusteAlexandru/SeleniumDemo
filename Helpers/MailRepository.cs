@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using static Helpers.MailSubjectEnum;
 
 namespace Helpers
 {
@@ -23,11 +24,30 @@ namespace Helpers
             this.password = password;
         }
 
-        public string GetUnreadMails(string subject)
+        public string GetUnreadMails(Subject subject)
         {
             string messages="" ;
             int retryCounter = 0;
             int maxRetries = 300;
+            string sub = "";
+            switch(subject)
+            {
+                case Subject.ForgotPassword:
+                    sub = "account password reset";
+                    break;
+                case Subject.Register:
+                    sub = "RCS account activation";
+                    break;
+                case Subject.RegistrationAccepted:
+                    sub = "Registration Request Acceptance";
+                    break;
+                case Subject.RegistrationRejected:
+                    sub = "Registration Request Rejection";
+                    break;
+
+                default:
+                    break;
+            }
             using (var client = new ImapClient())
             {
                 client.Connect(mailServer, port, ssl);
@@ -47,7 +67,7 @@ namespace Helpers
                         foreach (var uniqueId in results.UniqueIds)
                         {
                             var message = inbox.GetMessage(uniqueId);
-                            if (message.Subject.Equals(subject))
+                            if (message.Subject.Equals(sub))
                             {
                                 messages = message.HtmlBody;
                                 found = true;

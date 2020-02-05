@@ -70,7 +70,7 @@ namespace AccountDetailsTests
             DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
             AccountDetailsPage adp = dp.getAccountDetails();
             Assert.That(adp.statusIndicator.GetAttribute("class").Contains("not-started"));
-            adp.CompleteForm("Dr.","Alex","Lapuste","5/17/1992","Timisoara","123123123"," Male ","1231231", " General Surgery ", " Associate Specialist ");
+            adp.CompleteForm(TestBase.userTitle, TestBase.userFirstName, TestBase.userLastName, TestBase.userAddress, TestBase.userPhone,TestBase.userGender, TestBase.userGmcNumber, TestBase.userGmcSpecialty, TestBase.userCareerGrade);
             Thread.Sleep(500);
             Assert.That(adp.accountSubmittedMsg.Displayed);
             foreach (var e in adp.GetMainElements())
@@ -87,7 +87,7 @@ namespace AccountDetailsTests
             LoginPage lp = hp.GetLogin();
             DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
             AccountDetailsPage adp = dp.getAccountDetails();
-            adp.CompleteForm(testText, testText, testText, "5/17/1992", testText, testText, " Male ","1231231", " General Surgery ", " Associate Specialist ");
+            adp.CompleteForm(testText, testText, testText, testText, testText, TestBase.userGender, TestBase.userGmcNumber, TestBase.userGmcSpecialty, TestBase.userCareerGrade);
             foreach (var e in adp.limitReachedMsgs)
                 Assert.That(e.Displayed);
             Assert.That(adp.limitReachedMsgs.Count.Equals(5));

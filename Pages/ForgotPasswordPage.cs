@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using static Helpers.MailSubjectEnum;
 
 namespace Pages
 {
@@ -88,7 +89,7 @@ namespace Pages
             submitBtn.Click();
             Thread.Sleep(2000);
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
-            string allEmails = mailRepository.GetUnreadMails("account password reset");
+            string allEmails = mailRepository.GetUnreadMails(Subject.ForgotPassword);
             var linkParser = new Regex(@"(?:https?://rcs-cosmetics-identity-dev.azurewebsites.net/Account/ResetPassword)\S+\b");
             var link = linkParser.Matches(allEmails) ;
             TestBase.driver.Url = link.SingleOrDefault().ToString().Replace("&amp;", "&");

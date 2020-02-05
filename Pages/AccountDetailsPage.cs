@@ -135,7 +135,7 @@ namespace Pages
             return mainElements;
         }
 
-        public void CompleteForm(string title,string firstName,string lastName,string date,string address,string phone,string gender,string gmcNumber,string gmcSpeciality,string careerGrade)
+        public void CompleteForm(string title,string firstName,string lastName,string address,string phone,string gender,string gmcNumber,string gmcSpeciality,string careerGrade)
         {
             titleInput.Clear();
             titleInput.SendKeys(title);
@@ -144,16 +144,16 @@ namespace Pages
             lastNameInput.Clear();
             lastNameInput.SendKeys(lastName);
             TestBase.driver.FindElement(By.XPath("//mat-datepicker-toggle")).Click();
-            TestBase.driver.FindElement(By.XPath("//div[text()='15']")).Click();
+            TestBase.driver.FindElement(By.XPath("//div[text()='1']")).Click();
             addressInput.Clear();
             addressInput.SendKeys(address);
             phoneInput.Clear();
             phoneInput.SendKeys(phone);
-            TestBase.SelectOption("mat-select-0", "mat-option-1");
+            TestBase.SelectOption("mat-select-0", gender);
             gmcNumberInput.Clear();
             gmcNumberInput.SendKeys(gmcNumber);
-            TestBase.SelectOption("mat-select-1", "mat-option-7");
-            TestBase.SelectOption("mat-select-2", "mat-option-2");
+            TestBase.SelectOption("mat-select-1", gmcSpeciality);
+            TestBase.SelectOption("mat-select-2", careerGrade);
             earsSurgeryCheckbox.Click();
             submitBtn.Click();
         }

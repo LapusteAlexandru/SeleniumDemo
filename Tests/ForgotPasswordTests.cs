@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using static Helpers.MailSubjectEnum;
 
 namespace ForgotPasswordTests
 {
@@ -85,7 +86,7 @@ namespace ForgotPasswordTests
             fpp.SendResetEmail(TestBase.username);
             Thread.Sleep(2000);
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
-            string allEmails = mailRepository.GetUnreadMails("account password reset");
+            string allEmails = mailRepository.GetUnreadMails(Subject.ForgotPassword);
             var linkParser = new Regex(@"(?:https?://rcs-cosmetics-identity-dev.azurewebsites.net/Account/ResetPassword)\S+\b");
             Assert.That(linkParser.Matches(allEmails).Count == 1);
         }

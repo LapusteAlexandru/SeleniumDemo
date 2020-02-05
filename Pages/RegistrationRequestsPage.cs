@@ -5,6 +5,7 @@ using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace Pages
 {
@@ -14,7 +15,7 @@ namespace Pages
         {
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementExists(By.XPath("//mat-sidenav")));
+                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.Id("mat-input-0")));
             }
             catch (Exception e)
             {
@@ -63,6 +64,21 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//button[@aria-label='Previous page']")]
         public IWebElement prevPageBtn { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//textarea")]
+        public IWebElement rejectTextArea { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Submit')]")]
+        public IWebElement requestSubmitBtn { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[@type='submit']")]
+        public IWebElement confirmAcceptBtn { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Request was successfully rejected')]")]
+        public IWebElement rejectedMsg { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Request was successfully accepted')]")]
+        public IWebElement acceptedMsg { get; set; }
+
         public IList<IWebElement> mainElements = new List<IWebElement>();
 
         public IList<IWebElement> GetMainElements()
@@ -75,6 +91,34 @@ namespace Pages
             mainElements.Add(gmcNumberTableHeader);
             mainElements.Add(gmcSpecialtyTableHeader);
             return mainElements;
+        }
+
+        public void openRequestData(string username)
+        {
+            TestBase.wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(By.XPath("//table")));
+            IWebElement user = TestBase.driver.FindElement(By.XPath(string.Format("//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]", username)));
+            user.Click();
+
+        }
+        public void RejectRequest(string user,string reason)
+        {
+            openRequestData(user);
+            Thread.Sleep(300);
+            IWebElement rejectBtn = TestBase.driver.FindElement(By.XPath(string.Format("//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]/ancestor::tr/following-sibling::tr[1]//span[contains(text(),'Reject')]", user)));
+            rejectBtn.Click();
+            rejectTextArea.Clear();
+            rejectTextArea.SendKeys(reason);
+            requestSubmitBtn.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(rejectedMsg));
+        }
+        public void AcceptRequest(string user)
+        {
+            openRequestData(user);
+            Thread.Sleep(300);
+            IWebElement acceptBtn = TestBase.driver.FindElement(By.XPath(string.Format("//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]/ancestor::tr/following-sibling::tr[1]//span[contains(text(),'Accept')]", user)));
+            acceptBtn.Click();
+            confirmAcceptBtn.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(acceptedMsg));
         }
     }
 }

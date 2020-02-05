@@ -1,25 +1,32 @@
 ﻿
-using MailKit;
-using MailKit.Net.Imap;
-using MailKit.Search;
+
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using Pages;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
+using System.IO;
 
 namespace RCoS
 {
-    class TestBase
+    public class TestBase
     {
         public static string username = "amdaris.rcos@gmail.com";
         public static string password = "123aA@123";
         public static string adminUsername = "mail@mail.com";
         public static string adminPassword = "P@ssword1";
+        public static string userTitle = "Dr.";
+        public static string userFirstName = "John";
+        public static string userLastName = "Doe";
+        public static string userAddress = "UK";
+        public static string userPhone = "123123123";
+        public static string userGender = "Male";
+        public static string userGmcNumber = "1231231";
+        public static string userGmcSpecialty = "General Surgery";
+        public static string userCareerGrade = "Associate Specialist";
 
         public static IWebDriver driver { get; set; }
         public static WebDriverWait wait { get; set; }
@@ -47,7 +54,8 @@ namespace RCoS
         public static void SelectOption(string select,string option)
         {
             driver.FindElement(By.Id(select)).Click();
-            driver.FindElement(By.Id(option)).Click();
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(string.Format("//span[contains(text(),'{0}')]", option))));
+            driver.FindElement(By.XPath(string.Format("//span[contains(text(),'{0}')]",option))).Click();
         }
 
         public static bool ElementIsPresent(IWebElement element)
@@ -62,9 +70,19 @@ namespace RCoS
             }
         }
 
-        public static IWebElement tableData(string value)
+        
+
+        public static void TakeScreenShot()
         {
-            return driver.FindElement(By.XPath(String.Format("//td//div[contains(text(),'%s')]", value)));
+
+            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
+            {
+                string path = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName + "\\screens\\";
+                string testName = TestContext.CurrentContext.Test.Name;
+                string timestamp = DateTime.Now.ToString("yyyy-MM-dd-hhmm-ss");
+                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+                screenshot.SaveAsFile($"{path}{timestamp} {testName}." + ScreenshotImageFormat.Png);
+            }
         }
     }
 }

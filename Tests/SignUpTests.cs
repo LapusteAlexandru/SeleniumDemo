@@ -9,6 +9,7 @@ using Helpers;
 using System.Threading;
 using System.Text.RegularExpressions;
 using System.Linq;
+using static Helpers.MailSubjectEnum;
 
 namespace SignUpTests
 {
@@ -130,7 +131,7 @@ namespace SignUpTests
             sup.DoRegister(TestBase.username, TestBase.password, TestBase.password);
             Thread.Sleep(2000);
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
-            string allEmails = mailRepository.GetUnreadMails("RCS account activation");
+            string allEmails = mailRepository.GetUnreadMails(Subject.Register);
             var linkParser = new Regex(@"(?:https?://rcs-cosmetics-identity-dev.azurewebsites.net/Account)\S+\b");
             var link = linkParser.Matches(allEmails);
             TestBase.driver.Url = link.SingleOrDefault().ToString().Replace("&amp;","&");
