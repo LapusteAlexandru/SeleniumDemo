@@ -7,7 +7,7 @@ trigger:
     - development
 
 pool:
-    vmImage: 'ubuntu-latest'
+    name: Hosted Windows 2019 with VS2019
     
 variables:
   dotnet_sdk_version: 3.1.100
@@ -19,7 +19,7 @@ variables:
 steps:
   - template: templates/install-sdks.yml
   - template: templates/build-solution.yml  
-  - template: templates/run-functional-tests.yml
+  - template: templates/publish-artifacts.yml
 
 
 
