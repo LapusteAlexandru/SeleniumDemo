@@ -15,7 +15,7 @@ steps:
         modifyOutputPath: false
       
     - task: PublishBuildArtifacts@1
-        displayName: Publish artifacts
-        inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        condition: succeededOrFailed()
+      displayName: Publish artifacts
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      condition: succeededOrFailed()
