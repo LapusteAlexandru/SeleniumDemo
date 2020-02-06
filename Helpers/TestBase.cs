@@ -39,7 +39,7 @@ namespace RCoS
             cap.AddArgument("--incognito");
             driver = new ChromeDriver(cap);
             driver.Url = "https://rcs-cosmetics-client-dev.azurewebsites.net/";
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
         }
         public static void SwitchTab()
         {
