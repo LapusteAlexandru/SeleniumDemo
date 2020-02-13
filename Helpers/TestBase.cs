@@ -87,12 +87,12 @@ namespace RCoS
 
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
-                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
                 string testName = TestContext.CurrentContext.Test.Name;
                 string timestamp = DateTime.Now.ToString("yyyy-MM-dd-hhmm-ss"); 
-                string path = Directory.GetCurrentDirectory()+testName+timestamp;
+                Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+                string path = Directory.GetCurrentDirectory() + timestamp+testName+ ".png";
+                ss.SaveAsFile(path);
                 TestContext.AddTestAttachment(path);
-                screenshot.SaveAsFile($"{path}{timestamp} {testName}." + ScreenshotImageFormat.Png);
             }
         }
 
