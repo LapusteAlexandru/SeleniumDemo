@@ -37,7 +37,7 @@ namespace RCoS
         public static string currentYear = DateTime.Now.Year.ToString();
         public static string currentDate = currentMonth + " " + currentDay + ", " + currentYear;
         public static string userBirthday = currentMonth + " 01, " + currentYear;
-
+        private TestContext testContextInstance;
         public static List<string> userData = new List<string> {userGender, currentDate, username,userPhone,userAddress, userBirthday, userGmcNumber.ToString(),userGmcSpecialty,userCareerGrade };
         public static IWebDriver driver { get; set; }
         public static WebDriverWait wait { get; set; }
@@ -50,7 +50,7 @@ namespace RCoS
             cap.AddArgument("--incognito");
             driver = new ChromeDriver(cap);
             driver.Url = "https://rcs-cosmetics-client-dev.azurewebsites.net/";
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
         }
         public static void SwitchTab()
         {
@@ -81,17 +81,17 @@ namespace RCoS
             }
         }
 
-        
 
         public static void TakeScreenShot()
         {
 
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
-                string path = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName + "\\Screenshots\\";
-                string testName = TestContext.CurrentContext.Test.Name;
-                string timestamp = DateTime.Now.ToString("yyyy-MM-dd-hhmm-ss");
                 var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+                string testName = TestContext.CurrentContext.Test.Name;
+                string timestamp = DateTime.Now.ToString("yyyy-MM-dd-hhmm-ss"); 
+                string path = Directory.GetCurrentDirectory()+testName+timestamp;
+                TestContext.AddTestAttachment(path);
                 screenshot.SaveAsFile($"{path}{timestamp} {testName}." + ScreenshotImageFormat.Png);
             }
         }
