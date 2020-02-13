@@ -15,7 +15,7 @@ namespace Pages
         {
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementExists(By.XPath("//mat-sidenav")));
+                TestBase.wait.Until(ExpectedConditions.ElementExists(By.XPath("//mat-nav-list")));
             }
             catch (Exception e)
             {
@@ -116,21 +116,43 @@ namespace Pages
 
         public AccountDetailsPage getAccountDetails()
         {
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(accountDetailsBtn));
             accountDetailsBtn.Click();
             return new AccountDetailsPage(TestBase.driver);
         }
         public ProbityStatementsPage getProbityStatements()
         {
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(probityStatementsBtn));
             probityStatementsBtn.Click();
             return new ProbityStatementsPage(TestBase.driver);
         }
+        public ProfessionalInsurancePage getProfessionalInsurance()
+        {
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalInsuranceBtn));
+            professionalInsuranceBtn.Click();
+            return new ProfessionalInsurancePage(TestBase.driver);
+        } 
+        public ProfessionalBehavioursPage getProfessionalBehaviours()
+        {
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalBehavioursBtn));
+            professionalBehavioursBtn.Click();
+            return new ProfessionalBehavioursPage(TestBase.driver);
+        }
+        public ReferencesPage getReferences()
+        {
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(referencesBtn));
+            referencesBtn.Click();
+            return new ReferencesPage(TestBase.driver);
+        }
         public RegistrationRequestsPage getRegistrationRequests()
         {
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(registrationRequestsBtn));
             registrationRequestsBtn.Click();
             return new RegistrationRequestsPage(TestBase.driver);
         }
         public HomePage logout()
         {
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(logoutBtn));
             logoutBtn.Click();
             return new HomePage(TestBase.driver);
         }

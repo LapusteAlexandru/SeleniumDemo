@@ -26,7 +26,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//h4[text()='Probity Statements']")]
         public IWebElement title { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//mat-card-content//div[@class='mb-3']")]
+        [FindsBy(How = How.XPath, Using = "//mat-card-content//div[@class='panel']")]
         public IWebElement infoPanel { get; set; }
 
         [FindsBy(How = How.Id, Using = "mat-checkbox-1")]
@@ -50,11 +50,15 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Probity Statements')]//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Probity statements were successfully')]")]
+        public IWebElement probityStatementsSubmitedMsg { get; set; }
+
         public IList<IWebElement> mainElements = new List<IWebElement>();
 
         public IList<IWebElement> GetMainElements()
         {
             mainElements.Add(infoPanel);
+            mainElements.Add(title);
             mainElements.Add(professionalObligationsCheckbox);
             mainElements.Add(suspensionCheckbox);
             mainElements.Add(nothingToDeclareRadio);
@@ -63,18 +67,18 @@ namespace Pages
             return mainElements;
         }
 
-        public void CompleteForm(Radio radio)
+        public void CompleteForm(ProbityRadio radio)
         {
             if(!professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"))
                 professionalObligationsCheckbox.Click();
             if(!suspensionCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"))
                 suspensionCheckbox.Click();
-            if (radio.Equals(Radio.Nothing))
+            if (radio.Equals(ProbityRadio.Nothing))
                 nothingToDeclareRadio.Click();
             else
                 somethingToDeclareRadio.Click();
             saveBtn.Click();
-            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[contains(text(),'Account details were successfully modified')]")));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(probityStatementsSubmitedMsg));
         }
     }
 }

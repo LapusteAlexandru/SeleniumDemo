@@ -15,10 +15,11 @@ namespace LoginTests
         [TearDown]
         public void Teardown()
         {
+            TestBase.TakeScreenShot();
             TestBase.driver.Quit();
         }
 
-        [Test]
+        [Test, Order(1)]
         public void TestPageLoads()
         {
             HomePage hp = new HomePage(TestBase.driver);

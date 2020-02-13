@@ -484,6 +484,15 @@
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
         }
       },
+      "RestSharp/106.10.2-alpha.0.8": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
         "type": "package",
         "runtimeTargets": {
@@ -2716,6 +2725,21 @@
         "lib/netstandard2.0/BouncyCastle.Crypto.xml",
         "portable.bouncycastle.1.8.5.nupkg.sha512",
         "portable.bouncycastle.nuspec"
+      ]
+    },
+    "RestSharp/106.10.2-alpha.0.8": {
+      "sha512": "Z1g/d7L4LNq5if6WBOPHZKPd2OHFfi1kNW/pVBXRMfwHLQZajKmDsf7H3wZZhKoFwRzRywzRS4cbo8jKlW8PiA==",
+      "type": "package",
+      "path": "restsharp/106.10.2-alpha.0.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/RestSharp.dll",
+        "lib/net452/RestSharp.xml",
+        "lib/netstandard2.0/RestSharp.dll",
+        "lib/netstandard2.0/RestSharp.xml",
+        "restsharp.106.10.2-alpha.0.8.nupkg.sha512",
+        "restsharp.nuspec"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
@@ -6510,6 +6534,7 @@
       "MailKit >= 2.5.0",
       "Microsoft.NET.Test.Sdk >= 16.2.0",
       "NUnit3TestAdapter >= 3.15.1",
+      "RestSharp >= 106.10.2-alpha.0.8",
       "Selenium.Chrome.WebDriver >= 79.0.0",
       "Selenium.Support >= 4.0.0-alpha03",
       "Selenium.WebDriver >= 4.0.0-alpha03",
@@ -6581,6 +6606,10 @@
           "NUnit3TestAdapter": {
             "target": "Package",
             "version": "[3.15.1, )"
+          },
+          "RestSharp": {
+            "target": "Package",
+            "version": "[106.10.2-alpha.0.8, )"
           },
           "Selenium.Chrome.WebDriver": {
             "target": "Package",

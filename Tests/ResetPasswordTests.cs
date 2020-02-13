@@ -29,10 +29,11 @@ namespace ResetPasswordTests
                 ResetPasswordPage rpp = fpp.GetResetPassword(TestBase.username);
                 rpp.DoReset(TestBase.password , TestBase.password );
             }
+            TestBase.TakeScreenShot();
             TestBase.driver.Quit();
         }
 
-        [Test]
+        [Test, Order(1)]
         public void TestPageLoads()
         {
             HomePage hp = new HomePage(TestBase.driver);

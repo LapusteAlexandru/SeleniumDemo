@@ -23,20 +23,34 @@ namespace SidebarTests
         [Test]
         public void TestClickAccountDetails()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            AccountDetailsPage adp = dp.getAccountDetails();
-            Assert.That(adp.title.Displayed);
+
+            AccountDetailsPage obj = ClickOn("AccountDetailsPage");
+            Assert.That(obj.title.Displayed);
         }
         [Test]
         public void TestClickProbityStatements()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ProbityStatementsPage psp = dp.getProbityStatements();
-            Assert.That(psp.title.Displayed);
+            ProbityStatementsPage obj = ClickOn("ProbityStatementsPage");
+            Assert.That(obj.title.Displayed);
+        }
+        [Test]
+        public void TestClickProfessionalInsurance()
+        {
+            ProfessionalInsurancePage obj = ClickOn("ProfessionalInsurancePage");
+            Assert.That(obj.title.Displayed);
+        }
+        [Test]
+        public void TestClickProfessionalBehaviours()
+        {
+
+            ProfessionalBehavioursPage obj = ClickOn("ProfessionalBehavioursPage");
+            Assert.That(obj.title.Displayed);
+        }
+        [Test]
+        public void TestClickReferences()
+        {
+            ReferencesPage obj = ClickOn("ReferencesPage");
+            Assert.That(obj.title.Displayed);
         }
         [Test]
         public void TestHideSidebar()
@@ -59,6 +73,29 @@ namespace SidebarTests
             dp.sidebarMenuBtn.Click();
             Thread.Sleep(500);
             Assert.That(dp.sidebar.Displayed);
+        }
+
+        public dynamic ClickOn(string page)
+        {
+            HomePage hp = new HomePage(TestBase.driver);
+            LoginPage lp = hp.GetLogin();
+            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
+            switch (page)
+            {
+                case "AccountDetailsPage":
+                    return dp.getAccountDetails();
+                case "ProbityStatementsPage":
+                    return dp.getProbityStatements();
+                case "ProfessionalInsurancePage":
+                    return dp.getProfessionalInsurance();
+                case "ProfessionalBehavioursPage":
+                    return dp.getProfessionalBehaviours();
+                case "ReferencesPage":
+                    return dp.getReferences();
+
+                default:
+                    return null;
+            }
         }
     }
 }

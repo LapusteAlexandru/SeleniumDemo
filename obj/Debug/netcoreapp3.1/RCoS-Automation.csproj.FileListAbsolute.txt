@@ -98,3 +98,4 @@ C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\obj\Debug\netcoreapp3.1\
 C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\MailKit.dll
 C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\MimeKit.dll
 C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\RestSharp.dll

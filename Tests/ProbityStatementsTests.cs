@@ -25,7 +25,7 @@ namespace ProbityStatementsTests
             TestBase.driver.Quit();
         }
 
-        [Test]
+        [Test, Order(1)]
         public void TestPageLoads()
         {
             HomePage hp = new HomePage(TestBase.driver);
@@ -35,7 +35,7 @@ namespace ProbityStatementsTests
             foreach (var e in psp.GetMainElements())
                 Assert.That(e.Displayed);
         }
-        [Test]
+        [Test, Order(2)]
         public void TestRequiredMsgs()
         {
             HomePage hp = new HomePage(TestBase.driver);
@@ -48,14 +48,14 @@ namespace ProbityStatementsTests
                 Assert.That(e.Displayed);
             Assert.That(psp.requiredMsgs.Count.Equals(3));
         }
-        [Test]
+        [Test, Order(3)]
         public void TestSubmitSuccessfully()
         {
             HomePage hp = new HomePage(TestBase.driver);
             LoginPage lp = hp.GetLogin();
             DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
             ProbityStatementsPage psp = dp.getProbityStatements();
-            Radio radioOption = Radio.Nothing;
+            ProbityRadio radioOption = ProbityRadio.Nothing;
             psp.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(psp.title));
@@ -71,15 +71,15 @@ namespace ProbityStatementsTests
             LoginPage lp = hp.GetLogin();
             DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
             ProbityStatementsPage psp = dp.getProbityStatements();
-            Radio radioOption = Radio.Nothing;
+            ProbityRadio radioOption = ProbityRadio.Nothing;
             if (psp.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"))
-                radioOption = Radio.Something;
+                radioOption = ProbityRadio.Something;
             psp.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(psp.title));
             Assert.That(psp.professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(psp.suspensionCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            if (radioOption.Equals(Radio.Nothing))
+            if (radioOption.Equals(ProbityRadio.Nothing))
                 Assert.That(psp.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"));
             else
                 Assert.That(psp.somethingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"));

@@ -23,8 +23,11 @@ namespace Pages
             }
             PageFactory.InitElements(driver, this);
         }
-
-
+        public string acceptBtn = "//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]/ancestor::tr/following-sibling::tr[1]//span[contains(text(),'Accept')]";
+        public string rejectBtn = "//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]/ancestor::tr/following-sibling::tr[1]//span[contains(text(),'Reject')]";
+        public string tableEmailCell = "//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]";
+        public string registrationTD = "//span[contains(text(),'{0}')]/ancestor::tr/following-sibling::tr//i[@mattooltip='{1}']/following-sibling::span";
+        public List<string> dataRows = new List<string>{ "Gender", "Created At", "Email", "Phone Number", "Address", "Birthday", "GMC Number", "GMC Specialty", "Career Grade" };
         [FindsBy(How = How.XPath, Using = "//h3[contains(text(),'Registration Requests')]")]
         public IWebElement title { get; set; }
 
@@ -73,6 +76,9 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//button[@type='submit']")]
         public IWebElement confirmAcceptBtn { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//button//span[contains(text(),'Cancel')]")]
+        public IWebElement cancelBtn { get; set; }
+
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Request was successfully rejected')]")]
         public IWebElement rejectedMsg { get; set; }
 
@@ -96,7 +102,7 @@ namespace Pages
         public void openRequestData(string username)
         {
             TestBase.wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(By.XPath("//table")));
-            IWebElement user = TestBase.driver.FindElement(By.XPath(string.Format("//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]", username)));
+            IWebElement user = TestBase.driver.FindElement(By.XPath(string.Format(tableEmailCell, username)));
             user.Click();
 
         }
@@ -104,8 +110,8 @@ namespace Pages
         {
             openRequestData(user);
             Thread.Sleep(300);
-            IWebElement rejectBtn = TestBase.driver.FindElement(By.XPath(string.Format("//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]/ancestor::tr/following-sibling::tr[1]//span[contains(text(),'Reject')]", user)));
-            rejectBtn.Click();
+            IWebElement reject = TestBase.driver.FindElement(By.XPath(string.Format(rejectBtn, user)));
+            reject.Click();
             rejectTextArea.Clear();
             rejectTextArea.SendKeys(reason);
             requestSubmitBtn.Click();
@@ -115,8 +121,8 @@ namespace Pages
         {
             openRequestData(user);
             Thread.Sleep(300);
-            IWebElement acceptBtn = TestBase.driver.FindElement(By.XPath(string.Format("//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]/ancestor::tr/following-sibling::tr[1]//span[contains(text(),'Accept')]", user)));
-            acceptBtn.Click();
+            IWebElement accept = TestBase.driver.FindElement(By.XPath(string.Format(acceptBtn, user)));
+            accept.Click();
             confirmAcceptBtn.Click();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(acceptedMsg));
         }

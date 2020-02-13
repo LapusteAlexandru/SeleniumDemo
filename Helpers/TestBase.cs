@@ -1,14 +1,19 @@
 ﻿
 
+using Helpers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using RestSharp;
 using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 namespace RCoS
 {
@@ -24,10 +29,16 @@ namespace RCoS
         public static string userAddress = "UK";
         public static string userPhone = "123123123";
         public static string userGender = "Male";
-        public static string userGmcNumber = "1231231";
-        public static string userGmcSpecialty = "General Surgery";
-        public static string userCareerGrade = "Associate Specialist";
+        public static int userGmcNumber = 1231231;
+        public static string userGmcSpecialty = "Vascular Surgery";
+        public static string userCareerGrade = "Consultant established";
+        public static string currentMonth = DateTime.Now.ToString("MMMM");
+        public static string currentDay = DateTime.Now.ToString("dd");
+        public static string currentYear = DateTime.Now.Year.ToString();
+        public static string currentDate = currentMonth + " " + currentDay + ", " + currentYear;
+        public static string userBirthday = currentMonth + " 01, " + currentYear;
 
+        public static List<string> userData = new List<string> {userGender, currentDate, username,userPhone,userAddress, userBirthday, userGmcNumber.ToString(),userGmcSpecialty,userCareerGrade };
         public static IWebDriver driver { get; set; }
         public static WebDriverWait wait { get; set; }
         public static void RootInit()
@@ -83,6 +94,41 @@ namespace RCoS
                 var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
                 screenshot.SaveAsFile($"{path}{timestamp} {testName}." + ScreenshotImageFormat.Png);
             }
+        }
+
+        public static string getJWT(string username,string password)
+        {
+            string jwt = "";
+            RestRequest request = new RestRequest("/connect/token", Method.POST); 
+            RestClient identityClient = new RestClient("https://rcs-cosmetics-identity-dev.azurewebsites.net");
+            request.AddParameter("client_id", "rcs.api.swagger.client");
+            request.AddParameter("client_secret", "secret");
+            request.AddParameter("username", username);
+            request.AddParameter("password", password);
+            request.AddParameter("grant_type", "password");
+            // act
+            IRestResponse response = identityClient.Execute(request);
+            var responseBody = JObject.Parse(response.Content);
+            jwt = responseBody.GetValue("access_token").ToString();
+            return jwt;
+        }
+        public static int getObjectID(string endpoint,string username, string password,string jwt)
+        {
+            int id;
+            RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");
+            RestRequest request = new RestRequest(endpoint, Method.GET);
+            request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
+            // act
+            IRestResponse response = apiClient.Execute(request); 
+            var responseBody = JObject.Parse(response.Content);
+            id = (int)responseBody.GetValue("id");
+            return id;
+        }
+
+        public static void uploadField(string fileName,string fileExtension)
+        {
+            IWebElement uploadInput = driver.FindElement(By.XPath("//input[@type='file']"));
+            uploadInput.SendKeys(new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName + "\\UploadFiles\\" + fileName + "."+fileExtension);
         }
     }
 }
