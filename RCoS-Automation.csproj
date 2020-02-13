@@ -22,6 +22,10 @@
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="80.0.3987.1600-beta" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Screenshots\" />
+  </ItemGroup>
+
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="cd $(SolutionDir)\screens&#xD;&#xA;del *.png" />
   </Target>
