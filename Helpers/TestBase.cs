@@ -88,7 +88,7 @@ namespace RCoS
 
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
-                string path = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName + "\\screens\\";
+                string path = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName + "\\Screenshots\\";
                 string testName = TestContext.CurrentContext.Test.Name;
                 string timestamp = DateTime.Now.ToString("yyyy-MM-dd-hhmm-ss");
                 var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
