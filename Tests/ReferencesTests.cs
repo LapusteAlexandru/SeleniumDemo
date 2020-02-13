@@ -10,6 +10,8 @@ using System.Text;
 
 namespace ReferencesTests
 {
+    [TestFixture]
+    [Category("References")]
     class ReferencesTests
     {
         [SetUp]

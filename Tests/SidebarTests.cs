@@ -5,6 +5,8 @@ using System.Threading;
 
 namespace SidebarTests
 {
+    [TestFixture]
+    [Category("Sidebar")]
     class SidebarTests
     {
         [SetUp]

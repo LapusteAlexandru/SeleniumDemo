@@ -4,6 +4,8 @@ using Pages;
 
 namespace HomeTests
 {
+    [TestFixture]
+    [Category("Home")]
     public class HomeTests
     {
         [SetUp]

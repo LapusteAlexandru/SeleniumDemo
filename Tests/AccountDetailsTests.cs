@@ -10,6 +10,8 @@ using System.Threading;
 
 namespace AccountDetailsTests
 {
+    [TestFixture]
+    [Category("AccountDetails")]
     class AccountDetailsTests
     {
         [SetUp]

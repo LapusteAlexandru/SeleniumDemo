@@ -13,6 +13,8 @@ using static Helpers.MailSubjectEnum;
 
 namespace ForgotPasswordTests
 {
+    [TestFixture]
+    [Category("ForgotPassword")]
     class ForgotPasswordTests
     {
         [SetUp]

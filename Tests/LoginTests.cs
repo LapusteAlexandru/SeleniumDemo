@@ -4,6 +4,8 @@ using Pages;
 
 namespace LoginTests
 {
+    [TestFixture]
+    [Category("Login")]
     class LoginTests
     {
         [SetUp]

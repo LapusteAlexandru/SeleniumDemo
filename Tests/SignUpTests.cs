@@ -13,6 +13,8 @@ using static Helpers.MailSubjectEnum;
 
 namespace SignUpTests
 {
+    [TestFixture]
+    [Category("Signup")]
     class SignUpTests
     {
         [SetUp]

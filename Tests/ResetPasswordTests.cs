@@ -8,6 +8,8 @@ using System.Threading;
 
 namespace ResetPasswordTests
 {
+    [TestFixture]
+    [Category("ResetPassword")]
     class ResetPasswordTests
     {
         private static bool passwordReset = false;

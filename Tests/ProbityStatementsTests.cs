@@ -10,6 +10,8 @@ using static Helpers.RadioButtonEnum;
 
 namespace ProbityStatementsTests
 {
+    [TestFixture]
+    [Category("ProbityStatements")]
     class ProbityStatementsTests
     {
         [SetUp]

@@ -9,6 +9,8 @@ using static Helpers.MailSubjectEnum;
 
 namespace RegistrationRequestsTests
 {
+    [TestFixture]
+    [Category("RegistrationRequests")]
     class RegistrationRequestsTests
     {
         [SetUp]

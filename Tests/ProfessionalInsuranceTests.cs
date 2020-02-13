@@ -10,6 +10,8 @@ using static Helpers.RadioButtonEnum;
 
 namespace ProfessionalInsuranceTests
 {
+    [TestFixture]
+    [Category("ProfessionalInsurance")]
     class ProfessionalInsuranceTests
     {
         [SetUp]

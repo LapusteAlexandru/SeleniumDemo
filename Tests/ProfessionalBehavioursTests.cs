@@ -9,6 +9,8 @@ using System.Threading;
 
 namespace ProfessionalBehavioursTests
 {
+    [TestFixture]
+    [Category("ProfessionalBehaviours")]
     class ProfessionalBehavioursTests
     {
         [SetUp]
