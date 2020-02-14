@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Screenshots\**" />
+    <EmbeddedResource Remove="Screenshots\**" />
+    <None Remove="Screenshots\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.PageObjects" Version="3.11.0" />
     <PackageReference Include="DotNetSeleniumExtras.PageObjects.Core" Version="4.0.0-alpha01" />
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
@@ -20,10 +26,6 @@
     <PackageReference Include="Selenium.Support" Version="4.0.0-alpha03" />
     <PackageReference Include="Selenium.WebDriver" Version="4.0.0-alpha03" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="80.0.3987.1600-beta" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Screenshots\" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

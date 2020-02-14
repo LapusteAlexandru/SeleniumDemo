@@ -166,7 +166,7 @@ namespace Pages
 
         private void openSideMenuIfClosed()
         {
-            if (TestBase.driver.Manage().Window.Size.Width < 1200){
+            if (TestBase.driver.Manage().Window.Size.Width < 1200 && !TestBase.ElementIsPresent(sidebar)){
                 sidebarMenuBtn.Click();
             }
         }

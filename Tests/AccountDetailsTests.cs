@@ -74,8 +74,7 @@ namespace AccountDetailsTests
             AccountDetailsPage adp = dp.getAccountDetails();
             Assert.That(adp.statusIndicator.GetAttribute("class").Contains("not-started"));
             adp.CompleteForm(TestBase.userTitle, TestBase.userFirstName, TestBase.userLastName, TestBase.userAddress, TestBase.userPhone,TestBase.userGender, TestBase.userGmcNumber.ToString(), TestBase.userGmcSpecialty, TestBase.userCareerGrade);
-            Thread.Sleep(500);
-            Assert.That(adp.accountSubmittedMsg.Displayed);
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(adp.accountSubmittedMsg));
             foreach (var e in adp.GetMainElements())
                 Assert.That(!e.Enabled || e.GetAttribute("class").Contains("mat-checkbox-disabled") || e.GetAttribute("class").Contains("mat-select-disabled"));
             Assert.That(adp.statusIndicator.GetAttribute("class").Contains("completed"));

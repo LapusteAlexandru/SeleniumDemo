@@ -60,7 +60,14 @@ namespace SidebarTests
             HomePage hp = new HomePage(TestBase.driver);
             LoginPage lp = hp.GetLogin();
             DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            dp.sidebarMenuBtn.Click();
+            if (TestBase.ElementIsPresent(dp.sidebar))
+                dp.sidebarMenuBtn.Click();
+            else { 
+                dp.sidebarMenuBtn.Click();
+                Thread.Sleep(500);
+                dp.sidebarMenuBtn.Click();
+                
+            }
             Thread.Sleep(500);
             Assert.That(!dp.sidebar.Displayed);
         }
@@ -70,9 +77,14 @@ namespace SidebarTests
             HomePage hp = new HomePage(TestBase.driver);
             LoginPage lp = hp.GetLogin();
             DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            dp.sidebarMenuBtn.Click();
-            Thread.Sleep(500);
-            dp.sidebarMenuBtn.Click();
+            if (!TestBase.ElementIsPresent(dp.sidebar))
+                dp.sidebarMenuBtn.Click();
+            else
+            {
+                dp.sidebarMenuBtn.Click();
+                Thread.Sleep(500);
+                dp.sidebarMenuBtn.Click();
+            }
             Thread.Sleep(500);
             Assert.That(dp.sidebar.Displayed);
         }
