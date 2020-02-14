@@ -127,7 +127,8 @@ namespace RCoS
         public static void uploadField(string fileName,string fileExtension)
         {
             IWebElement uploadInput = driver.FindElement(By.XPath("//input[@type='file']"));
-            uploadInput.SendKeys(TestContext.Parameters["uploadFilesPath"] + fileName + "."+fileExtension);
+            var path = new DirectoryInfo(Environment.CurrentDirectory);
+            uploadInput.SendKeys(path + "\\UploadFiles\\" + fileName + "." + fileExtension);
             try
             {
                 wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//mat-form-field[contains(@class,'uploaded-file')]//input")));
