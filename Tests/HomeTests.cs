@@ -115,7 +115,7 @@ namespace HomeTests
             HomePage hp = new HomePage(TestBase.driver);
             hp.linkedInBtn.Click();
             TestBase.SwitchTab();
-            Assert.That(TestBase.driver.Url.Equals("https://www.linkedin.com/company/royal-college-of-surgeons-of-england"));
+            Assert.That(TestBase.driver.Url.Contains("royal-college-of-surgeons-of-england"));
         }
         [Test]
 

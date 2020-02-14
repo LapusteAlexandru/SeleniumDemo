@@ -76,7 +76,8 @@ namespace RegistrationRequestsTests
             string allEmails = mailRepository.GetUnreadMails(Subject.RegistrationRejected);
             Assert.That(allEmails.Contains(expectedText));
             AccountDetailsPage adp = dp2.getAccountDetails();
-            adp.submitBtn.Click();
+            adp.submitBtn.Click(); 
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(adp.accountSubmittedMsg));
         }
 
         [Test, Order(2)]

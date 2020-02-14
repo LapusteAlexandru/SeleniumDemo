@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
 using RCoS;
 using Pages;
+using SeleniumExtras.WaitHelpers;
+using OpenQA.Selenium;
 
 namespace LoginTests
 {
@@ -60,6 +62,7 @@ namespace LoginTests
             HomePage hp = new HomePage(TestBase.driver);
             LoginPage lp = hp.GetLogin();
             DashboardPage dp = lp.DoLogin(TestBase.username,TestBase.password);
+            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h5[contains(@class,'user-info')]")));
             Assert.That(dp.username.Text.Equals(TestBase.username));
         }
         [Test]
