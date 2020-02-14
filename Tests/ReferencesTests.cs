@@ -94,6 +94,7 @@ namespace ReferencesTests
                 default:
                     break;
             }
+            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//snack-bar-container[@role='status']")));
             return new UploadModel(TestBase.driver);
         }
     }
