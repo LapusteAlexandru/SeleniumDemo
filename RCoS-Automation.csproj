@@ -29,6 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Helpers\Dev.runsettings">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="UploadFiles\doc.doc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

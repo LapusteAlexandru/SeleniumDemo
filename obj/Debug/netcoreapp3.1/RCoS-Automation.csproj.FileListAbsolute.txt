@@ -112,3 +112,4 @@ C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\
 C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\wrongFormat.jfif
 C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\xls.xls
 C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\xlsx.xlsx
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\Helpers\Dev.runsettings
