@@ -128,6 +128,7 @@ namespace RCoS
         {
             IWebElement uploadInput = driver.FindElement(By.XPath("//input[@type='file']"));
             var path = new DirectoryInfo(Environment.CurrentDirectory);
+            Console.WriteLine(path);
             uploadInput.SendKeys(path + "\\UploadFiles\\" + fileName + "." + fileExtension);
             try
             {
