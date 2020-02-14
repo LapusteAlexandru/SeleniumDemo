@@ -166,7 +166,7 @@ namespace Pages
 
         private void openSideMenuIfClosed()
         {
-            if (!TestBase.ElementIsPresent(TestBase.driver.FindElement(By.XPath("//mat-nav-list")))){
+            if (TestBase.driver.Manage().Window.Size.Width < 1200){
                 sidebarMenuBtn.Click();
             }
         }

@@ -51,7 +51,6 @@ namespace RCoS
             driver = new ChromeDriver(cap);
             driver.Url = "https://rcs-cosmetics-client-dev.azurewebsites.net/";
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
-            Console.WriteLine(driver.Manage().Window.Size);
         }
         public static void SwitchTab()
         {
