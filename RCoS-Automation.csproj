@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Helpers\Dev.runsettings">
+    <None Update="UploadFiles\Dev.runsettings">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="UploadFiles\doc.doc">
