@@ -23,7 +23,7 @@ namespace AccountDetailsTests
         [TearDown]
         public void Teardown()
         {
-            //TestBase.TakeScreenShot();
+            TestBase.TakeScreenShot();
             TestBase.driver.Quit();
         }
 

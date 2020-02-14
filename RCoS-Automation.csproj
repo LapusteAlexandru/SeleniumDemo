@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="cd $(SolutionDir)\screens&#xD;&#xA;del *.png" />
+    <Exec Command="cd $(SolutionDir)\bin\Debug&#xD;&#xA;del *.png" />
   </Target>
 
 </Project>

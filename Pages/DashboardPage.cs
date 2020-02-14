@@ -116,45 +116,59 @@ namespace Pages
 
         public AccountDetailsPage getAccountDetails()
         {
+            openSideMenuIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(accountDetailsBtn));
             accountDetailsBtn.Click();
             return new AccountDetailsPage(TestBase.driver);
         }
         public ProbityStatementsPage getProbityStatements()
         {
+            openSideMenuIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(probityStatementsBtn));
             probityStatementsBtn.Click();
             return new ProbityStatementsPage(TestBase.driver);
         }
         public ProfessionalInsurancePage getProfessionalInsurance()
         {
+            openSideMenuIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalInsuranceBtn));
             professionalInsuranceBtn.Click();
             return new ProfessionalInsurancePage(TestBase.driver);
         } 
         public ProfessionalBehavioursPage getProfessionalBehaviours()
         {
+            openSideMenuIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalBehavioursBtn));
             professionalBehavioursBtn.Click();
             return new ProfessionalBehavioursPage(TestBase.driver);
         }
         public ReferencesPage getReferences()
         {
+            openSideMenuIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(referencesBtn));
             referencesBtn.Click();
             return new ReferencesPage(TestBase.driver);
         }
         public RegistrationRequestsPage getRegistrationRequests()
         {
+            openSideMenuIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(registrationRequestsBtn));
             registrationRequestsBtn.Click();
             return new RegistrationRequestsPage(TestBase.driver);
         }
         public HomePage logout()
         {
+            openSideMenuIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(logoutBtn));
             logoutBtn.Click();
             return new HomePage(TestBase.driver);
+        }
+
+        private void openSideMenuIfClosed()
+        {
+            if (!TestBase.ElementIsPresent(TestBase.driver.FindElement(By.XPath("//mat-nav-list")))){
+                sidebarMenuBtn.Click();
+            }
         }
     }
 }
