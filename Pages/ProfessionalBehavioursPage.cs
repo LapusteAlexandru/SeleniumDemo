@@ -65,7 +65,6 @@ namespace Pages
 
             string fileExtension = "png";
             TestBase.uploadField(filename, fileExtension);
-            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.Id("mat-input-1")));
             saveBtn.Click();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalBehavioursSubmintedMsg));
         }
