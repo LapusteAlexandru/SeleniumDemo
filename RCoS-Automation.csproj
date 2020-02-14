@@ -70,8 +70,4 @@
     </None>
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="cd $(SolutionDir)\bin\Debug&#xD;&#xA;del *.png" />
-  </Target>
-
 </Project>

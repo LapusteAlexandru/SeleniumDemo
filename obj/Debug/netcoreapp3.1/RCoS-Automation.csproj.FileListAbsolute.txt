@@ -99,3 +99,16 @@ C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\
 C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\MimeKit.dll
 C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\RestSharp.dll
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\doc.doc
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\docx.docx
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\jpg.jpg
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\large.doc
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\LongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongName.png
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\pdf.pdf
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\png.png
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\ppt.ppt
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\pptx.pptx
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\tiff.tiff
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\wrongFormat.jfif
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\xls.xls
+C:\Users\alexandru.lapuste\source\repos\RCoS-Automation\bin\Debug\netcoreapp3.1\UploadFiles\xlsx.xlsx
