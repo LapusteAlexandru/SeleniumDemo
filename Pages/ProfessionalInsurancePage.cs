@@ -43,7 +43,7 @@ namespace Pages
         [FindsBy(How = How.Id, Using = "mat-radio-3")]
         public IWebElement noPracticeRadio { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//input[@type='file']")]
+        [FindsBy(How = How.XPath, Using = "//input[@type='file']/ancestor::button")]
         public IWebElement uploadInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//button[@type='submit']")]

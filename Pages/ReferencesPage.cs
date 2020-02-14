@@ -29,7 +29,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//mat-card-content//div[@class='panel']")]
         public IWebElement infoPanel { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//input[@type='file']")]
+        [FindsBy(How = How.XPath, Using = "//input[@type='file']/ancestor::button")]
         public IWebElement uploadInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'References')]//i[contains(@class,'far')]")]

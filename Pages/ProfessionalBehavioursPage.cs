@@ -32,7 +32,7 @@ namespace Pages
         [FindsBy(How = How.Id, Using = "mat-checkbox-1")]
         public IWebElement professionalResponsibilitiesCheckbox { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//input[@type='file']")]
+        [FindsBy(How = How.XPath, Using = "//input[@type='file']/ancestor::button")]
         public IWebElement uploadInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//button[@type='submit']")]

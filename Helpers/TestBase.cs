@@ -128,7 +128,7 @@ namespace RCoS
         public static void uploadField(string fileName,string fileExtension)
         {
             IWebElement uploadInput = driver.FindElement(By.XPath("//input[@type='file']"));
-            uploadInput.SendKeys(new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName + "\\UploadFiles\\" + fileName + "."+fileExtension);
+            uploadInput.SendKeys(new DirectoryInfo(Environment.CurrentDirectory)+ "\\UploadFiles\\" + fileName + "."+fileExtension);
         }
     }
 }
