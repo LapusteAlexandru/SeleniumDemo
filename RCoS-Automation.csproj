@@ -29,6 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="TestResult.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="UploadFiles\Dev.runsettings">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
