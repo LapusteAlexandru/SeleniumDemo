@@ -62,6 +62,7 @@ namespace LoginTests
             HomePage hp = new HomePage(TestBase.driver);
             LoginPage lp = hp.GetLogin();
             DashboardPage dp = lp.DoLogin(TestBase.username,TestBase.password);
+            dp.openSideMenuIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h5[contains(@class,'user-info')]")));
             Assert.That(dp.username.Text.Equals(TestBase.username));
         }

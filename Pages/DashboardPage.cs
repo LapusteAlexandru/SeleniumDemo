@@ -22,7 +22,6 @@ namespace Pages
                 Console.WriteLine(e.Message);
             }
             PageFactory.InitElements(driver, this);
-            openSideMenuIfClosed();
         }
 
 
@@ -165,7 +164,7 @@ namespace Pages
             return new HomePage(TestBase.driver);
         }
 
-        private void openSideMenuIfClosed()
+        public void openSideMenuIfClosed()
         {
             if (TestBase.driver.Manage().Window.Size.Width < 1200 && !TestBase.ElementIsPresent(sidebar)){
                 sidebarMenuBtn.Click();
