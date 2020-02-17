@@ -57,7 +57,7 @@ namespace ProfessionalInsuranceTests
             LoginPage lp = hp.GetLogin();
             DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
             ProfessionalInsurancePage pip = dp.getProfessionalInsurance();
-            ProfessionalInsuranceRadio radioOption = ProfessionalInsuranceRadio.Yes;
+            YesOrNoRadio radioOption = YesOrNoRadio.Yes;
             pip.CompleteForm(radioOption,"png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pip.title));
@@ -74,7 +74,7 @@ namespace ProfessionalInsuranceTests
             LoginPage lp = hp.GetLogin();
             DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
             ProfessionalInsurancePage pip = dp.getProfessionalInsurance();
-            ProfessionalInsuranceRadio radioOption = ProfessionalInsuranceRadio.No;
+            YesOrNoRadio radioOption = YesOrNoRadio.No;
             pip.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pip.title));

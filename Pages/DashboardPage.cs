@@ -142,6 +142,34 @@ namespace Pages
             professionalBehavioursBtn.Click();
             return new ProfessionalBehavioursPage(TestBase.driver);
         }
+        public RevalidationPage getRevalidation()
+        {
+            openSideMenuIfClosed();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(revalidationBtn));
+            revalidationBtn.Click();
+            return new RevalidationPage(TestBase.driver);
+        }
+        public OperativeExposurePage getOperativeExposure()
+        {
+            openSideMenuIfClosed();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(operativeExposureBtn));
+            operativeExposureBtn.Click();
+            return new OperativeExposurePage(TestBase.driver);
+        }
+        public ClinicalOutcomesPage getClinicalOutcomes()
+        {
+            openSideMenuIfClosed();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(clinicalOutcomesBtn));
+            clinicalOutcomesBtn.Click();
+            return new ClinicalOutcomesPage(TestBase.driver);
+        }
+        public ContinuingDevelopmentPage getContinuingDevelopment()
+        {
+            openSideMenuIfClosed();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalDevelopmentBtn));
+            professionalDevelopmentBtn.Click();
+            return new ContinuingDevelopmentPage(TestBase.driver);
+        }
         public ReferencesPage getReferences()
         {
             openSideMenuIfClosed();

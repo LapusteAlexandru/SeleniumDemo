@@ -73,14 +73,14 @@ namespace Pages
             return mainElements;
         }
 
-        public void CompleteForm(ProfessionalInsuranceRadio radio, string filename)
+        public void CompleteForm(YesOrNoRadio radio, string filename)
         {
             string fileExtension = "png";
             if (!indemnityArrangementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"))
                 indemnityArrangementsCheckbox.Click();
             if (!disclosedNatureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"))
                 disclosedNatureCheckbox.Click();
-            if (radio.Equals(ProfessionalInsuranceRadio.Yes))
+            if (radio.Equals(YesOrNoRadio.Yes))
                 yesPracticeRadio.Click();
             else
                 noPracticeRadio.Click();
@@ -91,7 +91,7 @@ namespace Pages
             saveBtn.Click();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalInsuranceSubmitedMsg));
         }
-        public void CompleteForm(ProfessionalInsuranceRadio radio)
+        public void CompleteForm(YesOrNoRadio radio)
         {
             CompleteForm(radio, "");
         }

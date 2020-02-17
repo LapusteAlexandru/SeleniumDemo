@@ -48,7 +48,7 @@ namespace RCoS
             cap.AddArgument("--disable-popup-blocking");
             cap.AddArgument("--incognito");
             driver = new ChromeDriver(cap);
-            driver.Url = "https://rcs-cosmetics-client-dev.azurewebsites.net/";
+            driver.Url = TestContext.Parameters["baseURL"];
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
         }
         public static void SwitchTab()

@@ -200,7 +200,7 @@ namespace APITests
             var id = TestBase.getObjectID("/api/applicants",TestBase.username,TestBase.password,userJWT);
 
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(id);
+            request.AddJsonBody(id);
             // act
             var response = apiClient.Execute(request);
             // assert

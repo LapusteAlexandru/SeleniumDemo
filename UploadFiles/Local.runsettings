@@ -2,5 +2,6 @@
 <RunSettings>
   <TestRunParameters>
     <Parameter name="uploadFilesPath" value="C:/Users/alexandru.lapuste/source/repos/RCoS-Automation/UploadFiles/"/>
+    <Parameter name="baseURL" value="https://rcs-cosmetics-client-dev.azurewebsites.net/"/>
   </TestRunParameters>
 </RunSettings>

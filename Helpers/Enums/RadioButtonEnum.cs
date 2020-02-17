@@ -10,7 +10,7 @@ namespace Helpers
             Nothing
         }
         
-        public enum ProfessionalInsuranceRadio
+        public enum YesOrNoRadio
         {
             Yes,
             No
