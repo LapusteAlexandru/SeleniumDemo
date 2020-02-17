@@ -3,8 +3,12 @@
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
-trigger: 
-    - development
+schedules:
+- cron: "0 22 * * Mon,Tue,Wed,Thu,Fri"
+  displayName: Every week day at 10 PM
+  branches:
+    include:
+    - master
 
 pool:
     name: Hosted Windows 2019 with VS2019
