@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 schedules:
-- cron: "0 22 * * Mon,Tue,Wed,Thu,Fri"
+- cron: "20 10 * * Mon,Tue,Wed,Thu,Fri"
   displayName: Every week day at 10 PM
   branches:
     include:
