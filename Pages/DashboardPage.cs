@@ -22,6 +22,7 @@ namespace Pages
                 Console.WriteLine(e.Message);
             }
             PageFactory.InitElements(driver, this);
+            openSideMenuIfClosed();
         }
 
 
