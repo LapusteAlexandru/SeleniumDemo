@@ -49,9 +49,9 @@ namespace Pages
 
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Revalidation')]//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Revalidation were successfully created')]")]
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Revalidation was successfully created')]")]
         public IWebElement pageSubmitedMsg { get; set; }
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Revalidation were successfully updated')]")]
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Revalidation was successfully updated')]")]
         public IWebElement pageUpdatedMsg { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();

@@ -81,6 +81,7 @@ namespace RegistrationRequestsTests
             HomePage hp2 = dp.logout();
             LoginPage lp2 = hp2.GetLogin();
             DashboardPage dp2 = lp2.DoLogin(TestBase.username, TestBase.password);
+            dp2.openSideMenuIfClosed();
             var e = dp2.GetAllElements();
             for (int i = 5; i < e.Count; i++)
             {

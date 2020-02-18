@@ -6,6 +6,7 @@ using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace Pages
 {
@@ -197,6 +198,7 @@ namespace Pages
         {
             if (TestBase.driver.Manage().Window.Size.Width < 1200 && !TestBase.ElementIsPresent(sidebar)){
                 sidebarMenuBtn.Click();
+                Thread.Sleep(500);
             }
         }
     }
