@@ -49,18 +49,6 @@ namespace ReferencesTests
             UploadModel uploadModel = Upload("wrongFormat", "jfif");
             Assert.That(uploadModel.formatValidationMsg.Displayed);
         }
-        [Test, Order(2)]
-        public void TestUploadSameFIle()
-        {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            dp.getReferences();
-            UploadModel uploadModel = new UploadModel(TestBase.driver);
-            TestBase.uploadField("png","png");
-            TestBase.uploadField("png","png");
-            Assert.That(uploadModel.sameFileMsg.Displayed);
-        }
         [Test]
         public void TestSubmitSuccessfully()
         {

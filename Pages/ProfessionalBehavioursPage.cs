@@ -43,7 +43,7 @@ namespace Pages
 
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Professional Behaviours')]//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Professional behaviours was successfully')]")]
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Professional behaviours were successfully')]")]
         public IWebElement professionalBehavioursSubmintedMsg { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();
