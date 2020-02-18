@@ -49,6 +49,34 @@ namespace SidebarTests
             Assert.That(obj.title.Displayed);
         }
         [Test]
+        public void TestClickRevalidation()
+        {
+
+            RevalidationPage obj = ClickOn("RevalidationPage");
+            Assert.That(obj.title.Displayed);
+        }
+        [Test]
+        public void TestClickOperativeExposure()
+        {
+
+            ProfessionalBehavioursPage obj = ClickOn("OperativeExposurePage");
+            Assert.That(obj.title.Displayed);
+        }
+        [Test]
+        public void TestClickClinicalOutcomes()
+        {
+
+            ProfessionalBehavioursPage obj = ClickOn("ClinicalOutcomesPage");
+            Assert.That(obj.title.Displayed);
+        }
+        [Test]
+        public void TestClickContinuingDevelopmentP()
+        {
+
+            ProfessionalBehavioursPage obj = ClickOn("ContinuingDevelopmentPage");
+            Assert.That(obj.title.Displayed);
+        }
+        [Test]
         public void TestClickReferences()
         {
             ReferencesPage obj = ClickOn("ReferencesPage");
@@ -104,6 +132,14 @@ namespace SidebarTests
                     return dp.getProfessionalInsurance();
                 case "ProfessionalBehavioursPage":
                     return dp.getProfessionalBehaviours();
+                case "RevalidationPage":
+                    return dp.getRevalidation();
+                case "OperativeExposurePage":
+                    return dp.getOperativeExposure();
+                case "ClinicalOutcomesPage":
+                    return dp.getClinicalOutcomes();
+                case "ContinuingDevelopmentPage":
+                    return dp.getContinuingDevelopment();
                 case "ReferencesPage":
                     return dp.getReferences();
 

@@ -7,6 +7,7 @@ using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace ReferencesTests
 {
@@ -56,9 +57,10 @@ namespace ReferencesTests
             LoginPage lp = hp.GetLogin();
             DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
             ReferencesPage rp = dp.getReferences();
-            TestBase.uploadField("png", "png");
+            rp.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(rp.title));
+            dp.openSideMenuIfClosed();
             Assert.That(rp.statusIndicator.GetAttribute("class").Contains("completed"));
         }
 

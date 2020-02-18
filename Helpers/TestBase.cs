@@ -145,9 +145,10 @@ namespace RCoS
             IList<IWebElement> uploadProgressBars = driver.FindElements(By.XPath("//mat-progress-bar/following-sibling::span"));
             foreach (IWebElement e in uploadProgressBars)
             {
-                string progressBarValue = e.Text;
-                wait.Until(ExpectedConditions.TextToBePresentInElement(e, progressBarValue));
+                wait.Until(ExpectedConditions.TextToBePresentInElement(e, "100/100"));
             }
+
+            Thread.Sleep(2000);
         }
     }
 }

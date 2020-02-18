@@ -58,7 +58,7 @@ namespace ProfessionalInsuranceTests
             DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
             ProfessionalInsurancePage pip = dp.getProfessionalInsurance();
             YesOrNoRadio radioOption = YesOrNoRadio.Yes;
-            pip.CompleteForm(radioOption,"png");
+            pip.CompleteForm(radioOption,"png",false);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pip.title));
             dp.openSideMenuIfClosed();

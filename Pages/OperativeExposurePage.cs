@@ -45,7 +45,7 @@ namespace Pages
 
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Operative Exposure')]//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Operative Exposure was successfully')]")]
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Operative exposure was successfully')]")]
         public IWebElement pageSubmitedMsg { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();

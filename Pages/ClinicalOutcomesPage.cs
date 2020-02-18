@@ -42,7 +42,7 @@ namespace Pages
 
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Clinical Outcomes')]//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Clinical Outcomes were successfully')]")]
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Clinical outcomes were successfully')]")]
         public IWebElement pageSubmitedMsg { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();

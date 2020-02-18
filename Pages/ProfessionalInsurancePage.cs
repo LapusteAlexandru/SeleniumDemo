@@ -55,8 +55,11 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Professional Indemnity Insurance')]//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Professional indemnity insurance was successfully')]")]
-        public IWebElement professionalInsuranceSubmitedMsg { get; set; }
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Professional indemnity insurance was successfully created')]")]
+        public IWebElement pageSubmitedMsg { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Professional indemnity insurance was successfully updated')]")]
+        public IWebElement pageUpdatedMsg { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();
 
@@ -73,7 +76,7 @@ namespace Pages
             return mainElements;
         }
 
-        public void CompleteForm(YesOrNoRadio radio, string filename)
+        public void CompleteForm(YesOrNoRadio radio, string filename,bool update)
         {
             string fileExtension = "png";
             if (!indemnityArrangementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"))
@@ -89,11 +92,19 @@ namespace Pages
                 TestBase.uploadField(filename, fileExtension);
             }
             saveBtn.Click();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalInsuranceSubmitedMsg));
+            try
+            {
+
+                if (update)
+                    TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageUpdatedMsg));
+                else
+                    TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageSubmitedMsg));
+            }
+            catch (NoSuchElementException e) { Console.WriteLine(e); }
         }
         public void CompleteForm(YesOrNoRadio radio)
         {
-            CompleteForm(radio, "");
+            CompleteForm(radio, "",true);
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Professional Behaviours')]//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Professional behaviours were successfully')]")]
-        public IWebElement professionalBehavioursSubmintedMsg { get; set; }
+        public IWebElement pageSubmitedMsg { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();
 
@@ -66,7 +66,11 @@ namespace Pages
             string fileExtension = "png";
             TestBase.uploadField(filename, fileExtension);
             saveBtn.Click();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalBehavioursSubmintedMsg));
+            try
+            {
+                    TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageSubmitedMsg));
+            }
+            catch (NoSuchElementException e) { Console.WriteLine(e); }
         }
     }
 }

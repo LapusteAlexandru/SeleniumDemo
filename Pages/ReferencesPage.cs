@@ -45,11 +45,11 @@ namespace Pages
             return mainElements;
         }
 
+
         public void CompleteForm(string filename)
         {
-
-            uploadInput.SendKeys(new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName + "\\UploadFiles\\"+filename);
-            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.Id("mat-input-1")));
+            string fileExtension = "png";
+            TestBase.uploadField(filename, fileExtension);
         }
     }
 }

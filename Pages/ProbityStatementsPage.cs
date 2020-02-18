@@ -50,8 +50,11 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Probity Statements')]//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Probity statements were successfully')]")]
-        public IWebElement probityStatementsSubmitedMsg { get; set; }
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Probity statements were successfully created')]")]
+        public IWebElement pageSubmitedMsg { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Probity statements were successfully updated')]")]
+        public IWebElement pageUpdatedMsg { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();
 
@@ -67,7 +70,7 @@ namespace Pages
             return mainElements;
         }
 
-        public void CompleteForm(ProbityRadio radio)
+        public void CompleteForm(ProbityRadio radio, bool update)
         {
             if(!professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"))
                 professionalObligationsCheckbox.Click();
@@ -78,7 +81,15 @@ namespace Pages
             else
                 somethingToDeclareRadio.Click();
             saveBtn.Click();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(probityStatementsSubmitedMsg));
+            try
+            {
+
+                if (update)
+                    TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageUpdatedMsg));
+                else
+                    TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageSubmitedMsg));
+            }
+            catch (NoSuchElementException e) { Console.WriteLine(e); }
         }
     }
 }

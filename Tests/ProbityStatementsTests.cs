@@ -58,7 +58,7 @@ namespace ProbityStatementsTests
             DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
             ProbityStatementsPage psp = dp.getProbityStatements();
             ProbityRadio radioOption = ProbityRadio.Nothing;
-            psp.CompleteForm(radioOption);
+            psp.CompleteForm(radioOption,false);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(psp.title));
             dp.openSideMenuIfClosed();
@@ -77,7 +77,7 @@ namespace ProbityStatementsTests
             ProbityRadio radioOption = ProbityRadio.Nothing;
             if (psp.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"))
                 radioOption = ProbityRadio.Something;
-            psp.CompleteForm(radioOption);
+            psp.CompleteForm(radioOption,true);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(psp.title));
             dp.openSideMenuIfClosed();

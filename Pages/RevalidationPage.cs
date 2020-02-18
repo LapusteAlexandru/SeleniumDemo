@@ -49,8 +49,10 @@ namespace Pages
 
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Revalidation')]//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Revalidation was successfully')]")]
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Revalidation were successfully created')]")]
         public IWebElement pageSubmitedMsg { get; set; }
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Revalidation were successfully updated')]")]
+        public IWebElement pageUpdatedMsg { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();
 
@@ -66,7 +68,7 @@ namespace Pages
             return mainElements;
         }
 
-        public void CompleteForm(YesOrNoRadio radio, string filename1)
+        public void CompleteForm(YesOrNoRadio radio, string filename1, bool update)
         {
             string fileExtension = "png";
             if (radio.Equals(YesOrNoRadio.Yes))
@@ -80,13 +82,17 @@ namespace Pages
             saveBtn.Click();
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageSubmitedMsg));
+
+                if (update)
+                    TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageUpdatedMsg));
+                else
+                    TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageSubmitedMsg));
             }
             catch(NoSuchElementException e) { Console.WriteLine(e); }
         }
         public void CompleteForm(YesOrNoRadio radio)
         {
-            CompleteForm(radio, "");
+            CompleteForm(radio, "",true);
         }
     }
 }

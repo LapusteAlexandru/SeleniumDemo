@@ -16,6 +16,7 @@ namespace Pages
             try
             {
                 TestBase.wait.Until(ExpectedConditions.ElementExists(By.XPath("//mat-nav-list")));
+                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("home")));
             }
             catch (Exception e)
             {

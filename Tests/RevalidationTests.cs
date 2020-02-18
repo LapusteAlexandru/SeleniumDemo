@@ -57,7 +57,7 @@ namespace RevalidationTests
             LoginPage lp = hp.GetLogin();
             DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
             RevalidationPage rp = dp.getRevalidation();
-            rp.CompleteForm(YesOrNoRadio.Yes,"png");
+            rp.CompleteForm(YesOrNoRadio.Yes,"png",false);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(rp.title));
             dp.openSideMenuIfClosed();
