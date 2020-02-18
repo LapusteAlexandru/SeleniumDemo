@@ -30,6 +30,7 @@ namespace ResetPasswordTests
                 ForgotPasswordPage fpp = lp.GetForgotPassword();
                 ResetPasswordPage rpp = fpp.GetResetPassword(TestBase.username);
                 rpp.DoReset(TestBase.password , TestBase.password );
+                passwordReset = false;
             }
             TestBase.TakeScreenShot();
             TestBase.driver.Quit();
@@ -90,6 +91,7 @@ namespace ResetPasswordTests
         [Test]
         public void TestResetPassword()
         {
+            passwordReset = true;
             HomePage hp = new HomePage(TestBase.driver);
             LoginPage lp = hp.GetLogin();
             ForgotPasswordPage fpp = lp.GetForgotPassword();
@@ -98,7 +100,6 @@ namespace ResetPasswordTests
             TyResetPasswordPage trpp = new TyResetPasswordPage(TestBase.driver);
             foreach(var e in trpp.GetMainElements())
                 Assert.That(e.Displayed);
-            passwordReset = true;
         }
         [Test]
         public void TestAlreadyHaveAccountBtn()

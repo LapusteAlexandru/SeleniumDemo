@@ -13,6 +13,7 @@ namespace RegistrationRequestsTests
     [Category("RegistrationRequests")]
     class RegistrationRequestsTests
     {
+        private static bool resubmit = false;
         [SetUp]
         public void Setup()
         {
@@ -22,6 +23,14 @@ namespace RegistrationRequestsTests
         [TearDown]
         public void Teardown()
         {
+            if (resubmit)
+            {
+                DashboardPage dp = new DashboardPage(TestBase.driver);
+                AccountDetailsPage adp = dp.getAccountDetails();
+                adp.submitBtn.Click();
+                TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(adp.accountSubmittedMsg));
+                resubmit = false;
+            }
             TestBase.TakeScreenShot();
             TestBase.driver.Quit();
         }
@@ -39,6 +48,7 @@ namespace RegistrationRequestsTests
         [Test]
         public void TestAcceptRequest()
         {
+
             string expectedText = "Your registration request has been accepted";
             HomePage hp = new HomePage(TestBase.driver);
             LoginPage lp = hp.GetLogin();
@@ -53,11 +63,12 @@ namespace RegistrationRequestsTests
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
             string allEmails = mailRepository.GetUnreadMails(Subject.RegistrationAccepted);
             Assert.That(allEmails.Contains(expectedText));
-
+            
         }
         [Test, Order(3)]
         public void TestRejectRequest()
         {
+            resubmit = true;
             string expectedText = "Reason: Testing";
             HomePage hp = new HomePage(TestBase.driver);
             LoginPage lp = hp.GetLogin();
@@ -75,9 +86,7 @@ namespace RegistrationRequestsTests
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
             string allEmails = mailRepository.GetUnreadMails(Subject.RegistrationRejected);
             Assert.That(allEmails.Contains(expectedText));
-            AccountDetailsPage adp = dp2.getAccountDetails();
-            adp.submitBtn.Click(); 
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(adp.accountSubmittedMsg));
+            
         }
 
         [Test, Order(2)]
@@ -155,10 +164,16 @@ namespace RegistrationRequestsTests
             RegistrationRequestsPage rrp = dp.getRegistrationRequests();
             rrp.openRequestData(TestBase.username);
             Thread.Sleep(300);
+            string rowValue = "";
             for (int i = 0; i < rrp.dataRows.Count; i++)
             {
-                string rowValue = TestBase.driver.FindElement(By.XPath(string.Format(rrp.registrationTD, TestBase.username, rrp.dataRows[i]))).Text;
+                rowValue = TestBase.driver.FindElement(By.XPath(string.Format(rrp.registrationTD, TestBase.username, rrp.dataRows[i]))).Text;
                 Assert.That(rowValue.Equals(TestBase.userData[i]));
+            }
+            for (int i = 0; i < rrp.expandableDataRows.Count; i++)
+            {
+                rowValue = TestBase.driver.FindElement(By.XPath(string.Format(rrp.expandableRegistrationTD, TestBase.username, rrp.expandableDataRows[i]))).Text;
+                Assert.That(rowValue.Equals(TestBase.expandableUserData[i]));
             }
         }
     }
