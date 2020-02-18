@@ -3,9 +3,12 @@
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
+pr: none
+trigger: none
+
 schedules:
-- cron: "20 10 * * Mon,Tue,Wed,Thu,Fri"
-  displayName: Every week day at 10 PM
+- cron: "30 11 * * Mon,Tue,Wed,Thu,Fri"
+  displayName: Every week day at 8 PM
   branches:
     include:
     - master
