@@ -61,6 +61,7 @@ namespace ProbityStatementsTests
             psp.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(psp.title));
+            dp.openSideMenuIfClosed();
             Assert.That(psp.professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(psp.suspensionCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(psp.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked")); 
@@ -79,6 +80,7 @@ namespace ProbityStatementsTests
             psp.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(psp.title));
+            dp.openSideMenuIfClosed();
             Assert.That(psp.professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(psp.suspensionCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             if (radioOption.Equals(ProbityRadio.Nothing))

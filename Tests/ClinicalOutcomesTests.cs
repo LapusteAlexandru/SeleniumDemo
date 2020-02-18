@@ -59,6 +59,7 @@ namespace ClinicalOutcomesTests
             cop.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(cop.title));
+            dp.openSideMenuIfClosed();
             Assert.That(cop.CMARequirementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(cop.statusIndicator.GetAttribute("class").Contains("completed"));
         }

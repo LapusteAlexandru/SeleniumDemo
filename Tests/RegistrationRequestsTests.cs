@@ -26,6 +26,9 @@ namespace RegistrationRequestsTests
             if (resubmit)
             {
                 DashboardPage dp = new DashboardPage(TestBase.driver);
+                HomePage hp = dp.logout();
+                LoginPage lp = hp.GetLogin();
+                lp.DoLogin(TestBase.username, TestBase.password);
                 AccountDetailsPage adp = dp.getAccountDetails();
                 adp.submitBtn.Click();
                 TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(adp.accountSubmittedMsg));

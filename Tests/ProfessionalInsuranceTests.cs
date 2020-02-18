@@ -61,6 +61,7 @@ namespace ProfessionalInsuranceTests
             pip.CompleteForm(radioOption,"png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pip.title));
+            dp.openSideMenuIfClosed();
             Assert.That(pip.indemnityArrangementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(pip.disclosedNatureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(pip.yesPracticeRadio.GetAttribute("class").Contains("mat-radio-checked"));
@@ -78,6 +79,7 @@ namespace ProfessionalInsuranceTests
             pip.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pip.title));
+            dp.openSideMenuIfClosed();
             Assert.That(pip.indemnityArrangementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(pip.disclosedNatureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(pip.noPracticeRadio.GetAttribute("class").Contains("mat-radio-checked"));

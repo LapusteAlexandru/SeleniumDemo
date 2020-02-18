@@ -59,6 +59,7 @@ namespace OperativeExposureTests
             oep.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(oep.title));
+            dp.openSideMenuIfClosed();
             Assert.That(oep.proceduresCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(oep.operativeExposureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(oep.statusIndicator.GetAttribute("class").Contains("completed"));

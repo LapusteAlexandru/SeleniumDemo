@@ -45,6 +45,7 @@ namespace ContinuingDevelopmentTests
             cdp.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(cdp.title));
+            dp.openSideMenuIfClosed();
             Assert.That(cdp.statusIndicator.GetAttribute("class").Contains("completed"));
         }
     }

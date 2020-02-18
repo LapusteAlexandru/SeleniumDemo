@@ -60,6 +60,7 @@ namespace RevalidationTests
             rp.CompleteForm(YesOrNoRadio.Yes,"png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(rp.title));
+            dp.openSideMenuIfClosed();
             Assert.That(rp.declareAppraisalYes.GetAttribute("class").Contains("mat-radio-checked"));
             Assert.That(rp.statusIndicator.GetAttribute("class").Contains("completed"));
         }
@@ -74,6 +75,7 @@ namespace RevalidationTests
             rp.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(rp.title));
+            dp.openSideMenuIfClosed();
             Assert.That(rp.declareAppraisalNo.GetAttribute("class").Contains("mat-radio-checked"));
             Assert.That(rp.statusIndicator.GetAttribute("class").Contains("completed"));
         }

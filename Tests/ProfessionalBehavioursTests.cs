@@ -59,6 +59,7 @@ namespace ProfessionalBehavioursTests
             pbp.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pbp.title));
+            dp.openSideMenuIfClosed();
             Assert.That(pbp.professionalResponsibilitiesCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(pbp.statusIndicator.GetAttribute("class").Contains("completed"));
         }

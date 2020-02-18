@@ -131,13 +131,23 @@ namespace RCoS
 
         public static void uploadField(string fileName,string fileExtension)
         {
-            IWebElement uploadInput = driver.FindElement(By.XPath("//input[@type='file']"));
-            uploadInput.SendKeys(TestContext.Parameters["uploadFilesPath"] + fileName + "."+fileExtension);
-            try
+            IList<IWebElement> uploadInputs = driver.FindElements(By.XPath("//input[@type='file']"));
+            foreach (IWebElement e in uploadInputs)
             {
-                wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//mat-form-field[contains(@class,'uploaded-file')]//input")));
+                e.SendKeys(TestContext.Parameters["uploadFilesPath"] + fileName + "." + fileExtension);
+                try
+                {
+                    wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//mat-form-field[contains(@class,'uploaded-file')]//input")));
+                    
+                }
+                catch { }
             }
-            catch { }
+            IList<IWebElement> uploadProgressBars = driver.FindElements(By.XPath("//mat-progress-bar/following-sibling::span"));
+            foreach (IWebElement e in uploadProgressBars)
+            {
+                string progressBarValue = e.Text;
+                wait.Until(ExpectedConditions.TextToBePresentInElement(e, progressBarValue));
+            }
         }
     }
 }
