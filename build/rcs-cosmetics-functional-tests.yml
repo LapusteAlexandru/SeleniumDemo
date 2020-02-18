@@ -7,7 +7,7 @@ pr: none
 trigger: none
 
 schedules:
-- cron: "40 09 * * Mon,Tue,Wed,Thu,Fri"
+- cron: "0 20 * * Mon,Tue,Wed,Thu,Fri"
   displayName: Every week day at 8 PM
   branches:
     include:
