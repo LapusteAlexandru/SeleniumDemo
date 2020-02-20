@@ -61,6 +61,7 @@ namespace RegistrationRequestsTests
             HomePage hp2 = dp.logout();
             LoginPage lp2 = hp2.GetLogin();
             DashboardPage dp2 = lp2.DoLogin(TestBase.username, TestBase.password);
+            dp2.openSideMenuIfClosed();
             foreach (var e in dp2.GetAllElements())
                 Assert.That(e.Displayed); 
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);

@@ -1,29 +1,84 @@
 ﻿using Helpers;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using RCoS;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text;
 
 namespace APITests
 {
     [TestFixture]
-    [Category("APIApplicant")]
-    class ApplicantTests
+    [Category("APIRegistrationRequests")]
+    class ApplicantAndRegistrationRequestsTests
     {
-        
-        static RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");
+        private static RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");
+
+
+
+        [Test, Order(2)]
+        public void GetRegistrationRequestsTest()
+        {
+            // create request
+            RestRequest request = new RestRequest("/api/registration-requests", Method.GET);
+            var jwt = TestBase.getJWT(TestBase.adminUsername, TestBase.adminPassword);
+            request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
+            // act
+            IRestResponse response = apiClient.Execute(request);
+            var actualRequests = JsonConvert.DeserializeObject<List<RegistrationRequestsModel>>(response.Content);
+            // assert
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(actualRequests.Count > 0);
+        }
+        [Test, Order(4)]
+        public void AcceptRegistrationRequestsTest()
+        {
+
+            UpdateApplicant(3);
+            // create request
+            RestRequest request = new RestRequest("/api/registration-requests/accept", Method.POST);
+            var jwt = TestBase.getJWT(TestBase.adminUsername, TestBase.adminPassword);
+            request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
+            var id = TestBase.getObjectID("/api/registration-requests", jwt);
+
+            request.RequestFormat = DataFormat.Json;
+            request.AddJsonBody(id);
+            // act
+            var response = apiClient.Execute(request);
+            // assert
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+        }
+        [Test, Order(3)]
+        public void RejectRegistrationRequestsTest()
+        {
+            // create request
+            RestRequest request = new RestRequest("/api/registration-requests/reject", Method.POST);
+            var jwt = TestBase.getJWT(TestBase.adminUsername, TestBase.adminPassword);
+            request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
+            var id = TestBase.getObjectID("/api/registration-requests", jwt);
+            RejectRequestModel rejectModel = new RejectRequestModel();
+            rejectModel.id = id;
+            rejectModel.comment = "Test";
+
+            var body = JsonConvert.SerializeObject(rejectModel);
+            request.AddJsonBody(body);
+            // act
+            var response = apiClient.Execute(request);
+            // assert
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+        }
         [Test, Order(1)]
         public void AuthenticationTest()
         {
-            var jwt = TestBase.getJWT(TestBase.username,TestBase.password);
+            var jwt = TestBase.getJWT(TestBase.username, TestBase.password);
             // assert
-            Assert.That(jwt.Length>0);
+            Assert.That(jwt.Length > 0);
         }
-        
+
         [Test]
         public void GetApplicantTest()
         {
@@ -54,8 +109,8 @@ namespace APITests
             Assert.That(actualApplicant.certifications[0].id.Equals(1));
 
         }
-        
-        
+
+
 
         [Test, Order(1)]
         public void PostApplicantTest()
@@ -94,24 +149,23 @@ namespace APITests
 
             var body = JsonConvert.SerializeObject(applicantModel);
             request.AddJsonBody(body);
-            
+
             // act
             var response = apiClient.Execute(request);
             // assert
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
         }
-        
-        [Test, Order(2)]
+        [Test, Order(5)]
         public void PutApplicantTest()
         {
             // create request
-            var response = UpdateApplicant();
+            var response = UpdateApplicant(2);
             // assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
-        public static IRestResponse UpdateApplicant()
+        public static IRestResponse UpdateApplicant(int statusId)
         {
             RestRequest request = new RestRequest("/api/applicants", Method.PUT);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
@@ -141,7 +195,7 @@ namespace APITests
             applicantModel.gmcNumber = 1231231;
             applicantModel.gmcSpecialty = specialitiesModel;
             applicantModel.careerGrade = gradesModel;
-            applicantModel.status = 2;
+            applicantModel.status = statusId;
             applicantModel.certifications = new List<CertificationsModel>();
             applicantModel.certifications.Add(certificationsModel);
 
