@@ -11,7 +11,7 @@ using System.Text;
 namespace APITests
 {
     [TestFixture]
-    [Category("OperativeExposure")]
+    [Category("APIOperativeExposure")]
     class OperativeExposureTests
     {
         RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");

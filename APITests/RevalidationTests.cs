@@ -11,7 +11,7 @@ using System.Text;
 namespace APITests
 {
     [TestFixture]
-    [Category("Revalidation")]
+    [Category("APIRevalidation")]
     class RevalidationTests
     {
         RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");

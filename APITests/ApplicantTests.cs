@@ -11,7 +11,7 @@ using System.Net;
 namespace APITests
 {
     [TestFixture]
-    [Category("Applicant")]
+    [Category("APIApplicant")]
     class ApplicantTests
     {
         

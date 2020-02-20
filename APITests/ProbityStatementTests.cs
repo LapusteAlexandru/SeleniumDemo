@@ -11,7 +11,7 @@ using System.Text;
 namespace APITests
 {
     [TestFixture]
-    [Category("ProbityStatement")]
+    [Category("APIProbityStatements")]
     class ProbityStatementTests
     {
         RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");

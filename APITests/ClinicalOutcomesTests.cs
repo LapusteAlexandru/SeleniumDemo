@@ -11,7 +11,7 @@ using System.Text;
 namespace APITests
 {
     [TestFixture]
-    [Category("ClinicalOutcomes")]
+    [Category("APIClinicalOutcomes")]
     class ClinicalOutcomesTests
     {
         RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");
