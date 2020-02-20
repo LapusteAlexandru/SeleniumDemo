@@ -59,21 +59,21 @@ namespace SidebarTests
         public void TestClickOperativeExposure()
         {
 
-            ProfessionalBehavioursPage obj = ClickOn("OperativeExposurePage");
+            OperativeExposurePage obj = ClickOn("OperativeExposurePage");
             Assert.That(obj.title.Displayed);
         }
         [Test]
         public void TestClickClinicalOutcomes()
         {
 
-            ProfessionalBehavioursPage obj = ClickOn("ClinicalOutcomesPage");
+            ClinicalOutcomesPage obj = ClickOn("ClinicalOutcomesPage");
             Assert.That(obj.title.Displayed);
         }
         [Test]
         public void TestClickContinuingDevelopmentP()
         {
 
-            ProfessionalBehavioursPage obj = ClickOn("ContinuingDevelopmentPage");
+            ContinuingDevelopmentPage obj = ClickOn("ContinuingDevelopmentPage");
             Assert.That(obj.title.Displayed);
         }
         [Test]

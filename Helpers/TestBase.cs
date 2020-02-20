@@ -23,6 +23,8 @@ namespace RCoS
         public static string password = "123aA@123";
         public static string adminUsername = "mail@mail.com";
         public static string adminPassword = "P@ssword1";
+        public static string apiUsername = "amdaris.rcos.api@gmail.com";
+        public static string apiPassword = "123aA@123";
         public static string userTitle = "Dr.";
         public static string userFirstName = "John";
         public static string userLastName = "Doe";
@@ -116,16 +118,25 @@ namespace RCoS
             jwt = responseBody.GetValue("access_token").ToString();
             return jwt;
         }
-        public static int getObjectID(string endpoint,string username, string password,string jwt)
+        public static int getObjectID(string endpoint,string jwt)
         {
             int id;
             RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");
             RestRequest request = new RestRequest(endpoint, Method.GET);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             // act
-            IRestResponse response = apiClient.Execute(request); 
-            var responseBody = JObject.Parse(response.Content);
-            id = (int)responseBody.GetValue("id");
+            IRestResponse response = apiClient.Execute(request);
+            var token = JToken.Parse(response.Content);
+            if (token is JArray)
+            {
+                var responseBody = token.ToObject<List<JObject>>();
+                id = (int)responseBody[0].GetValue("id");
+            }
+            else
+            {
+                var responseBody = token.ToObject<JObject>();
+                id = (int)responseBody.GetValue("id");
+            }
             return id;
         }
 

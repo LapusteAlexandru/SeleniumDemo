@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RCoS_Automation.Helpers.Models
+namespace Helpers
 {
     class UploadModel
     {
