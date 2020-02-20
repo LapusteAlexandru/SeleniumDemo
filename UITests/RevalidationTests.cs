@@ -2,9 +2,6 @@
 using Pages;
 using RCoS;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using static Helpers.RadioButtonEnum;
 
@@ -30,54 +27,54 @@ namespace RevalidationTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            RevalidationPage rp = dp.getRevalidation();
-            foreach (var e in rp.GetMainElements())
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            RevalidationPage revalidationPage = dashboardPage.getRevalidation();
+            foreach (var e in revalidationPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test, Order(1)]
         public void TestRequiredMsgs()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            RevalidationPage rp = dp.getRevalidation();
-            rp.saveBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            RevalidationPage revalidationPage = dashboardPage.getRevalidation();
+            revalidationPage.saveBtn.Click();
             Thread.Sleep(300);
-            foreach (var e in rp.requiredMsgs)
+            foreach (var e in revalidationPage.requiredMsgs)
                 Assert.That(e.Displayed);
-            Assert.That(rp.requiredMsgs.Count.Equals(3));
+            Assert.That(revalidationPage.requiredMsgs.Count.Equals(3));
         }
         [Test, Order(2)]
         public void TestSubmitSuccessfully()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            RevalidationPage rp = dp.getRevalidation();
-            rp.CompleteForm(YesOrNoRadio.Yes,"png",false);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            RevalidationPage revalidationPage = dashboardPage.getRevalidation();
+            revalidationPage.CompleteForm(YesOrNoRadio.Yes,"png",false);
             TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(rp.title));
-            dp.openSideMenuIfClosed();
-            Assert.That(rp.declareAppraisalYes.GetAttribute("class").Contains("mat-radio-checked"));
-            Assert.That(rp.statusIndicator.GetAttribute("class").Contains("completed"));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(revalidationPage.title));
+            dashboardPage.openSideMenuIfClosed();
+            Assert.That(revalidationPage.declareAppraisalYes.GetAttribute("class").Contains("mat-radio-checked"));
+            Assert.That(revalidationPage.statusIndicator.GetAttribute("class").Contains("completed"));
         }
         [Test]
         public void TestEditSuccessfully()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            RevalidationPage rp = dp.getRevalidation();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            RevalidationPage revalidationPage = dashboardPage.getRevalidation();
             YesOrNoRadio radioOption = YesOrNoRadio.No;
-            rp.CompleteForm(radioOption);
+            revalidationPage.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(rp.title));
-            dp.openSideMenuIfClosed();
-            Assert.That(rp.declareAppraisalNo.GetAttribute("class").Contains("mat-radio-checked"));
-            Assert.That(rp.statusIndicator.GetAttribute("class").Contains("completed"));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(revalidationPage.title));
+            dashboardPage.openSideMenuIfClosed();
+            Assert.That(revalidationPage.declareAppraisalNo.GetAttribute("class").Contains("mat-radio-checked"));
+            Assert.That(revalidationPage.statusIndicator.GetAttribute("class").Contains("completed"));
         }
     }
 }

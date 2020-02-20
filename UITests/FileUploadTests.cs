@@ -4,9 +4,6 @@ using OpenQA.Selenium;
 using Pages;
 using RCoS;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FileUploadTests
 {
@@ -28,10 +25,10 @@ namespace FileUploadTests
 
         private UploadModel Upload(string fileName, string fileExtension)
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            dp.getReferences();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            dashboardPage.getReferences();
             IWebElement uploadInput = TestBase.driver.FindElement(By.XPath("//input[@type='file']"));
             uploadInput.SendKeys(TestContext.Parameters["uploadFilesPath"] + fileName + "." + fileExtension);
             switch (fileName)

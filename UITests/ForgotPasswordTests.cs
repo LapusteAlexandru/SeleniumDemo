@@ -4,9 +4,6 @@ using OpenQA.Selenium;
 using Pages;
 using RCoS;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using static Helpers.MailSubjectEnum;
@@ -33,49 +30,49 @@ namespace ForgotPasswordTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            foreach (var e in fpp.GetMainElements())
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            foreach (var e in forgotPasswordPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test]
         public void TestRequiredMsg()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            fpp.submitBtn.Click();
-            Assert.That(fpp.emailRequiredMsg.Displayed);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            forgotPasswordPage.submitBtn.Click();
+            Assert.That(forgotPasswordPage.emailRequiredMsg.Displayed);
         }
         [Test]
         public void TestCancelBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            fpp.getLogin(); 
-            Assert.That(lp.title.Displayed);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            forgotPasswordPage.getLogin(); 
+            Assert.That(loginPage.title.Displayed);
         }
         [Test]
         public void TestHomeBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            fpp.ClickHome(); 
-            Assert.That(hp.title.Displayed);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            forgotPasswordPage.ClickHome(); 
+            Assert.That(homePage.title.Displayed);
         }
         [Test]
         public void TestNonExistingUser()
         {
             var username = "testnonregistereduser@test.com";
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            fpp.SendResetEmail(username);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            forgotPasswordPage.SendResetEmail(username);
             TestBase.wait.Until(ExpectedConditions.ElementExists(By.XPath("//div[@class='content']")));
-            var message = fpp.userNotRegistered.Text;
+            var message = forgotPasswordPage.userNotRegistered.Text;
             Assert.That(message.Contains(username));
         }
 
@@ -83,10 +80,10 @@ namespace ForgotPasswordTests
 
         public void TestPresenceOfResetPassLink()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            fpp.SendResetEmail(TestBase.username);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            forgotPasswordPage.SendResetEmail(TestBase.username);
             Thread.Sleep(2000);
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
             string allEmails = mailRepository.GetUnreadMails(Subject.ForgotPassword);

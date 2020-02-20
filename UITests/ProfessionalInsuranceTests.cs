@@ -2,9 +2,6 @@
 using Pages;
 using RCoS;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using static Helpers.RadioButtonEnum;
 
@@ -30,60 +27,60 @@ namespace ProfessionalInsuranceTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ProfessionalInsurancePage pip = dp.getProfessionalInsurance();
-            foreach (var e in pip.GetMainElements())
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ProfessionalInsurancePage professionalInsurancePage = dashboardPage.getProfessionalInsurance();
+            foreach (var e in professionalInsurancePage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test, Order(2)]
         public void TestRequiredMsgs()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ProfessionalInsurancePage pip = dp.getProfessionalInsurance();
-            pip.saveBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ProfessionalInsurancePage professionalInsurancePage = dashboardPage.getProfessionalInsurance();
+            professionalInsurancePage.saveBtn.Click();
             Thread.Sleep(300);
-            foreach (var e in pip.requiredMsgs)
+            foreach (var e in professionalInsurancePage.requiredMsgs)
                 Assert.That(e.Displayed);
-            Assert.That(pip.requiredMsgs.Count.Equals(4));
+            Assert.That(professionalInsurancePage.requiredMsgs.Count.Equals(4));
         }
         [Test, Order(3)]
         public void TestSubmitSuccessfully()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ProfessionalInsurancePage pip = dp.getProfessionalInsurance();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ProfessionalInsurancePage professionalInsurancePage = dashboardPage.getProfessionalInsurance();
             YesOrNoRadio radioOption = YesOrNoRadio.Yes;
-            pip.CompleteForm(radioOption,"png",false);
+            professionalInsurancePage.CompleteForm(radioOption,"png",false);
             TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pip.title));
-            dp.openSideMenuIfClosed();
-            Assert.That(pip.indemnityArrangementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(pip.disclosedNatureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(pip.yesPracticeRadio.GetAttribute("class").Contains("mat-radio-checked"));
-            Assert.That(pip.statusIndicator.GetAttribute("class").Contains("completed"));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalInsurancePage.title));
+            dashboardPage.openSideMenuIfClosed();
+            Assert.That(professionalInsurancePage.indemnityArrangementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(professionalInsurancePage.disclosedNatureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(professionalInsurancePage.yesPracticeRadio.GetAttribute("class").Contains("mat-radio-checked"));
+            Assert.That(professionalInsurancePage.statusIndicator.GetAttribute("class").Contains("completed"));
         }
         
         [Test]
         public void TestEditSuccessfully()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ProfessionalInsurancePage pip = dp.getProfessionalInsurance();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ProfessionalInsurancePage professionalInsurancePage = dashboardPage.getProfessionalInsurance();
             YesOrNoRadio radioOption = YesOrNoRadio.No;
-            pip.CompleteForm(radioOption);
+            professionalInsurancePage.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pip.title));
-            dp.openSideMenuIfClosed();
-            Assert.That(pip.indemnityArrangementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(pip.disclosedNatureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(pip.noPracticeRadio.GetAttribute("class").Contains("mat-radio-checked"));
-            Assert.That(pip.statusIndicator.GetAttribute("class").Contains("completed"));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalInsurancePage.title));
+            dashboardPage.openSideMenuIfClosed();
+            Assert.That(professionalInsurancePage.indemnityArrangementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(professionalInsurancePage.disclosedNatureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(professionalInsurancePage.noPracticeRadio.GetAttribute("class").Contains("mat-radio-checked"));
+            Assert.That(professionalInsurancePage.statusIndicator.GetAttribute("class").Contains("completed"));
         }
     }
 }

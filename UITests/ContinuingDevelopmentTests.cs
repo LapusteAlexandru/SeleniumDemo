@@ -2,10 +2,6 @@
 using Pages;
 using RCoS;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 
 namespace ContinuingDevelopmentTests
 {
@@ -29,25 +25,25 @@ namespace ContinuingDevelopmentTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ContinuingDevelopmentPage cdp = dp.getContinuingDevelopment();
-            foreach (var e in cdp.GetMainElements())
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ContinuingDevelopmentPage continuingDevelopmentPage = dashboardPage.getContinuingDevelopment();
+            foreach (var e in continuingDevelopmentPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test]
         public void TestSubmitSuccessfully()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ContinuingDevelopmentPage cdp = dp.getContinuingDevelopment();
-            cdp.CompleteForm("png");
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ContinuingDevelopmentPage continuingDevelopmentPage = dashboardPage.getContinuingDevelopment();
+            continuingDevelopmentPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(cdp.title));
-            dp.openSideMenuIfClosed();
-            Assert.That(cdp.statusIndicator.GetAttribute("class").Contains("completed"));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(continuingDevelopmentPage.title));
+            dashboardPage.openSideMenuIfClosed();
+            Assert.That(continuingDevelopmentPage.statusIndicator.GetAttribute("class").Contains("completed"));
         }
     }
 }

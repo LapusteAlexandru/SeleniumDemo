@@ -85,63 +85,63 @@ namespace SidebarTests
         [Test]
         public void TestHideSidebar()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            if (TestBase.ElementIsPresent(dp.sidebar))
-                dp.sidebarMenuBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            if (TestBase.ElementIsPresent(dashboardPage.sidebar))
+                dashboardPage.sidebarMenuBtn.Click();
             else { 
-                dp.sidebarMenuBtn.Click();
+                dashboardPage.sidebarMenuBtn.Click();
                 Thread.Sleep(500);
-                dp.sidebarMenuBtn.Click();
+                dashboardPage.sidebarMenuBtn.Click();
                 
             }
             Thread.Sleep(500);
-            Assert.That(!dp.sidebar.Displayed);
+            Assert.That(!dashboardPage.sidebar.Displayed);
         }
         [Test]
         public void TestShowSidebar()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            if (!TestBase.ElementIsPresent(dp.sidebar))
-                dp.sidebarMenuBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            if (!TestBase.ElementIsPresent(dashboardPage.sidebar))
+                dashboardPage.sidebarMenuBtn.Click();
             else
             {
-                dp.sidebarMenuBtn.Click();
+                dashboardPage.sidebarMenuBtn.Click();
                 Thread.Sleep(500);
-                dp.sidebarMenuBtn.Click();
+                dashboardPage.sidebarMenuBtn.Click();
             }
             Thread.Sleep(500);
-            Assert.That(dp.sidebar.Displayed);
+            Assert.That(dashboardPage.sidebar.Displayed);
         }
 
         public dynamic ClickOn(string page)
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
             switch (page)
             {
                 case "AccountDetailsPage":
-                    return dp.getAccountDetails();
+                    return dashboardPage.getAccountDetails();
                 case "ProbityStatementsPage":
-                    return dp.getProbityStatements();
+                    return dashboardPage.getProbityStatements();
                 case "ProfessionalInsurancePage":
-                    return dp.getProfessionalInsurance();
+                    return dashboardPage.getProfessionalInsurance();
                 case "ProfessionalBehavioursPage":
-                    return dp.getProfessionalBehaviours();
+                    return dashboardPage.getProfessionalBehaviours();
                 case "RevalidationPage":
-                    return dp.getRevalidation();
+                    return dashboardPage.getRevalidation();
                 case "OperativeExposurePage":
-                    return dp.getOperativeExposure();
+                    return dashboardPage.getOperativeExposure();
                 case "ClinicalOutcomesPage":
-                    return dp.getClinicalOutcomes();
+                    return dashboardPage.getClinicalOutcomes();
                 case "ContinuingDevelopmentPage":
-                    return dp.getContinuingDevelopment();
+                    return dashboardPage.getContinuingDevelopment();
                 case "ReferencesPage":
-                    return dp.getReferences();
+                    return dashboardPage.getReferences();
 
                 default:
                     return null;

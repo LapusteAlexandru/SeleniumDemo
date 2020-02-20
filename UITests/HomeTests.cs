@@ -24,68 +24,68 @@ namespace HomeTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            foreach (var e in hp.GetMainElements())
+            HomePage homePage = new HomePage(TestBase.driver);
+            foreach (var e in homePage.GetMainElements())
                 Assert.That(e.Displayed);
         }
 
         [Test]
         public void TestHomeBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            hp.homeBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.homeBtn.Click();
             Assert.That(TestBase.driver.Url.Equals("https://rcs-cosmetics-client-dev.azurewebsites.net/home"));
         }
 
         [Test]
         public void TestIntroductionBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            hp.introToCosmeticsBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.introToCosmeticsBtn.Click();
             TestBase.SwitchTab();
             Assert.That(TestBase.driver.Url.Equals("https://www.gmc-uk.org/"));
         }
         [Test]
         public void TestEligibilityBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            hp.eligibilityBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.eligibilityBtn.Click();
             TestBase.SwitchTab();
             Assert.That(TestBase.driver.Url.Equals("https://www.gmc-uk.org/"));
         }
         [Test]
         public void TestAdditionalInfoBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            hp.additionalInfoBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.additionalInfoBtn.Click();
             TestBase.SwitchTab();
             Assert.That(TestBase.driver.Url.Equals("https://www.gmc-uk.org/"));
         }
         [Test]
         public void TestStandardsBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            hp.standardsBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.standardsBtn.Click();
             TestBase.SwitchTab();
             Assert.That(TestBase.driver.Url.Contains("/professional-standards-for-cosmetic-surgery/"));
         }
         [Test]
         public void TestGuildelinesBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            Assert.That(hp.guidelinesBtn.GetAttribute("href").Equals("https://www.rcseng.ac.uk/-/media/files/rcs/standards-and-research/standards-and-policy/service-standards/cosmetic-surgery/cosmetic-surgery-certification-application-guidelines.pdf?la=en"));
+            HomePage homePage = new HomePage(TestBase.driver);
+            Assert.That(homePage.guidelinesBtn.GetAttribute("href").Equals("https://www.rcseng.ac.uk/-/media/files/rcs/standards-and-research/standards-and-policy/service-standards/cosmetic-surgery/cosmetic-surgery-certification-application-guidelines.pdf?la=en"));
         }
         [Test]
         public void TestEvidenceBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            Assert.That(hp.evidenceBtn.GetAttribute("href").Equals("https://www.rcseng.ac.uk/-/media/files/rcs/standards-and-research/standards-and-policy/service-standards/cosmetic-surgery/application-evidence-summary.pdf?la=en"));
+            HomePage homePage = new HomePage(TestBase.driver);
+            Assert.That(homePage.evidenceBtn.GetAttribute("href").Equals("https://www.rcseng.ac.uk/-/media/files/rcs/standards-and-research/standards-and-policy/service-standards/cosmetic-surgery/application-evidence-summary.pdf?la=en"));
         }
         [Test]
         public void TestGMCBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            hp.gmcBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.gmcBtn.Click();
             TestBase.SwitchTab();
             Assert.That(TestBase.driver.Url.Contains("/specialist-registration"));
         }
@@ -94,8 +94,8 @@ namespace HomeTests
 
         public void TestTwitterBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            hp.twitterBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.twitterBtn.Click();
             TestBase.SwitchTab();
             Assert.That(TestBase.driver.Url.Equals("https://twitter.com/rcsnews"));
         }
@@ -103,8 +103,8 @@ namespace HomeTests
 
         public void TestFacebookBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            hp.facebookBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.facebookBtn.Click();
             TestBase.SwitchTab();
             Assert.That(TestBase.driver.Url.Equals("https://www.facebook.com/royalcollegeofsurgeons"));
         }
@@ -112,8 +112,8 @@ namespace HomeTests
 
         public void TestLinkedINBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            hp.linkedInBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.linkedInBtn.Click();
             TestBase.SwitchTab();
             Assert.That(TestBase.driver.Url.Contains("royal-college-of-surgeons-of-england"));
         }
@@ -121,8 +121,8 @@ namespace HomeTests
 
         public void TestYoutubeBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            hp.youtubeBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.youtubeBtn.Click();
             TestBase.SwitchTab();
             Assert.That(TestBase.driver.Url.Equals("https://www.youtube.com/channel/UCt4twMdD8E2EBlnYSOWS8HA"));
         }
@@ -130,8 +130,8 @@ namespace HomeTests
 
         public void TestGoogleBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            hp.googleBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.googleBtn.Click();
             TestBase.SwitchTab();
             Assert.That(TestBase.driver.Url.Contains("accounts.google.com/signin"));
         }

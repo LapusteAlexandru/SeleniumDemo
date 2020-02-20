@@ -25,13 +25,13 @@ namespace RegistrationRequestsTests
         {
             if (resubmit)
             {
-                DashboardPage dp = new DashboardPage(TestBase.driver);
-                HomePage hp = dp.logout();
-                LoginPage lp = hp.GetLogin();
-                lp.DoLogin(TestBase.username, TestBase.password);
-                AccountDetailsPage adp = dp.getAccountDetails();
-                adp.submitBtn.Click();
-                TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(adp.accountSubmittedMsg));
+                DashboardPage dashboardPage = new DashboardPage(TestBase.driver);
+                HomePage homePage = dashboardPage.logout();
+                LoginPage loginPage = homePage.GetLogin();
+                loginPage.DoLogin(TestBase.username, TestBase.password);
+                AccountDetailsPage adashboardPage = dashboardPage.getAccountDetails();
+                adashboardPage.submitBtn.Click();
+                TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(adashboardPage.accountSubmittedMsg));
                 resubmit = false;
             }
             TestBase.TakeScreenShot();
@@ -41,11 +41,11 @@ namespace RegistrationRequestsTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            RegistrationRequestsPage rrp = dp.getRegistrationRequests();
-            foreach (var e in rrp.GetMainElements())
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            RegistrationRequestsPage registrationRequestsPage = dashboardPage.getRegistrationRequests();
+            foreach (var e in registrationRequestsPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test]
@@ -53,16 +53,16 @@ namespace RegistrationRequestsTests
         {
 
             string expectedText = "Your registration request has been accepted";
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            RegistrationRequestsPage rrp = dp.getRegistrationRequests();
-            rrp.AcceptRequest(TestBase.username);
-            HomePage hp2 = dp.logout();
-            LoginPage lp2 = hp2.GetLogin();
-            DashboardPage dp2 = lp2.DoLogin(TestBase.username, TestBase.password);
-            dp2.openSideMenuIfClosed();
-            foreach (var e in dp2.GetAllElements())
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            RegistrationRequestsPage registrationRequestsPage = dashboardPage.getRegistrationRequests();
+            registrationRequestsPage.AcceptRequest(TestBase.username);
+            dashboardPage.logout();
+            homePage.GetLogin();
+            loginPage.DoLogin(TestBase.username, TestBase.password);
+            dashboardPage.openSideMenuIfClosed();
+            foreach (var e in dashboardPage.GetAllElements())
                 Assert.That(e.Displayed); 
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
             string allEmails = mailRepository.GetUnreadMails(Subject.RegistrationAccepted);
@@ -74,16 +74,16 @@ namespace RegistrationRequestsTests
         {
             resubmit = true;
             string expectedText = "Reason: Testing";
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            RegistrationRequestsPage rrp = dp.getRegistrationRequests();
-            rrp.RejectRequest(TestBase.username, "Testing");
-            HomePage hp2 = dp.logout();
-            LoginPage lp2 = hp2.GetLogin();
-            DashboardPage dp2 = lp2.DoLogin(TestBase.username, TestBase.password);
-            dp2.openSideMenuIfClosed();
-            var e = dp2.GetAllElements();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            RegistrationRequestsPage registrationRequestsPage = dashboardPage.getRegistrationRequests();
+            registrationRequestsPage.RejectRequest(TestBase.username, "Testing");
+            dashboardPage.logout();
+            homePage.GetLogin();
+            loginPage.DoLogin(TestBase.username, TestBase.password);
+            dashboardPage.openSideMenuIfClosed();
+            var e = dashboardPage.GetAllElements();
             for (int i = 5; i < e.Count; i++)
             {
                 Assert.IsFalse(TestBase.ElementIsPresent(e[i]));
@@ -97,87 +97,87 @@ namespace RegistrationRequestsTests
         [Test, Order(2)]
         public void TestAddColumn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            RegistrationRequestsPage rrp = dp.getRegistrationRequests();
-            rrp.addColumnBtn.Click();
-            Assert.That(rrp.careerGradeTableHeader.Displayed);
-            rrp.addColumnBtn.Click();
-            Assert.That(rrp.telephoneTableHeader.Displayed);
-            rrp.addColumnBtn.Click();
-            Assert.That(rrp.createdAtTableHeader.Displayed);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            RegistrationRequestsPage registrationRequestsPage = dashboardPage.getRegistrationRequests();
+            registrationRequestsPage.addColumnBtn.Click();
+            Assert.That(registrationRequestsPage.careerGradeTableHeader.Displayed);
+            registrationRequestsPage.addColumnBtn.Click();
+            Assert.That(registrationRequestsPage.telephoneTableHeader.Displayed);
+            registrationRequestsPage.addColumnBtn.Click();
+            Assert.That(registrationRequestsPage.createdAtTableHeader.Displayed);
         }
         [Test, Order(2)]
         public void TestRemoveColumn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            RegistrationRequestsPage rrp = dp.getRegistrationRequests();
-            rrp.addColumnBtn.Click();
-            rrp.addColumnBtn.Click();
-            rrp.addColumnBtn.Click();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(rrp.createdAtTableHeader));
-            rrp.removeColumnBtn.Click();
-            Assert.IsFalse(TestBase.ElementIsPresent(rrp.createdAtTableHeader));
-            rrp.removeColumnBtn.Click();
-            Assert.IsFalse(TestBase.ElementIsPresent(rrp.telephoneTableHeader));
-            rrp.removeColumnBtn.Click();
-            Assert.IsFalse(TestBase.ElementIsPresent(rrp.careerGradeTableHeader));
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            RegistrationRequestsPage registrationRequestsPage = dashboardPage.getRegistrationRequests();
+            registrationRequestsPage.addColumnBtn.Click();
+            registrationRequestsPage.addColumnBtn.Click();
+            registrationRequestsPage.addColumnBtn.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(registrationRequestsPage.createdAtTableHeader));
+            registrationRequestsPage.removeColumnBtn.Click();
+            Assert.IsFalse(TestBase.ElementIsPresent(registrationRequestsPage.createdAtTableHeader));
+            registrationRequestsPage.removeColumnBtn.Click();
+            Assert.IsFalse(TestBase.ElementIsPresent(registrationRequestsPage.telephoneTableHeader));
+            registrationRequestsPage.removeColumnBtn.Click();
+            Assert.IsFalse(TestBase.ElementIsPresent(registrationRequestsPage.careerGradeTableHeader));
         }
         [Test, Order(2)]
         public void TestCancelAccept()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            RegistrationRequestsPage rrp = dp.getRegistrationRequests();
-            rrp.openRequestData(TestBase.username);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            RegistrationRequestsPage registrationRequestsPage = dashboardPage.getRegistrationRequests();
+            registrationRequestsPage.openRequestData(TestBase.username);
             Thread.Sleep(300);
-            IWebElement accept = TestBase.driver.FindElement(By.XPath(string.Format(rrp.acceptBtn, TestBase.username)));
+            IWebElement accept = TestBase.driver.FindElement(By.XPath(string.Format(registrationRequestsPage.acceptBtn, TestBase.username)));
             accept.Click();
-            rrp.cancelBtn.Click();
+            registrationRequestsPage.cancelBtn.Click();
             TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(rrp.filterInput));
-            IWebElement tableRow = TestBase.driver.FindElement(By.XPath(string.Format(rrp.tableEmailCell, TestBase.username)));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(registrationRequestsPage.filterInput));
+            IWebElement tableRow = TestBase.driver.FindElement(By.XPath(string.Format(registrationRequestsPage.tableEmailCell, TestBase.username)));
             Assert.That(tableRow.Displayed);
         }
         [Test, Order(2)]
         public void TestCancelReject()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            RegistrationRequestsPage rrp = dp.getRegistrationRequests();
-            rrp.openRequestData(TestBase.username);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            RegistrationRequestsPage registrationRequestsPage = dashboardPage.getRegistrationRequests();
+            registrationRequestsPage.openRequestData(TestBase.username);
             Thread.Sleep(300);
-            IWebElement reject = TestBase.driver.FindElement(By.XPath(string.Format(rrp.rejectBtn, TestBase.username)));
+            IWebElement reject = TestBase.driver.FindElement(By.XPath(string.Format(registrationRequestsPage.rejectBtn, TestBase.username)));
             reject.Click();
-            rrp.cancelBtn.Click();
+            registrationRequestsPage.cancelBtn.Click();
             TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(rrp.filterInput));
-            IWebElement tableRow = TestBase.driver.FindElement(By.XPath(string.Format(rrp.tableEmailCell, TestBase.username)));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(registrationRequestsPage.filterInput));
+            IWebElement tableRow = TestBase.driver.FindElement(By.XPath(string.Format(registrationRequestsPage.tableEmailCell, TestBase.username)));
             Assert.That(tableRow.Displayed);
         }
         [Test, Order(1)]
         public void TestDataIsLoaded()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            RegistrationRequestsPage rrp = dp.getRegistrationRequests();
-            rrp.openRequestData(TestBase.username);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            RegistrationRequestsPage registrationRequestsPage = dashboardPage.getRegistrationRequests();
+            registrationRequestsPage.openRequestData(TestBase.username);
             Thread.Sleep(300);
             string rowValue = "";
-            for (int i = 0; i < rrp.dataRows.Count; i++)
+            for (int i = 0; i < registrationRequestsPage.dataRows.Count; i++)
             {
-                rowValue = TestBase.driver.FindElement(By.XPath(string.Format(rrp.registrationTD, TestBase.username, rrp.dataRows[i]))).Text;
+                rowValue = TestBase.driver.FindElement(By.XPath(string.Format(registrationRequestsPage.registrationTD, TestBase.username, registrationRequestsPage.dataRows[i]))).Text;
                 Assert.That(rowValue.Equals(TestBase.userData[i]));
             }
-            for (int i = 0; i < rrp.expandableDataRows.Count; i++)
+            for (int i = 0; i < registrationRequestsPage.expandableDataRows.Count; i++)
             {
-                rowValue = TestBase.driver.FindElement(By.XPath(string.Format(rrp.expandableRegistrationTD, TestBase.username, rrp.expandableDataRows[i]))).Text;
+                rowValue = TestBase.driver.FindElement(By.XPath(string.Format(registrationRequestsPage.expandableRegistrationTD, TestBase.username, registrationRequestsPage.expandableDataRows[i]))).Text;
                 Assert.That(rowValue.Equals(TestBase.expandableUserData[i]));
             }
         }

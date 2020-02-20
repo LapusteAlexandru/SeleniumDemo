@@ -1,12 +1,7 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
 using Pages;
 using RCoS;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 
 namespace ReferencesTests
 {
@@ -30,25 +25,25 @@ namespace ReferencesTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ReferencesPage rp = dp.getReferences();
-            foreach (var e in rp.GetMainElements())
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ReferencesPage referencesPage = dashboardPage.getReferences();
+            foreach (var e in referencesPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test]
         public void TestSubmitSuccessfully()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ReferencesPage rp = dp.getReferences();
-            rp.CompleteForm("png");
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ReferencesPage referencesPage = dashboardPage.getReferences();
+            referencesPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(rp.title));
-            dp.openSideMenuIfClosed();
-            Assert.That(rp.statusIndicator.GetAttribute("class").Contains("completed"));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(referencesPage.title));
+            dashboardPage.openSideMenuIfClosed();
+            Assert.That(referencesPage.statusIndicator.GetAttribute("class").Contains("completed"));
         }
     }
 }

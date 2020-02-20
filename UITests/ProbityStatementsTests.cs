@@ -2,9 +2,6 @@
 using Pages;
 using RCoS;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using static Helpers.RadioButtonEnum;
 
@@ -30,63 +27,63 @@ namespace ProbityStatementsTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ProbityStatementsPage psp = dp.getProbityStatements();
-            foreach (var e in psp.GetMainElements())
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
+            foreach (var e in probityStatementsPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test, Order(2)]
         public void TestRequiredMsgs()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ProbityStatementsPage psp = dp.getProbityStatements();
-            psp.saveBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
+            probityStatementsPage.saveBtn.Click();
             Thread.Sleep(300);
-            foreach (var e in psp.requiredMsgs)
+            foreach (var e in probityStatementsPage.requiredMsgs)
                 Assert.That(e.Displayed);
-            Assert.That(psp.requiredMsgs.Count.Equals(3));
+            Assert.That(probityStatementsPage.requiredMsgs.Count.Equals(3));
         }
         [Test, Order(3)]
         public void TestSubmitSuccessfully()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ProbityStatementsPage psp = dp.getProbityStatements();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
             ProbityRadio radioOption = ProbityRadio.Nothing;
-            psp.CompleteForm(radioOption,false);
+            probityStatementsPage.CompleteForm(radioOption,false);
             TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(psp.title));
-            dp.openSideMenuIfClosed();
-            Assert.That(psp.professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(psp.suspensionCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(psp.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked")); 
-            Assert.That(psp.statusIndicator.GetAttribute("class").Contains("completed"));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(probityStatementsPage.title));
+            dashboardPage.openSideMenuIfClosed();
+            Assert.That(probityStatementsPage.professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(probityStatementsPage.suspensionCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(probityStatementsPage.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked")); 
+            Assert.That(probityStatementsPage.statusIndicator.GetAttribute("class").Contains("completed"));
         }
         [Test]
         public void TestEditSuccessfully()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ProbityStatementsPage psp = dp.getProbityStatements();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
             ProbityRadio radioOption = ProbityRadio.Nothing;
-            if (psp.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"))
+            if (probityStatementsPage.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"))
                 radioOption = ProbityRadio.Something;
-            psp.CompleteForm(radioOption,true);
+            probityStatementsPage.CompleteForm(radioOption,true);
             TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(psp.title));
-            dp.openSideMenuIfClosed();
-            Assert.That(psp.professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(psp.suspensionCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(probityStatementsPage.title));
+            dashboardPage.openSideMenuIfClosed();
+            Assert.That(probityStatementsPage.professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(probityStatementsPage.suspensionCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             if (radioOption.Equals(ProbityRadio.Nothing))
-                Assert.That(psp.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"));
+                Assert.That(probityStatementsPage.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"));
             else
-                Assert.That(psp.somethingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"));
+                Assert.That(probityStatementsPage.somethingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"));
         }
     }
 }

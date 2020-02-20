@@ -1,9 +1,6 @@
 ﻿using NUnit.Framework;
 using Pages;
 using RCoS;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace ResetPasswordTests
@@ -25,11 +22,11 @@ namespace ResetPasswordTests
             if(passwordReset)
             {
                 TestBase.driver.Url = "https://rcs-cosmetics-client-dev.azurewebsites.net/"; 
-                HomePage hp = new HomePage(TestBase.driver);
-                LoginPage lp = hp.GetLogin();
-                ForgotPasswordPage fpp = lp.GetForgotPassword();
-                ResetPasswordPage rpp = fpp.GetResetPassword(TestBase.username);
-                rpp.DoReset(TestBase.password , TestBase.password );
+                HomePage homePage = new HomePage(TestBase.driver);
+                LoginPage loginPage = homePage.GetLogin();
+                ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+                ResetPasswordPage resetPasswordPage = forgotPasswordPage.GetResetPassword(TestBase.username);
+                resetPasswordPage.DoReset(TestBase.password , TestBase.password );
                 passwordReset = false;
             }
             TestBase.TakeScreenShot();
@@ -39,77 +36,77 @@ namespace ResetPasswordTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            ResetPasswordPage rpp = fpp.GetResetPassword(TestBase.username);
-            foreach (var e in rpp.GetMainElements())
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            ResetPasswordPage resetPasswordPage = forgotPasswordPage.GetResetPassword(TestBase.username);
+            foreach (var e in resetPasswordPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test]
         public void TestRequiredMsgs()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            ResetPasswordPage rpp = fpp.GetResetPassword(TestBase.username);
-            rpp.resetBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            ResetPasswordPage resetPasswordPage = forgotPasswordPage.GetResetPassword(TestBase.username);
+            resetPasswordPage.resetBtn.Click();
             Thread.Sleep(500);
-            Assert.That(rpp.passwordRequiredMsg.Displayed && rpp.confirmPasswordRequiredMsg.Displayed);
+            Assert.That(resetPasswordPage.passwordRequiredMsg.Displayed && resetPasswordPage.confirmPasswordRequiredMsg.Displayed);
         }
         [Test]
         public void TestPasswordMatch()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            ResetPasswordPage rpp = fpp.GetResetPassword(TestBase.username);
-            rpp.DoReset(TestBase.password, TestBase.password + "1");
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            ResetPasswordPage resetPasswordPage = forgotPasswordPage.GetResetPassword(TestBase.username);
+            resetPasswordPage.DoReset(TestBase.password, TestBase.password + "1");
             Thread.Sleep(300);
-            Assert.That(rpp.passwordsDontMatchMsg.Displayed);
+            Assert.That(resetPasswordPage.passwordsDontMatchMsg.Displayed);
         }
         [Test]
         public void TestResetWithOldPass()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            ResetPasswordPage rpp = fpp.GetResetPassword(TestBase.username);
-            rpp.DoReset(TestBase.password, TestBase.password);
-            Assert.That(rpp.oldPasswordValidationMsg.Displayed);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            ResetPasswordPage resetPasswordPage = forgotPasswordPage.GetResetPassword(TestBase.username);
+            resetPasswordPage.DoReset(TestBase.password, TestBase.password);
+            Assert.That(resetPasswordPage.oldPasswordValidationMsg.Displayed);
         }
         [Test]
         public void TestCancelBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            ResetPasswordPage rpp = fpp.GetResetPassword(TestBase.username);
-            HomePage hp2 = rpp.ClickCancel();
-            Assert.That(hp2.title.Displayed);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            ResetPasswordPage resetPasswordPage = forgotPasswordPage.GetResetPassword(TestBase.username);
+            resetPasswordPage.ClickCancel();
+            Assert.That(homePage.title.Displayed);
         }
         [Test]
         public void TestResetPassword()
         {
             passwordReset = true;
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            ResetPasswordPage rpp = fpp.GetResetPassword(TestBase.username);
-            rpp.DoReset(TestBase.password+'4', TestBase.password+'4');
-            TyResetPasswordPage trpp = new TyResetPasswordPage(TestBase.driver);
-            foreach(var e in trpp.GetMainElements())
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            ResetPasswordPage resetPasswordPage = forgotPasswordPage.GetResetPassword(TestBase.username);
+            resetPasswordPage.DoReset(TestBase.password+'4', TestBase.password+'4');
+            TyResetPasswordPage tresetPasswordPage = new TyResetPasswordPage(TestBase.driver);
+            foreach(var e in tresetPasswordPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test]
         public void TestAlreadyHaveAccountBtn()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            ForgotPasswordPage fpp = lp.GetForgotPassword();
-            ResetPasswordPage rpp = fpp.GetResetPassword(TestBase.username);
-            LoginPage lp2 = rpp.ClickAlreadyHaveAccount();
-            Assert.That(lp2.title.Displayed);
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
+            ResetPasswordPage resetPasswordPage = forgotPasswordPage.GetResetPassword(TestBase.username);
+            resetPasswordPage.ClickAlreadyHaveAccount();
+            Assert.That(loginPage.title.Displayed);
         }
     }
 }

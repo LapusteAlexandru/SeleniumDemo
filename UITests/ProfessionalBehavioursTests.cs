@@ -2,9 +2,6 @@
 using Pages;
 using RCoS;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace ProfessionalBehavioursTests
@@ -29,39 +26,39 @@ namespace ProfessionalBehavioursTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ProfessionalBehavioursPage pbp = dp.getProfessionalBehaviours();
-            foreach (var e in pbp.GetMainElements())
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ProfessionalBehavioursPage professionalBehavioursPage = dashboardPage.getProfessionalBehaviours();
+            foreach (var e in professionalBehavioursPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test, Order(2)]
         public void TestRequiredMsgs()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ProfessionalBehavioursPage pbp = dp.getProfessionalBehaviours();
-            pbp.saveBtn.Click();
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ProfessionalBehavioursPage professionalBehavioursPage = dashboardPage.getProfessionalBehaviours();
+            professionalBehavioursPage.saveBtn.Click();
             Thread.Sleep(300);
-            foreach (var e in pbp.requiredMsgs)
+            foreach (var e in professionalBehavioursPage.requiredMsgs)
                 Assert.That(e.Displayed);
-            Assert.That(pbp.requiredMsgs.Count.Equals(2));
+            Assert.That(professionalBehavioursPage.requiredMsgs.Count.Equals(2));
         }
         [Test]
         public void TestSubmitSuccessfully()
         {
-            HomePage hp = new HomePage(TestBase.driver);
-            LoginPage lp = hp.GetLogin();
-            DashboardPage dp = lp.DoLogin(TestBase.username, TestBase.password);
-            ProfessionalBehavioursPage pbp = dp.getProfessionalBehaviours();
-            pbp.CompleteForm("png");
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            ProfessionalBehavioursPage professionalBehavioursPage = dashboardPage.getProfessionalBehaviours();
+            professionalBehavioursPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pbp.title));
-            dp.openSideMenuIfClosed();
-            Assert.That(pbp.professionalResponsibilitiesCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(pbp.statusIndicator.GetAttribute("class").Contains("completed"));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalBehavioursPage.title));
+            dashboardPage.openSideMenuIfClosed();
+            Assert.That(professionalBehavioursPage.professionalResponsibilitiesCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(professionalBehavioursPage.statusIndicator.GetAttribute("class").Contains("completed"));
         }
     }
 }
