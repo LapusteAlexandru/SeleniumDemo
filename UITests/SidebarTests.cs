@@ -77,6 +77,13 @@ namespace SidebarTests
             Assert.That(obj.title.Displayed);
         }
         [Test]
+        public void TestClickReflectionOnPractice()
+        {
+
+            ReflectionOnPracticePage obj = ClickOn("ReflectionOnPracticePage");
+            Assert.That(obj.title.Displayed);
+        }
+        [Test]
         public void TestClickReferences()
         {
             ReferencesPage obj = ClickOn("ReferencesPage");
@@ -140,6 +147,8 @@ namespace SidebarTests
                     return dashboardPage.getClinicalOutcomes();
                 case "ContinuingDevelopmentPage":
                     return dashboardPage.getContinuingDevelopment();
+                case "ReflectionOnPracticePage":
+                    return dashboardPage.getReflectionOnPractice();
                 case "ReferencesPage":
                     return dashboardPage.getReferences();
 

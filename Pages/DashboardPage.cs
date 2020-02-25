@@ -144,6 +144,13 @@ namespace Pages
             professionalBehavioursBtn.Click();
             return new ProfessionalBehavioursPage(TestBase.driver);
         }
+        public ReflectionOnPracticePage getReflectionOnPractice()
+        {
+            openSideMenuIfClosed();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(practiceBtn));
+            practiceBtn.Click();
+            return new ReflectionOnPracticePage(TestBase.driver);
+        }
         public RevalidationPage getRevalidation()
         {
             openSideMenuIfClosed();

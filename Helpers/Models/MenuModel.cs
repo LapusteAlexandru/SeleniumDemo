@@ -14,6 +14,8 @@ namespace Helpers
         public bool revalidationExists { get; set; }
         public bool operativeExposureExists { get; set; }
         public bool clinicalOutcomesExists { get; set; }
+        public bool continuingProfessionalDevelopmentExists { get; set; }
+        public bool reflectionOnPracticeExist { get; set; }
         public bool referencesExist { get; set; }
         public string applicantEmail { get; set; }
         public string applicantFullName { get; set; }

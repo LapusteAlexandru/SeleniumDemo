@@ -39,6 +39,7 @@ namespace RCoS
         public static string currentYear = DateTime.Now.Year.ToString();
         public static string currentDate = currentMonth + " " + currentDay + ", " + currentYear;
         public static string userBirthday = currentMonth + " 01, " + currentYear;
+        public static string caseDate = DateTime.Now.Month + "/1/" + currentYear;
         public static List<string> userData = new List<string> {userGender, currentDate, username, userBirthday, userGmcNumber.ToString(),userGmcSpecialty,userCareerGrade };
         public static List<string> expandableUserData = new List<string> {userPhone,userAddress};
         public static IWebDriver driver { get; set; }

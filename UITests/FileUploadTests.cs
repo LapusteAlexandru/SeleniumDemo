@@ -7,9 +7,22 @@ using SeleniumExtras.WaitHelpers;
 
 namespace FileUploadTests
 {
+    [TestFixture]
+    [Category("FileUpload")]
     class FileUploadTests
     {
-        
+        [SetUp]
+        public void Setup()
+        {
+            TestBase.RootInit();
+        }
+
+        [TearDown]
+        public void Teardown()
+        {
+            TestBase.TakeScreenShot();
+            TestBase.driver.Quit();
+        }
         [Test]
         public void TestUploadSizeLimit()
         {
