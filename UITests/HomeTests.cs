@@ -66,8 +66,7 @@ namespace HomeTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             homePage.standardsBtn.Click();
-            TestBase.SwitchTab();
-            Assert.That(TestBase.driver.Url.Contains("/professional-standards-for-cosmetic-surgery/"));
+            Assert.That(TestBase.driver.Url.Contains("/standards"));
         }
         [Test]
         public void TestGuildelinesBtn()
