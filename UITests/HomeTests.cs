@@ -1,6 +1,8 @@
 using RCoS;
 using NUnit.Framework;
 using Pages;
+using SeleniumExtras.WaitHelpers;
+using OpenQA.Selenium;
 
 namespace HomeTests
 {
@@ -66,6 +68,7 @@ namespace HomeTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             homePage.standardsBtn.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h4[contains(text(),'Professional Standards for Cosmetic Surgery')]")));
             Assert.That(TestBase.driver.Url.Contains("/standards"));
         }
         [Test]

@@ -159,7 +159,6 @@ namespace ReflectionOnPracticeTests
             reflectionOnPracticePage.CompleteForm(4,"", true);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(reflectionOnPracticePage.title));
-            dashboardPage.openSideMenuIfClosed();
             foreach (var e in reflectionOnPracticePage.GetFormTabs())
             {
                 e.Click();
@@ -177,6 +176,7 @@ namespace ReflectionOnPracticeTests
                 }
                 Assert.That(reflectionOnPracticePage.dateInput.GetAttribute("value").Equals(TestBase.caseDate));
             }
+            dashboardPage.openSideMenuIfClosed();
             Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("class").Contains("completed"));
         }
 
