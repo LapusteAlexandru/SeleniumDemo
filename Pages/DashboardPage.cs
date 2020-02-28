@@ -186,6 +186,13 @@ namespace Pages
             referencesBtn.Click();
             return new ReferencesPage(TestBase.driver);
         }
+        public CertificateConfirmationPage getSubmitApplication()
+        {
+            openSideMenuIfClosed();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(submitAppBtn));
+            submitAppBtn.Click();
+            return new CertificateConfirmationPage(TestBase.driver);
+        }
         public RegistrationRequestsPage getRegistrationRequests()
         {
             openSideMenuIfClosed();

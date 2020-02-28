@@ -10,6 +10,11 @@ namespace ProfessionalBehavioursTests
     [Category("ProfessionalBehaviours")]
     class ProfessionalBehavioursTests
     {
+        [OneTimeSetUp]
+        public void Clear()
+        {
+            TestBase.deleteSectionData("[dbo].[ProfessionalBehaviours]", TestBase.uiUsername, "ProfessionalBehaviours");
+        }
         [SetUp]
         public void Setup()
         {
@@ -28,7 +33,7 @@ namespace ProfessionalBehavioursTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProfessionalBehavioursPage professionalBehavioursPage = dashboardPage.getProfessionalBehaviours();
             foreach (var e in professionalBehavioursPage.GetMainElements())
                 Assert.That(e.Displayed);
@@ -38,7 +43,7 @@ namespace ProfessionalBehavioursTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProfessionalBehavioursPage professionalBehavioursPage = dashboardPage.getProfessionalBehaviours();
             professionalBehavioursPage.saveBtn.Click();
             Thread.Sleep(300);
@@ -51,7 +56,7 @@ namespace ProfessionalBehavioursTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProfessionalBehavioursPage professionalBehavioursPage = dashboardPage.getProfessionalBehaviours();
             professionalBehavioursPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();

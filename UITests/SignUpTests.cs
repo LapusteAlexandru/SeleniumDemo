@@ -13,6 +13,11 @@ namespace SignUpTests
     [Category("Signup")]
     class SignUpTests
     {
+        [OneTimeSetUp]
+        public void Clear()
+        {
+            TestBase.deleteUserData("[dbo].[AspNetUsers]", TestBase.username);
+        }
         [SetUp]
         public void Setup()
         {
@@ -127,8 +132,8 @@ namespace SignUpTests
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             SignUpPage signUpPage = loginPage.GetSignUp();
-            signUpPage.DoRegister(TestBase.username, TestBase.password, TestBase.password);
-            Thread.Sleep(2000);
+            SignUpTyPage signupTyPage =  signUpPage.DoRegister(TestBase.username, TestBase.password, TestBase.password);
+            Assert.That(signupTyPage.tyMessage.Displayed);
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
             string allEmails = mailRepository.GetUnreadMails(Subject.Register);
             var linkParser = new Regex(@"(?:https?://rcs-cosmetics-identity-dev.azurewebsites.net/Account)\S+\b");

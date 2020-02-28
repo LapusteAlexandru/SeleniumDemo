@@ -27,7 +27,7 @@ namespace ReferencesTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ReferencesPage referencesPage = dashboardPage.getReferences();
             foreach (var e in referencesPage.GetMainElements())
                 Assert.That(e.Displayed);
@@ -37,7 +37,7 @@ namespace ReferencesTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ReferencesPage referencesPage = dashboardPage.getReferences();
             referencesPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();

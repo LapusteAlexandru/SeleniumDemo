@@ -90,6 +90,23 @@ namespace SidebarTests
             Assert.That(obj.title.Displayed);
         }
         [Test]
+        public void TestClickSubmitApplication()
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password); 
+            CertificateConfirmationPage certificationsPage = dashboardPage.getSubmitApplication();
+            Assert.That(certificationsPage.title.Displayed);
+        }
+        [Test]
+        public void TestFailClickReferences()
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            Assert.That(!dashboardPage.submitAppBtn.Enabled);
+        }
+        [Test]
         public void TestHideSidebar()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -128,7 +145,7 @@ namespace SidebarTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             switch (page)
             {
                 case "AccountDetailsPage":
@@ -151,6 +168,8 @@ namespace SidebarTests
                     return dashboardPage.getReflectionOnPractice();
                 case "ReferencesPage":
                     return dashboardPage.getReferences();
+                case "SubmitPage":
+                    return dashboardPage.getSubmitApplication();
 
                 default:
                     return null;

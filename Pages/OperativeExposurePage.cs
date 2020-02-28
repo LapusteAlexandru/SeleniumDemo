@@ -14,7 +14,7 @@ namespace Pages
         {
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//form")));
+                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-operative-exposure//form")));
             }
             catch (Exception e)
             {

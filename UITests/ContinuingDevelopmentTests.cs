@@ -27,7 +27,7 @@ namespace ContinuingDevelopmentTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ContinuingDevelopmentPage continuingDevelopmentPage = dashboardPage.getContinuingDevelopment();
             foreach (var e in continuingDevelopmentPage.GetMainElements())
                 Assert.That(e.Displayed);
@@ -37,7 +37,7 @@ namespace ContinuingDevelopmentTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ContinuingDevelopmentPage continuingDevelopmentPage = dashboardPage.getContinuingDevelopment();
             continuingDevelopmentPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();

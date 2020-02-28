@@ -11,6 +11,12 @@ namespace ProfessionalInsuranceTests
     [Category("ProfessionalInsurance")]
     class ProfessionalInsuranceTests
     {
+        [OneTimeSetUp]
+        public void Clear()
+        {
+            TestBase.deleteSectionData("[dbo].[ProfessionalIndemnityInsurances]", TestBase.uiUsername, "ProfessionalIndemnityInsurance");
+            TestBase.deleteSectionData("[dbo].[Documents]", TestBase.uiUsername);
+        }
         [SetUp]
         public void Setup()
         {
@@ -29,7 +35,7 @@ namespace ProfessionalInsuranceTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProfessionalInsurancePage professionalInsurancePage = dashboardPage.getProfessionalInsurance();
             foreach (var e in professionalInsurancePage.GetMainElements())
                 Assert.That(e.Displayed);
@@ -39,7 +45,7 @@ namespace ProfessionalInsuranceTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProfessionalInsurancePage professionalInsurancePage = dashboardPage.getProfessionalInsurance();
             professionalInsurancePage.saveBtn.Click();
             Thread.Sleep(300);
@@ -52,7 +58,7 @@ namespace ProfessionalInsuranceTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProfessionalInsurancePage professionalInsurancePage = dashboardPage.getProfessionalInsurance();
             YesOrNoRadio radioOption = YesOrNoRadio.Yes;
             professionalInsurancePage.CompleteForm(radioOption,"png",false);
@@ -70,7 +76,7 @@ namespace ProfessionalInsuranceTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProfessionalInsurancePage professionalInsurancePage = dashboardPage.getProfessionalInsurance();
             YesOrNoRadio radioOption = YesOrNoRadio.No;
             professionalInsurancePage.CompleteForm(radioOption);

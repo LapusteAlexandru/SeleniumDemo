@@ -11,6 +11,11 @@ namespace RevalidationTests
     [Category("Revalidation")]
     class RevalidationTests
     {
+        [OneTimeSetUp]
+        public void Clear()
+        {
+            TestBase.deleteSectionData("[dbo].[Revalidations]", TestBase.uiUsername, "Revalidation");
+        }
         [SetUp]
         public void Setup()
         {
@@ -29,7 +34,7 @@ namespace RevalidationTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             RevalidationPage revalidationPage = dashboardPage.getRevalidation();
             foreach (var e in revalidationPage.GetMainElements())
                 Assert.That(e.Displayed);
@@ -39,7 +44,7 @@ namespace RevalidationTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             RevalidationPage revalidationPage = dashboardPage.getRevalidation();
             revalidationPage.saveBtn.Click();
             Thread.Sleep(300);
@@ -52,7 +57,7 @@ namespace RevalidationTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             RevalidationPage revalidationPage = dashboardPage.getRevalidation();
             revalidationPage.CompleteForm(YesOrNoRadio.Yes,"png",false);
             TestBase.driver.Navigate().Refresh();
@@ -66,7 +71,7 @@ namespace RevalidationTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             RevalidationPage revalidationPage = dashboardPage.getRevalidation();
             YesOrNoRadio radioOption = YesOrNoRadio.No;
             revalidationPage.CompleteForm(radioOption);

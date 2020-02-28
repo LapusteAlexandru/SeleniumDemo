@@ -10,6 +10,11 @@ namespace ClinicalOutcomesTests
     [Category("ClinicalOutcomes")]
     class ClinicalOutcomesTests
     {
+        [OneTimeSetUp]
+        public void Clear()
+        {
+            TestBase.deleteSectionData("[dbo].[ClinicalOutcomes]", TestBase.uiUsername, "ClinicalOutcomes");
+        }
         [SetUp]
         public void Setup()
         {
@@ -28,7 +33,7 @@ namespace ClinicalOutcomesTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ClinicalOutcomesPage clinicalOutcomesPage = dashboardPage.getClinicalOutcomes();
             foreach (var e in clinicalOutcomesPage.GetMainElements())
                 Assert.That(e.Displayed);
@@ -38,7 +43,7 @@ namespace ClinicalOutcomesTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ClinicalOutcomesPage clinicalOutcomesPage = dashboardPage.getClinicalOutcomes();
             clinicalOutcomesPage.saveBtn.Click();
             Thread.Sleep(300);
@@ -51,7 +56,7 @@ namespace ClinicalOutcomesTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ClinicalOutcomesPage clinicalOutcomesPage = dashboardPage.getClinicalOutcomes();
             clinicalOutcomesPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();

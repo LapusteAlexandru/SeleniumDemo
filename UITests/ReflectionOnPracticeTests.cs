@@ -14,6 +14,11 @@ namespace ReflectionOnPracticeTests
     [Category("ReflectionOnPractice")]
     class ReflectionOnPracticeTests
     {
+        [OneTimeSetUp]
+        public void Clear()
+        {
+            TestBase.deleteSectionData("[dbo].[ReflectionsOnPractices]", TestBase.uiUsername);
+        }
         [SetUp]
         public void Setup()
         {
@@ -31,7 +36,7 @@ namespace ReflectionOnPracticeTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ReflectionOnPracticePage reflectionOnPracticePage = dashboardPage.getReflectionOnPractice();
             foreach (var e in reflectionOnPracticePage.GetMainElements())
                 Assert.That(e.Displayed);
@@ -64,7 +69,7 @@ namespace ReflectionOnPracticeTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ReflectionOnPracticePage reflectionOnPracticePage = dashboardPage.getReflectionOnPractice();
             reflectionOnPracticePage.CompleteForm(1,"png", false);
             reflectionOnPracticePage = new ReflectionOnPracticePage(TestBase.driver);
@@ -103,7 +108,7 @@ namespace ReflectionOnPracticeTests
             string dummyLongText = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.";
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ReflectionOnPracticePage reflectionOnPracticePage = dashboardPage.getReflectionOnPractice();
             reflectionOnPracticePage.textareaText = dummyExtraLongText;
             reflectionOnPracticePage.inputText = dummyLongText;
@@ -148,7 +153,7 @@ namespace ReflectionOnPracticeTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ReflectionOnPracticePage reflectionOnPracticePage = dashboardPage.getReflectionOnPractice();
             reflectionOnPracticePage.CompleteForm(1,"", true);
             reflectionOnPracticePage = new ReflectionOnPracticePage(TestBase.driver);
@@ -184,7 +189,7 @@ namespace ReflectionOnPracticeTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ReflectionOnPracticePage reflectionOnPracticePage = dashboardPage.getReflectionOnPractice();
             IWebElement tab = reflectionOnPracticePage.case1TabBtn;
             switch (caseFormNo)

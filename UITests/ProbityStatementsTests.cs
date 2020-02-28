@@ -11,6 +11,11 @@ namespace ProbityStatementsTests
     [Category("ProbityStatements")]
     class ProbityStatementsTests
     {
+        [OneTimeSetUp]
+        public void Clear()
+        {
+            TestBase.deleteSectionData("[dbo].[ProbityStatements]", TestBase.uiUsername, "ProbityStatement");
+        }
         [SetUp]
         public void Setup()
         {
@@ -29,7 +34,7 @@ namespace ProbityStatementsTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
             foreach (var e in probityStatementsPage.GetMainElements())
                 Assert.That(e.Displayed);
@@ -39,7 +44,7 @@ namespace ProbityStatementsTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
             probityStatementsPage.saveBtn.Click();
             Thread.Sleep(300);
@@ -52,7 +57,7 @@ namespace ProbityStatementsTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
             ProbityRadio radioOption = ProbityRadio.Nothing;
             probityStatementsPage.CompleteForm(radioOption,false);
@@ -69,7 +74,7 @@ namespace ProbityStatementsTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
             ProbityRadio radioOption = ProbityRadio.Nothing;
             if (probityStatementsPage.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"))

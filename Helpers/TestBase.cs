@@ -12,6 +12,8 @@ using RestSharp;
 using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Threading;
 
@@ -21,6 +23,7 @@ namespace RCoS
     {
         public static string username = "amdaris.rcos@gmail.com";
         public static string password = "123aA@123";
+        public static string uiUsername = "amdaris.rcos.ui@gmail.com";
         public static string adminUsername = "mail@mail.com";
         public static string adminPassword = "P@ssword1";
         public static string apiUsername = "amdaris.rcos.api@gmail.com";
@@ -160,7 +163,54 @@ namespace RCoS
                 wait.Until(ExpectedConditions.TextToBePresentInElement(e, "100/100"));
             }
 
-            Thread.Sleep(2000);
+        }
+
+        public static void deleteUserData(string tableName,string username)
+        {
+            SqlConnection cnn;
+            SqlCommand command;
+            string sql; 
+            string connetionString = "";
+            if (tableName.Contains("Users"))
+                connetionString = TestContext.Parameters["identityConnectionString"];
+            else
+                connetionString = TestContext.Parameters["cosmeticsConnectionString"];
+            cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            if (cnn.State == ConnectionState.Open)
+                Console.WriteLine("Connected successfully!");
+            sql = "DELETE FROM "+ tableName + " WHERE Email ='" + username + "'";
+            command = new SqlCommand(sql, cnn);
+            command.ExecuteNonQuery();
+            command.Dispose();
+        }
+        public static void deleteSectionData(string tableName, string username, string section)
+        {
+            SqlConnection cnn;
+            SqlCommand command;
+            string sql;
+            string connetionString = TestContext.Parameters["cosmeticsConnectionString"];
+            var jwt = getJWT(username, password);
+            var id = getObjectID("/api/applicants", jwt);
+            cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            if (cnn.State == ConnectionState.Open)
+                Console.WriteLine("Connected successfully!");
+            if (section != "")
+            {
+                sql = "UPDATE [dbo].[Applications] SET " + section + "Id = null WHERE ApplicantId ='" + id + "'";
+                command = new SqlCommand(sql, cnn);
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            sql = "DELETE FROM " + tableName + " WHERE ApplicantId ='" + id + "'";
+            command = new SqlCommand(sql, cnn);
+            command.ExecuteNonQuery();
+            command.Dispose();
+        }
+        public static void deleteSectionData(string tableName, string username)
+        {
+            deleteSectionData(tableName, username, "");
         }
     }
 }

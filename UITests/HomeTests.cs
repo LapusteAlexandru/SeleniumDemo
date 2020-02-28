@@ -91,52 +91,6 @@ namespace HomeTests
             TestBase.SwitchTab();
             Assert.That(TestBase.driver.Url.Contains("/specialist-registration"));
         }
-
-        [Test]
-
-        public void TestTwitterBtn()
-        {
-            HomePage homePage = new HomePage(TestBase.driver);
-            homePage.twitterBtn.Click();
-            TestBase.SwitchTab();
-            Assert.That(TestBase.driver.Url.Equals("https://twitter.com/rcsnews"));
-        }
-        [Test]
-
-        public void TestFacebookBtn()
-        {
-            HomePage homePage = new HomePage(TestBase.driver);
-            homePage.facebookBtn.Click();
-            TestBase.SwitchTab();
-            Assert.That(TestBase.driver.Url.Equals("https://www.facebook.com/royalcollegeofsurgeons"));
-        }
-        [Test]
-
-        public void TestLinkedINBtn()
-        {
-            HomePage homePage = new HomePage(TestBase.driver);
-            homePage.linkedInBtn.Click();
-            TestBase.SwitchTab();
-            Assert.That(TestBase.driver.Url.Contains("royal-college-of-surgeons-of-england"));
-        }
-        [Test]
-
-        public void TestYoutubeBtn()
-        {
-            HomePage homePage = new HomePage(TestBase.driver);
-            homePage.youtubeBtn.Click();
-            TestBase.SwitchTab();
-            Assert.That(TestBase.driver.Url.Equals("https://www.youtube.com/channel/UCt4twMdD8E2EBlnYSOWS8HA"));
-        }
-        [Test]
-
-        public void TestGoogleBtn()
-        {
-            HomePage homePage = new HomePage(TestBase.driver);
-            homePage.googleBtn.Click();
-            TestBase.SwitchTab();
-            Assert.That(TestBase.driver.Url.Contains("accounts.google.com/signin"));
-        }
         
     }
 }
