@@ -9,6 +9,8 @@ using System.Text;
 
 namespace CertificatesConfirmationTests
 {
+    [TestFixture]
+    [Category("CertificatesConfirmation")]
     class CertificatesConfirmationTests
     {
         [SetUp]
