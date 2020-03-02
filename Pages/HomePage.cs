@@ -66,7 +66,7 @@ namespace Pages
         public IWebElement youtubeBtn { get; set; }
 
 
-        [FindsBy(How = How.XPath, Using = "//h1[text()='Cosmetic Surgery Certification']")]
+        [FindsBy(How = How.XPath, Using = "//h4[text()='Cosmetic Surgery Certification']")]
         public IWebElement title { get; set; }
 
 

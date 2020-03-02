@@ -40,7 +40,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//mat-error[contains(text(),' GMC Number must contain 7 digits')]")]
         public IWebElement gmcNumberMinCharValidation { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//h4")]
+        [FindsBy(How = How.XPath, Using = "//h4[text()='Account Details']")]
         public IWebElement title { get; set; }
 
         [FindsBy(How = How.Id, Using = "mat-input-0")]

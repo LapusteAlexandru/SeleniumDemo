@@ -31,7 +31,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//h1[text()='Forgot your password?']")]
         public IWebElement title { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//h4[contains(text(),'is not registered or email is not confirmed')]")]
+        [FindsBy(How = How.XPath, Using = "//p[contains(text(),'is not registered or email is not confirmed')]")]
         public IWebElement userNotRegistered { get; set; }
 
         [FindsBy(How = How.Id, Using = "Email")]

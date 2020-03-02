@@ -26,8 +26,8 @@ namespace Pages
         public string acceptBtn = "//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]/ancestor::tr/following-sibling::tr[1]//span[contains(text(),'Accept')]";
         public string rejectBtn = "//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]/ancestor::tr/following-sibling::tr[1]//span[contains(text(),'Reject')]";
         public string tableEmailCell = "//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]";
-        public string registrationTD = "//span[contains(text(),'{0}')]/ancestor::tr//i[@mattooltip='{1}']/following-sibling::span";
-        public string expandableRegistrationTD = "//span[contains(text(),'{0}')]/ancestor::tr//i[@mattooltip='{1}']/following-sibling::app-expandable-text//span";
+        public string registrationTD = "//span[contains(text(),'{0}')]/ancestor::tr//i[@mattooltip='{1}']/following-sibling::*";
+        public string expandableRegistrationTD = "//span[contains(text(),'{0}')]/ancestor::tr//i[@mattooltip='{1}']/following-sibling::app-expandable-text//*";
         public List<string> dataRows = new List<string>{ "Gender", "Created At", "Email","Birthday", "GMC Number", "GMC Specialty", "Career Grade" };
         public List<string> expandableDataRows = new List<string>{ "Phone Number", "Address" };
         [FindsBy(How = How.XPath, Using = "//h4[contains(text(),'Registration Requests')]")]

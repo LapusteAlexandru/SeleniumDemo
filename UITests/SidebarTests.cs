@@ -99,7 +99,7 @@ namespace SidebarTests
             Assert.That(certificationsPage.title.Displayed);
         }
         [Test]
-        public void TestFailClickReferences()
+        public void TestFailClickSubmitApplication()
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
