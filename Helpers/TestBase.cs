@@ -34,7 +34,7 @@ namespace RCoS
         public static string userAddress = "UK";
         public static string userPhone = "123123123";
         public static string userGender = "Male";
-        public static int userGmcNumber = 1231231;
+        public static string userGmcNumber = "1231231";
         public static string userGmcSpecialty = "Vascular Surgery";
         public static string userCareerGrade = "Consultant established";
         public static string currentMonth = DateTime.Now.ToString("MMMM");

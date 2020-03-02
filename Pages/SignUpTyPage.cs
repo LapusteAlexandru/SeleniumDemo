@@ -14,7 +14,7 @@ namespace Pages
         {
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[contains(@class,'content']")));
+                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[contains(@class,'content')]")));
             }
             catch (Exception e)
             {
@@ -22,7 +22,7 @@ namespace Pages
             }
             PageFactory.InitElements(driver, this);
         }
-        [FindsBy(How = How.XPath, Using = "//div[contains(@class,'thank-you-text']")]
+        [FindsBy(How = How.XPath, Using = "//div[contains(@class,'thank-you-text')]")]
         public IWebElement tyMessage { get; set; }
 
     }

@@ -79,7 +79,7 @@ namespace Helpers
                     {
                         Console.WriteLine(e.Message);
                     }
-                    Thread.Sleep(1000);
+                    Thread.Sleep(2000);
                     retryCounter += 1;
                     if (found == true || retryCounter == maxRetries)
                         break;

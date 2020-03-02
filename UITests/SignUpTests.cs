@@ -82,7 +82,7 @@ namespace SignUpTests
             Assert.That(signUpPage.passwordMinLengthMsg.Displayed);
         }
         [Test]
-        public void TestPasswordAloginPagehanumericValidation()
+        public void TestPasswordAlphanumericValidation()
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();

@@ -30,7 +30,7 @@ namespace Pages
         public string expandableRegistrationTD = "//span[contains(text(),'{0}')]/ancestor::tr//i[@mattooltip='{1}']/following-sibling::app-expandable-text//span";
         public List<string> dataRows = new List<string>{ "Gender", "Created At", "Email","Birthday", "GMC Number", "GMC Specialty", "Career Grade" };
         public List<string> expandableDataRows = new List<string>{ "Phone Number", "Address" };
-        [FindsBy(How = How.XPath, Using = "//h3[contains(text(),'Registration Requests')]")]
+        [FindsBy(How = How.XPath, Using = "//h4[contains(text(),'Registration Requests')]")]
         public IWebElement title { get; set; }
 
         [FindsBy(How = How.Id, Using = "mat-input-0")]

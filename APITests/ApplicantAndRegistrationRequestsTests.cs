@@ -16,7 +16,11 @@ namespace APITests
     {
         private static RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");
 
-
+        [OneTimeSetUp]
+        public void Clear()
+        {
+            TestBase.deleteUserData("[dbo].[Applicants]", TestBase.apiUsername);
+        }
 
         [Test, Order(2)]
         public void GetRegistrationRequestsTest()
@@ -74,7 +78,7 @@ namespace APITests
         [Test, Order(1)]
         public void AuthenticationTest()
         {
-            var jwt = TestBase.getJWT(TestBase.username, TestBase.password);
+            var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.password);
             // assert
             Assert.That(jwt.Length > 0);
         }
@@ -140,7 +144,7 @@ namespace APITests
             applicantModel.phoneNumber = TestBase.userPhone;
             applicantModel.gender = gen;
             applicantModel.address = TestBase.userAddress;
-            applicantModel.gmcNumber = 1231231;
+            applicantModel.gmcNumber = "1231231";
             applicantModel.gmcSpecialty = specialitiesModel;
             applicantModel.careerGrade = gradesModel;
             applicantModel.status = 3;
@@ -192,7 +196,7 @@ namespace APITests
             applicantModel.phoneNumber = TestBase.userPhone;
             applicantModel.gender = gen;
             applicantModel.address = TestBase.userAddress;
-            applicantModel.gmcNumber = 1231231;
+            applicantModel.gmcNumber = "1231231";
             applicantModel.gmcSpecialty = specialitiesModel;
             applicantModel.careerGrade = gradesModel;
             applicantModel.status = statusId;
