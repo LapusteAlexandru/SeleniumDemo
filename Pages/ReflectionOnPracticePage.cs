@@ -97,8 +97,6 @@ namespace Pages
 
         [FindsBy(How = How.XPath, Using = "//textarea[@formcontrolname='learningNeeds']")]
         public IWebElement learningNeedsTextarea { get; set; }
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Reflection on practice was successfully created')]")]
-        public IWebElement pageSubmitedMsg { get; set; }
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Reflection on practice was successfully updated')]")]
         public IWebElement pageUpdatedMsg { get; set; }
 
@@ -254,11 +252,7 @@ namespace Pages
             submitBtn.Click();
             try
             {
-
-                if (update)
-                    TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageUpdatedMsg));
-                else
-                    TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageSubmitedMsg));
+                TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageUpdatedMsg));
             }
             catch { }
         }

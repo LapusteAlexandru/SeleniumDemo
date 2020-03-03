@@ -61,7 +61,7 @@ namespace ProfessionalInsuranceTests
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProfessionalInsurancePage professionalInsurancePage = dashboardPage.getProfessionalInsurance();
             YesOrNoRadio radioOption = YesOrNoRadio.Yes;
-            professionalInsurancePage.CompleteForm(radioOption,"png",false);
+            professionalInsurancePage.CompleteForm(radioOption,"png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalInsurancePage.title));
             dashboardPage.openSideMenuIfClosed();

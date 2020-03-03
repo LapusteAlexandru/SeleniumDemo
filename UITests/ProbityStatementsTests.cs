@@ -60,7 +60,7 @@ namespace ProbityStatementsTests
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
             ProbityRadio radioOption = ProbityRadio.Nothing;
-            probityStatementsPage.CompleteForm(radioOption,false);
+            probityStatementsPage.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(probityStatementsPage.title));
             dashboardPage.openSideMenuIfClosed();
@@ -79,7 +79,7 @@ namespace ProbityStatementsTests
             ProbityRadio radioOption = ProbityRadio.Nothing;
             if (probityStatementsPage.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"))
                 radioOption = ProbityRadio.Something;
-            probityStatementsPage.CompleteForm(radioOption,true);
+            probityStatementsPage.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(probityStatementsPage.title));
             dashboardPage.openSideMenuIfClosed();

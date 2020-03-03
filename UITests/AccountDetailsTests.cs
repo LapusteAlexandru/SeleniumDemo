@@ -11,11 +11,7 @@ namespace AccountDetailsTests
     [Category("AccountDetails")]
     class AccountDetailsTests
     {
-        [OneTimeSetUp]
-        public void Clear()
-        {
-            TestBase.deleteUserData("[dbo].[Applicants]", TestBase.username);
-        }
+        
         [SetUp]
         public void Setup()
         {

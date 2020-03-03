@@ -59,7 +59,7 @@ namespace RevalidationTests
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             RevalidationPage revalidationPage = dashboardPage.getRevalidation();
-            revalidationPage.CompleteForm(YesOrNoRadio.Yes,"png",false);
+            revalidationPage.CompleteForm(YesOrNoRadio.Yes,"png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(revalidationPage.title));
             dashboardPage.openSideMenuIfClosed();

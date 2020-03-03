@@ -163,6 +163,7 @@ namespace RegistrationRequestsTests
         [Test, Order(1)]
         public void TestDataIsLoaded()
         {
+            var date = TestBase.currentDate;
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
