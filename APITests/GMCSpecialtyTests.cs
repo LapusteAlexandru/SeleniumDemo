@@ -24,9 +24,9 @@ namespace APITests
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             // act
             IRestResponse response = apiClient.Execute(request);
-            List<string> expectedSpecialties = new List<string> { "Vascular Surgery", "Cardiothoracic Surgery",
-                "General Surgery", "Neurosurgery", "Oral and Maxillofacial surgery", "Otolaryngology", "Plastic Surgery"
-            ,"Paediatric Surgery","Trauma and Orthopaedic Surgery","Urology","Ophthalmology"};
+            List<string> expectedSpecialties = new List<string> { "Vascular Surgery", "Urology","Trauma and Orthopaedic Surgery",
+                "Paediatric Surgery","Plastic Surgery" ,"Oral and Maxillofacial surgery","Neurosurgery","General Surgery", "Cardiothoracic Surgery", "Ophthalmology",
+                "Otolaryngology"};
 
             var actualSpecialties = JsonConvert.DeserializeObject<List<GMCSPecialtiesModel>>(response.Content);
             // assert

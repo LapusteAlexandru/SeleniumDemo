@@ -163,14 +163,13 @@ namespace RegistrationRequestsTests
         [Test, Order(1)]
         public void TestDataIsLoaded()
         {
-            var date = TestBase.currentDate;
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
             RegistrationRequestsPage registrationRequestsPage = dashboardPage.getRegistrationRequests();
             registrationRequestsPage.openRequestData(TestBase.username);
             Thread.Sleep(300);
-            string rowValue = "";
+            string rowValue;
             for (int i = 0; i < registrationRequestsPage.dataRows.Count; i++)
             {
                 rowValue = TestBase.driver.FindElement(By.XPath(string.Format(registrationRequestsPage.registrationTD, TestBase.username, registrationRequestsPage.dataRows[i]))).Text;

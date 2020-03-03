@@ -108,7 +108,7 @@ namespace RCoS
 
         public static string getJWT(string username,string password)
         {
-            string jwt = "";
+            string jwt;
             RestRequest request = new RestRequest("/connect/token", Method.POST); 
             RestClient identityClient = new RestClient("https://rcs-cosmetics-identity-dev.azurewebsites.net");
             request.AddParameter("client_id", "rcs.api.swagger.client");
@@ -170,7 +170,7 @@ namespace RCoS
             SqlConnection cnn;
             SqlCommand command;
             string sql; 
-            string connetionString = "";
+            string connetionString;
             if (tableName.Contains("Users"))
                 connetionString = TestContext.Parameters["identityConnectionString"];
             else
