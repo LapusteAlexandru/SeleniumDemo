@@ -68,7 +68,7 @@ namespace ProfessionalInsuranceTests
             Assert.That(professionalInsurancePage.indemnityArrangementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(professionalInsurancePage.disclosedNatureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(professionalInsurancePage.yesPracticeRadio.GetAttribute("class").Contains("mat-radio-checked"));
-            Assert.That(professionalInsurancePage.statusIndicator.GetAttribute("class").Contains("completed"));
+            Assert.That(professionalInsurancePage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
         
         [Test]
@@ -86,7 +86,7 @@ namespace ProfessionalInsuranceTests
             Assert.That(professionalInsurancePage.indemnityArrangementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(professionalInsurancePage.disclosedNatureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(professionalInsurancePage.noPracticeRadio.GetAttribute("class").Contains("mat-radio-checked"));
-            Assert.That(professionalInsurancePage.statusIndicator.GetAttribute("class").Contains("completed"));
+            Assert.That(professionalInsurancePage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
     }
 }

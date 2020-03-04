@@ -64,7 +64,7 @@ namespace OperativeExposureTests
             dashboardPage.openSideMenuIfClosed();
             Assert.That(operativeExposurePage.proceduresCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(operativeExposurePage.operativeExposureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(operativeExposurePage.statusIndicator.GetAttribute("class").Contains("completed"));
+            Assert.That(operativeExposurePage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
     }
 }

@@ -157,10 +157,10 @@ namespace RCoS
                 }
                 catch { }
             }
-            IList<IWebElement> uploadProgressBars = driver.FindElements(By.XPath("//mat-progress-bar/following-sibling::span"));
-            foreach (IWebElement e in uploadProgressBars)
+            IList<IWebElement> uploadFileDeleteButtons = driver.FindElements(By.XPath("//app-file-item//button"));
+            foreach (IWebElement e in uploadFileDeleteButtons)
             {
-                wait.Until(ExpectedConditions.TextToBePresentInElement(e, "100/100"));
+                wait.Until(ExpectedConditions.ElementToBeClickable(e));
             }
 
         }

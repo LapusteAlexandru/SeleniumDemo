@@ -64,7 +64,7 @@ namespace RevalidationTests
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(revalidationPage.title));
             dashboardPage.openSideMenuIfClosed();
             Assert.That(revalidationPage.declareAppraisalYes.GetAttribute("class").Contains("mat-radio-checked"));
-            Assert.That(revalidationPage.statusIndicator.GetAttribute("class").Contains("completed"));
+            Assert.That(revalidationPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
         [Test]
         public void TestEditSuccessfully()
@@ -79,7 +79,7 @@ namespace RevalidationTests
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(revalidationPage.title));
             dashboardPage.openSideMenuIfClosed();
             Assert.That(revalidationPage.declareAppraisalNo.GetAttribute("class").Contains("mat-radio-checked"));
-            Assert.That(revalidationPage.statusIndicator.GetAttribute("class").Contains("completed"));
+            Assert.That(revalidationPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
     }
 }

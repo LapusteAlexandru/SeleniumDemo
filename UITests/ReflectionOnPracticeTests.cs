@@ -90,16 +90,22 @@ namespace ReflectionOnPracticeTests
                 IList<IWebElement> actualInputs = reflectionOnPracticePage.GetTextElements();
                 for (int i = 0; i < actualInputs.Count; i++)
                 {
-                    if(actualInputs[i].TagName.Equals("input"))
-                        Assert.That(actualInputs[i].GetAttribute("value").Equals(reflectionOnPracticePage.inputText));
+                    if (actualInputs[i].TagName.Equals("input"))
+                    {
+                        if (actualInputs[i].GetAttribute("formcontrolname").Contains("Email"))
+                            Assert.That(actualInputs[i].GetAttribute("value").Equals(TestBase.uiUsername));
+                        else
+                            Assert.That(actualInputs[i].GetAttribute("value").Equals(reflectionOnPracticePage.inputText)); 
+                    }
                     else
-                        Assert.That(actualInputs[i].GetAttribute("value").Equals(reflectionOnPracticePage.textareaText+ reflectionOnPracticePage.inputText));
+                        Assert.That(actualInputs[i].GetAttribute("value").Equals(reflectionOnPracticePage.textareaText + reflectionOnPracticePage.inputText)); 
+                    
                 }
                 Assert.That(reflectionOnPracticePage.dateInput.GetAttribute("value").Equals(TestBase.caseDate));
             }
 
             dashboardPage.openSideMenuIfClosed();
-            Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("class").Contains("completed"));
+            Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
         [Test]
         public void TestNoOfCharLimit()
@@ -112,39 +118,58 @@ namespace ReflectionOnPracticeTests
             ReflectionOnPracticePage reflectionOnPracticePage = dashboardPage.getReflectionOnPractice();
             reflectionOnPracticePage.textareaText = dummyExtraLongText;
             reflectionOnPracticePage.inputText = dummyLongText;
-            reflectionOnPracticePage.CompleteForm(1,"png", false); 
+            reflectionOnPracticePage.CompleteForm(1,"png", false);
+            reflectionOnPracticePage.case1TabBtn.Click();
             foreach (var e in reflectionOnPracticePage.limitReachedMsgs)
                 Assert.That(e.Displayed);
             foreach (var e in reflectionOnPracticePage.textareaLimitCounter)
                 Assert.That(e.Text.Equals("8000/8000"));
-            Assert.That(reflectionOnPracticePage.limitReachedMsgs.Count.Equals(7)); 
+            Assert.That(reflectionOnPracticePage.limitReachedMsgs.Count.Equals(6));
+            reflectionOnPracticePage.case2TabBtn.Click();
+            var selected = reflectionOnPracticePage.case2TabBtn.GetAttribute("aria-selected");
+            TestBase.wait.Equals(selected.Equals(true));
+            Thread.Sleep(500);
             reflectionOnPracticePage = new ReflectionOnPracticePage(TestBase.driver);
             reflectionOnPracticePage.textareaText = dummyExtraLongText;
             reflectionOnPracticePage.inputText = dummyLongText;
             reflectionOnPracticePage.CompleteForm(2,"png", false);
+            reflectionOnPracticePage.case2TabBtn.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//mat-datepicker-toggle")));
             foreach (var e in reflectionOnPracticePage.limitReachedMsgs)
                 Assert.That(e.Displayed);
             foreach (var e in reflectionOnPracticePage.textareaLimitCounter)
                 Assert.That(e.Text.Equals("8000/8000"));
-            Assert.That(reflectionOnPracticePage.limitReachedMsgs.Count.Equals(7));
+            Assert.That(reflectionOnPracticePage.limitReachedMsgs.Count.Equals(6));
+            reflectionOnPracticePage.case3TabBtn.Click();
+            selected = reflectionOnPracticePage.case3TabBtn.GetAttribute("aria-selected");
+            TestBase.wait.Equals(selected.Equals(true));
+            Thread.Sleep(500);
             reflectionOnPracticePage = new ReflectionOnPracticePage(TestBase.driver);
             reflectionOnPracticePage.textareaText = dummyExtraLongText;
             reflectionOnPracticePage.inputText = dummyLongText;
             reflectionOnPracticePage.CompleteForm(3,"png", false);
+            reflectionOnPracticePage.case3TabBtn.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//mat-datepicker-toggle")));
             foreach (var e in reflectionOnPracticePage.limitReachedMsgs)
                 Assert.That(e.Displayed);
             foreach (var e in reflectionOnPracticePage.textareaLimitCounter)
                 Assert.That(e.Text.Equals("8000/8000"));
-            Assert.That(reflectionOnPracticePage.limitReachedMsgs.Count.Equals(7));
+            Assert.That(reflectionOnPracticePage.limitReachedMsgs.Count.Equals(6));
+            reflectionOnPracticePage.case4TabBtn.Click();
+            selected = reflectionOnPracticePage.case4TabBtn.GetAttribute("aria-selected");
+            TestBase.wait.Equals(selected.Equals(true));
+            Thread.Sleep(500);
             reflectionOnPracticePage = new ReflectionOnPracticePage(TestBase.driver);
             reflectionOnPracticePage.textareaText = dummyExtraLongText;
             reflectionOnPracticePage.inputText = dummyLongText;
             reflectionOnPracticePage.CompleteForm(4,"png", false);
+            reflectionOnPracticePage.case4TabBtn.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//mat-datepicker-toggle")));
             foreach (var e in reflectionOnPracticePage.limitReachedMsgs)
                 Assert.That(e.Displayed);
             foreach (var e in reflectionOnPracticePage.textareaLimitCounter)
                 Assert.That(e.Text.Equals("8000/8000"));
-            Assert.That(reflectionOnPracticePage.limitReachedMsgs.Count.Equals(7));
+            Assert.That(reflectionOnPracticePage.limitReachedMsgs.Count.Equals(6));
 
         }
 
@@ -175,14 +200,19 @@ namespace ReflectionOnPracticeTests
                 for (int i = 0; i < actualInputs.Count; i++)
                 {
                     if (actualInputs[i].TagName.Equals("input"))
-                        Assert.That(actualInputs[i].GetAttribute("value").Equals(reflectionOnPracticePage.inputText+"Updated"));
+                    {
+                        if (actualInputs[i].GetAttribute("formcontrolname").Contains("Email"))
+                            Assert.That(actualInputs[i].GetAttribute("value").Equals(TestBase.uiUsername));
+                        else
+                            Assert.That(actualInputs[i].GetAttribute("value").Equals(reflectionOnPracticePage.inputText + "Updated"));
+                    }
                     else
-                        Assert.That(actualInputs[i].GetAttribute("value").Equals(reflectionOnPracticePage.textareaText+"Updated"+ reflectionOnPracticePage.inputText + "Updated"));
+                        Assert.That(actualInputs[i].GetAttribute("value").Equals(reflectionOnPracticePage.textareaText + "Updated" + reflectionOnPracticePage.inputText + "Updated"));
                 }
                 Assert.That(reflectionOnPracticePage.dateInput.GetAttribute("value").Equals(TestBase.caseDate));
             }
             dashboardPage.openSideMenuIfClosed();
-            Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("class").Contains("completed"));
+            Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
 
         private void requiredMessages(int caseFormNo)

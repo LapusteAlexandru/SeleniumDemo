@@ -226,15 +226,25 @@ namespace Pages
             tab.Click();
             var selected = tab.GetAttribute("aria-selected");
             TestBase.wait.Equals(selected.Equals(true));
-            Thread.Sleep(1000);
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//mat-datepicker-toggle")));
             IWebElement datePicker = TestBase.driver.FindElement(By.XPath("//mat-datepicker-toggle"));
             datePicker.Click();
             IWebElement firstDayOfMonth = TestBase.driver.FindElement(By.XPath("//div[text()='1']"));
             firstDayOfMonth.Click();
             for (int i = 0; i < input.Count; i++)
             {
-                input[i].Clear();
-                input[i].SendKeys(inputText); }
+                if (input[i].GetAttribute("formcontrolname").Contains("Email"))
+                {
+
+                    input[i].Clear();
+                    input[i].SendKeys(TestBase.uiUsername);
+                }
+                else
+                {
+                    input[i].Clear();
+                    input[i].SendKeys(inputText);
+                }
+            }
             for (int i = 0; i < textarea.Count; i++) 
             {
                 textarea[i].Clear();
@@ -250,11 +260,7 @@ namespace Pages
                 TestBase.uploadField(filename, fileExtension);
             }
             submitBtn.Click();
-            try
-            {
-                TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageUpdatedMsg));
-            }
-            catch { }
+            
         }
     }
 }

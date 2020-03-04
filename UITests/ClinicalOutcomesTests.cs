@@ -63,7 +63,7 @@ namespace ClinicalOutcomesTests
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(clinicalOutcomesPage.title));
             dashboardPage.openSideMenuIfClosed();
             Assert.That(clinicalOutcomesPage.CMARequirementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(clinicalOutcomesPage.statusIndicator.GetAttribute("class").Contains("completed"));
+            Assert.That(clinicalOutcomesPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
     }
 }

@@ -67,7 +67,7 @@ namespace ProbityStatementsTests
             Assert.That(probityStatementsPage.professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(probityStatementsPage.suspensionCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(probityStatementsPage.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked")); 
-            Assert.That(probityStatementsPage.statusIndicator.GetAttribute("class").Contains("completed"));
+            Assert.That(probityStatementsPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
         [Test]
         public void TestEditSuccessfully()

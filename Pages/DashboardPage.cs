@@ -66,7 +66,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Registration Requests')]")]
         public IWebElement registrationRequestsBtn { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//h5[contains(@class,'user-info')]")]
+        [FindsBy(How = How.XPath, Using = "//div[contains(@class,'user-info')]")]
         public IWebElement username { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//i[contains(@class,'menu-icon')]")]
