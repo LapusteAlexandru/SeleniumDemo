@@ -157,8 +157,9 @@ namespace RCoS
                 }
                 catch { }
             }
-            IList<IWebElement> uploadFileDeleteButtons = driver.FindElements(By.XPath("//app-file-item//button"));
-            foreach (IWebElement e in uploadFileDeleteButtons)
+            Thread.Sleep(500);
+            IList <IWebElement> deleteButtons = driver.FindElements(By.XPath("//app-file-item//button"));
+            foreach (IWebElement e in deleteButtons)
             {
                 wait.Until(ExpectedConditions.ElementToBeClickable(e));
             }
