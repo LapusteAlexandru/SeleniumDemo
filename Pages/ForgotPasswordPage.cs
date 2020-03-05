@@ -88,6 +88,8 @@ namespace Pages
             emailInput.SendKeys(username);
             submitBtn.Click();
             Thread.Sleep(2000);
+            if (TestBase.ElementIsPresent(userNotRegistered))
+                return null;
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
             string allEmails = mailRepository.GetUnreadMails(Subject.ForgotPassword);
             var linkParser = new Regex(@"(?:https?://rcs-cosmetics-identity-dev.azurewebsites.net/Account/ResetPassword)\S+\b");

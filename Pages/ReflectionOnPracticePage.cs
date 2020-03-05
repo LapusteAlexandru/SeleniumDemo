@@ -226,6 +226,7 @@ namespace Pages
             tab.Click();
             var selected = tab.GetAttribute("aria-selected");
             TestBase.wait.Equals(selected.Equals(true));
+            Thread.Sleep(1000);
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//mat-datepicker-toggle")));
             IWebElement datePicker = TestBase.driver.FindElement(By.XPath("//mat-datepicker-toggle"));
             datePicker.Click();

@@ -35,6 +35,12 @@ namespace FileUploadTests
             UploadModel uploadModel = Upload("wrongFormat", "jfif");
             Assert.That(uploadModel.formatValidationMsg.Displayed);
         }
+        [Test]
+        public void TestUploadEmptyFile()
+        {
+            UploadModel uploadModel = Upload("empty", "doc");
+            Assert.That(uploadModel.emptyFileMsg.Displayed);
+        }
 
         private UploadModel Upload(string fileName, string fileExtension)
         {

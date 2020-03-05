@@ -2,8 +2,7 @@
 using MailKit.Net.Imap;
 using MailKit.Search;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading;
 using static Helpers.MailSubjectEnum;
 
@@ -26,7 +25,7 @@ namespace Helpers
 
         public string GetUnreadMails(Subject subject)
         {
-            string messages="" ;
+            string content="" ;
             int retryCounter = 0;
             int maxRetries = 300;
             string sub = "";
@@ -57,23 +56,17 @@ namespace Helpers
                 client.Authenticate(login, password);
                 bool found = false;
                 var inbox = client.Inbox;
-                while (inbox.Count < 1)
+                while (retryCounter < maxRetries)
                 {
 
                     try
                     {
                         inbox.Open(FolderAccess.ReadWrite);
-                        var results = inbox.Search(SearchOptions.All, SearchQuery.Not(SearchQuery.Seen));
-                        foreach (var uniqueId in results.UniqueIds)
-                        {
-                            var message = inbox.GetMessage(uniqueId);
-                            if (message.Subject.Equals(sub))
-                            {
-                                messages = message.HtmlBody;
-                                found = true;
-                            }
-                            inbox.AddFlags(uniqueId, MessageFlags.Deleted, true);
-                        }
+                        var results = inbox.Search(SearchOptions.All, SearchQuery.Not(SearchQuery.Seen).And(SearchQuery.SubjectContains(sub)));
+                        var message = inbox.GetMessage(results.UniqueIds.Max());
+                        content = message.HtmlBody;
+                        found = true;
+                        inbox.AddFlags(results.UniqueIds, MessageFlags.Deleted, true);
                     }
                     catch(Exception e)
                     {
@@ -81,13 +74,13 @@ namespace Helpers
                     }
                     Thread.Sleep(2000);
                     retryCounter += 1;
-                    if (found == true || retryCounter == maxRetries)
+                    if (found == true)
                         break;
                 }
                 client.Disconnect(true);
             }
 
-            return messages;
+            return content;
         }
 
     }

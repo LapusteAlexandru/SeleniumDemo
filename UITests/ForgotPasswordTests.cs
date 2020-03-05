@@ -85,6 +85,7 @@ namespace ForgotPasswordTests
             ForgotPasswordPage forgotPasswordPage = loginPage.GetForgotPassword();
             forgotPasswordPage.SendResetEmail(TestBase.username);
             Thread.Sleep(2000);
+            Assert.False(TestBase.ElementIsPresent(forgotPasswordPage.userNotRegistered));
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
             string allEmails = mailRepository.GetUnreadMails(Subject.ForgotPassword);
             var linkParser = new Regex(@"(?:https?://rcs-cosmetics-identity-dev.azurewebsites.net/Account/ResetPassword)\S+\b");
