@@ -204,7 +204,10 @@ namespace RCoS
                 command.ExecuteNonQuery();
                 command.Dispose();
             }
-            sql = "DELETE FROM " + tableName + " WHERE ApplicantId ='" + id + "'";
+            if(tableName.Contains("Documents"))
+                sql = "DELETE FROM " + tableName + " WHERE ApplicationId ='" + id + "'";
+            else
+                sql = "DELETE FROM " + tableName + " WHERE ApplicantId ='" + id + "'";
             command = new SqlCommand(sql, cnn);
             command.ExecuteNonQuery();
             command.Dispose();

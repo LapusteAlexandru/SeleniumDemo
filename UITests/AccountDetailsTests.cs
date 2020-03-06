@@ -70,11 +70,13 @@ namespace AccountDetailsTests
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
             AccountDetailsPage accountDetailsPage = dashboardPage.getAccountDetails();
+            dashboardPage.openSideMenuIfClosed();
             Assert.That(accountDetailsPage.statusIndicator.GetAttribute("mattooltip").Contains("Not Stared"));
             accountDetailsPage.CompleteForm(TestBase.userTitle, TestBase.userFirstName, TestBase.userLastName, TestBase.userAddress, TestBase.userPhone,TestBase.userGender, TestBase.userGmcNumber.ToString(), TestBase.userGmcSpecialty, TestBase.userCareerGrade);
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(accountDetailsPage.accountSubmittedMsg));
             foreach (var e in accountDetailsPage.GetMainElements())
                 Assert.That(!e.Enabled || e.GetAttribute("class").Contains("mat-checkbox-disabled") || e.GetAttribute("class").Contains("mat-select-disabled"));
+            dashboardPage.openSideMenuIfClosed();
             Assert.That(accountDetailsPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
 
         }

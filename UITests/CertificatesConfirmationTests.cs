@@ -74,16 +74,21 @@ namespace CertificatesConfirmationTests
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             CertificateConfirmationPage certificateConfirmationPage = dashboardPage.getSubmitApplication();
             certificateConfirmationPage.breastSurgeryCheckbox.Click();
-            certificateConfirmationPage.submitBtn.Click();
+            certificateConfirmationPage.getPaymentCheck();
             TestBase.driver.Navigate().Refresh();
+            dashboardPage.openSideMenuIfClosed(); 
+            dashboardPage.getSubmitApplication();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(certificateConfirmationPage.submitBtn));
-            dashboardPage.openSideMenuIfClosed();
             Assert.That(certificateConfirmationPage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            dashboardPage.openSideMenuIfClosed();
             AccountDetailsPage accountDetailspage = dashboardPage.getAccountDetails();
             Assert.That(accountDetailspage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            dashboardPage.openSideMenuIfClosed();
             dashboardPage.getSubmitApplication();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(certificateConfirmationPage.submitBtn));
             certificateConfirmationPage.breastSurgeryCheckbox.Click();
-            certificateConfirmationPage.submitBtn.Click();
+            certificateConfirmationPage.getPaymentCheck();
+            
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//input[@type='file']/ancestor::button")]
         public IWebElement uploadInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Continuing Professional Development')]//i[contains(@class,'far')]")]
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Continuing Professional Development')]/..//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();

@@ -53,6 +53,15 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Cosmetic surgery of the face/nose/periorbital region/ears')]/ancestor::mat-checkbox")]
         public IWebElement earsSurgeryCheckbox { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Cosmetic body contouring surgery')]/ancestor::mat-checkbox")]
+        public IWebElement bodyCountouringCheckbox { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Supplementary certificate in body contouring')]/ancestor::mat-checkbox")]
+        public IWebElement massiveWeightLossCheckbox { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//span[text()=' Cosmetic Surgery ']/ancestor::mat-checkbox")]
+        public IWebElement cosmeticSurgeryCheckbox { get; set; }
+
         [FindsBy(How = How.XPath, Using = "//button[@type='submit']")]
         public IWebElement submitBtn { get; set; }
 
@@ -66,6 +75,9 @@ namespace Pages
             mainElements.Add(facialSurgeryCheckbox);
             mainElements.Add(faceSurgeryCheckbox);
             mainElements.Add(earsSurgeryCheckbox);
+            mainElements.Add(bodyCountouringCheckbox);
+            mainElements.Add(massiveWeightLossCheckbox);
+            mainElements.Add(cosmeticSurgeryCheckbox);
             mainElements.Add(submitBtn);
             return mainElements;
         }

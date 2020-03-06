@@ -40,7 +40,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//mat-error[contains(text(),'required') or contains(text(),'At least one file')]")]
         public IList<IWebElement> requiredMsgs { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Clinical Outcomes')]//i[contains(@class,'far')]")]
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Clinical Outcomes')]/..//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Clinical outcomes were successfully')]")]
         public IWebElement pageSubmitedMsg { get; set; }

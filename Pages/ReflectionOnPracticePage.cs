@@ -47,7 +47,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//input[@type='file']/ancestor::button")]
         public IWebElement uploadInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Reflection on Practice')]//i[contains(@class,'far')]")]
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Reflection on Practice')]/..//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
 
         [FindsBy(How = How.Id, Using = "mat-tab-label-0-0")]
@@ -226,7 +226,7 @@ namespace Pages
             tab.Click();
             var selected = tab.GetAttribute("aria-selected");
             TestBase.wait.Equals(selected.Equals(true));
-            Thread.Sleep(1000);
+            Thread.Sleep(1500);
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//mat-datepicker-toggle")));
             IWebElement datePicker = TestBase.driver.FindElement(By.XPath("//mat-datepicker-toggle"));
             datePicker.Click();

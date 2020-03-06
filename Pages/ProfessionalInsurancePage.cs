@@ -52,7 +52,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//mat-error[contains(text(),'required') or contains(text(),'At least one file')]")]
         public IList<IWebElement> requiredMsgs { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Professional Indemnity Insurance')]//i[contains(@class,'far')]")]
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Professional Indemnity Insurance')]/..//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Professional indemnity insurance was successfully updated')]")]

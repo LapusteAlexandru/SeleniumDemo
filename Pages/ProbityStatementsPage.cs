@@ -47,7 +47,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//mat-error[contains(text(),'required')]")]
         public IList<IWebElement> requiredMsgs { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Probity Statements')]//i[contains(@class,'far')]")]
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Probity Statements')]/..//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Probity statements were successfully updated')]")]
