@@ -15,7 +15,6 @@ namespace ProfessionalInsuranceTests
         public void Clear()
         {
             TestBase.deleteSectionData("[dbo].[ProfessionalIndemnityInsurances]", TestBase.uiUsername, "ProfessionalIndemnityInsurance");
-            TestBase.deleteSectionData("[dbo].[Documents]", TestBase.uiUsername);
         }
         [SetUp]
         public void Setup()

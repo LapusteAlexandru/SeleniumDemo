@@ -131,6 +131,7 @@ namespace RCoS
             // act
             IRestResponse response = apiClient.Execute(request);
             var token = JToken.Parse(response.Content);
+
             if (token is JArray)
             {
                 var responseBody = token.ToObject<List<JObject>>();
@@ -143,7 +144,6 @@ namespace RCoS
             }
             return id;
         }
-
         public static void uploadField(string fileName,string fileExtension)
         {
             IList<IWebElement> uploadInputs = driver.FindElements(By.XPath("//input[@type='file']"));
@@ -197,20 +197,39 @@ namespace RCoS
             cnn.Open();
             if (cnn.State == ConnectionState.Open)
                 Console.WriteLine("Connected successfully!");
-            if (section != "")
+            if (section != "" && section !="Status")
             {
-                sql = "UPDATE [dbo].[Applications] SET " + section + "Id = null WHERE ApplicantId ='" + id + "'";
+                sql = "UPDATE [dbo].[Applications] SET " + section + "Id = null WHERE Id =" + id ;
                 command = new SqlCommand(sql, cnn);
                 command.ExecuteNonQuery();
                 command.Dispose();
             }
-            if(tableName.Contains("Documents"))
-                sql = "DELETE FROM " + tableName + " WHERE ApplicationId ='" + id + "'";
-            else
-                sql = "DELETE FROM " + tableName + " WHERE ApplicantId ='" + id + "'";
-            command = new SqlCommand(sql, cnn);
-            command.ExecuteNonQuery();
-            command.Dispose();
+            if(section == "Status")
+            {
+                sql = "UPDATE [dbo].[Applications] SET " + section + "= 1 WHERE Id =" + id ;
+                command = new SqlCommand(sql, cnn);
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            if (tableName.Contains("Documents"))
+            {
+                sql = "SELECT Id FROM [dbo].[Applications] WHERE ApplicantId =" + id;
+                command = new SqlCommand(sql, cnn);
+                int applicationId = (int)(command.ExecuteScalar());
+                command.Dispose();
+                sql = "DELETE FROM " + tableName + " WHERE ApplicationId =" + applicationId;
+                command = new SqlCommand(sql, cnn);
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            else if (!tableName.Contains("Applications"))
+            {
+                sql = "DELETE FROM " + tableName + " WHERE Id ='" + id + "'"; 
+                command = new SqlCommand(sql, cnn);
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            
         }
         public static void deleteSectionData(string tableName, string username)
         {

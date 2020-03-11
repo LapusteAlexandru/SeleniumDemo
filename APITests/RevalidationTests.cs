@@ -35,14 +35,12 @@ namespace APITests
             // create request
             RestRequest request = new RestRequest("/api/revalidation", Method.POST);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
-            var id = TestBase.getObjectID("/api/applicants", jwt);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             DocumentsModel documentModel = new DocumentsModel();
             documentModel.fileName = "string";
             documentModel.blobStorageId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
             RevalidationModel revalidationModel = new RevalidationModel();
             revalidationModel.id = 0;
-            revalidationModel.applicantId = id;
             revalidationModel.declareAppraisal = true;
             revalidationModel.gmcLetters = new List<DocumentsModel>();
             revalidationModel.gmcLetters.Add(documentModel);
@@ -62,7 +60,6 @@ namespace APITests
             // create request
             RestRequest request = new RestRequest("/api/revalidation", Method.PUT);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
-            var id = TestBase.getObjectID("/api/applicants", jwt);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             var insuranceId = TestBase.getObjectID("/api/revalidation", jwt);
             DocumentsModel documentModel = new DocumentsModel();
@@ -70,7 +67,6 @@ namespace APITests
             documentModel.blobStorageId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
             RevalidationModel revalidationModel = new RevalidationModel();
             revalidationModel.id = insuranceId;
-            revalidationModel.applicantId = id;
             revalidationModel.declareAppraisal = false;
             revalidationModel.gmcLetters = new List<DocumentsModel>();
             revalidationModel.gmcLetters.Add(documentModel);

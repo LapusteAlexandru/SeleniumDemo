@@ -38,14 +38,12 @@ namespace APITests
             // create request
             RestRequest request = new RestRequest("/api/professional-indemnity-insurance", Method.POST);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
-            var id = TestBase.getObjectID("/api/applicants", jwt);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             DocumentsModel documentModel = new DocumentsModel();
             documentModel.fileName = "string";
             documentModel.blobStorageId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
             ProfessionalIndemnityInsuranceModel professionalInsurance = new ProfessionalIndemnityInsuranceModel();
             professionalInsurance.id = 0;
-            professionalInsurance.applicantId = id;
             professionalInsurance.hasIndemnityArrangements = true;
             professionalInsurance.isPracticeDisclosed = true;
             professionalInsurance.isPracticeOverseas = true;
@@ -65,7 +63,6 @@ namespace APITests
             // create request
             RestRequest request = new RestRequest("/api/professional-indemnity-insurance", Method.PUT);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
-            var id = TestBase.getObjectID("/api/applicants", jwt);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             var insuranceId = TestBase.getObjectID("/api/professional-indemnity-insurance", jwt);
             DocumentsModel documentModel = new DocumentsModel();
@@ -73,7 +70,6 @@ namespace APITests
             documentModel.blobStorageId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
             ProfessionalIndemnityInsuranceModel professionalInsurance = new ProfessionalIndemnityInsuranceModel();
             professionalInsurance.id = insuranceId;
-            professionalInsurance.applicantId = id;
             professionalInsurance.hasIndemnityArrangements = true;
             professionalInsurance.isPracticeDisclosed = true;
             professionalInsurance.isPracticeOverseas = false;

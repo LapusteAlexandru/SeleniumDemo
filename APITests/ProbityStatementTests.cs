@@ -39,12 +39,10 @@ namespace APITests
             // create request
             RestRequest request = new RestRequest("/api/probity-statements", Method.POST);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
-            var id = TestBase.getObjectID("/api/applicants", jwt);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
 
             ProbityStatementsModel probityStatement = new ProbityStatementsModel();
             probityStatement.id = 0;
-            probityStatement.applicantId = id;
             probityStatement.acceptAbsenceOfSuspensions = true;
             probityStatement.acceptProfessionalObligations = true;
             probityStatement.subjectOfInvestigation = "I have nothing to declare";
@@ -63,13 +61,11 @@ namespace APITests
             // create request
             RestRequest request = new RestRequest("/api/probity-statements", Method.PUT);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
-            var userId = TestBase.getObjectID("/api/applicants",  jwt);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             var probityId = TestBase.getObjectID("/api/probity-statements",  jwt);
 
             ProbityStatementsModel probityStatement = new ProbityStatementsModel();
             probityStatement.id = probityId;
-            probityStatement.applicantId = userId;
             probityStatement.acceptAbsenceOfSuspensions = true;
             probityStatement.acceptProfessionalObligations = true;
             probityStatement.subjectOfInvestigation = "I have something to declare";

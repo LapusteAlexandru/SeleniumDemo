@@ -31,7 +31,6 @@ namespace APITests
             // create request
             RestRequest request = new RestRequest("/api/reflection-on-practice", Method.POST);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
-            var id = TestBase.getObjectID("/api/applicants", jwt);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             DocumentsModel documentModel = new DocumentsModel();
             documentModel.fileName = "string";
@@ -42,7 +41,6 @@ namespace APITests
             {
                 ReflectionOnPracticeModel reflectionOnPractice = new ReflectionOnPracticeModel();
                 reflectionOnPractice.id = 0;
-                reflectionOnPractice.applicantId = id;
                 reflectionOnPractice.caseNumber = i;
                 reflectionOnPractice.caseDate = "2020-02-10T09:43:25.179Z";
                 reflectionOnPractice.hospitalSite = "HospitalSite "+i;

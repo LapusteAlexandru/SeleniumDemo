@@ -14,6 +14,8 @@ namespace ProbityStatementsTests
         [OneTimeSetUp]
         public void Clear()
         {
+            TestBase.deleteSectionData("[dbo].[Applications]", TestBase.uiUsername, "Status");
+            TestBase.deleteSectionData("[dbo].[Documents]", TestBase.uiUsername);
             TestBase.deleteSectionData("[dbo].[ProbityStatements]", TestBase.uiUsername, "ProbityStatement");
         }
         [SetUp]
