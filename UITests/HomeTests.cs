@@ -56,14 +56,6 @@ namespace HomeTests
             Assert.That(TestBase.driver.Url.Equals("https://www.gmc-uk.org/"));
         }
         [Test]
-        public void TestAdditionalInfoBtn()
-        {
-            HomePage homePage = new HomePage(TestBase.driver);
-            homePage.additionalInfoBtn.Click();
-            TestBase.SwitchTab();
-            Assert.That(TestBase.driver.Url.Equals("https://www.gmc-uk.org/"));
-        }
-        [Test]
         public void TestStandardsBtn()
         {
             HomePage homePage = new HomePage(TestBase.driver);

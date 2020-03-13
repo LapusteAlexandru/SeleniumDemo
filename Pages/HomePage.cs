@@ -32,9 +32,6 @@ namespace Pages
         [FindsBy(How = How.PartialLinkText, Using = "Eligibility")]
         public IWebElement eligibilityBtn { get; set; }
 
-        [FindsBy(How = How.PartialLinkText, Using = "Additional")]
-        public IWebElement additionalInfoBtn { get; set; }
-
         [FindsBy(How = How.PartialLinkText, Using = "Standards")]
         public IWebElement standardsBtn { get; set; }
 
@@ -77,7 +74,6 @@ namespace Pages
             mainElements.Add(homeBtn);
             mainElements.Add(introToCosmeticsBtn);
             mainElements.Add(eligibilityBtn);
-            mainElements.Add(additionalInfoBtn);
             mainElements.Add(standardsBtn);
             mainElements.Add(guidelinesBtn);
             mainElements.Add(evidenceBtn);
