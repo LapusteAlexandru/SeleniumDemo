@@ -9,7 +9,8 @@ namespace Helpers
             Register,
             ForgotPassword,
             RegistrationAccepted,
-            RegistrationRejected
+            RegistrationRejected,
+            ApplicationApproval
         }
     }
 }

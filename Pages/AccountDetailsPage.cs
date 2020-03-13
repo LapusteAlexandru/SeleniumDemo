@@ -43,37 +43,37 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//h4[text()='Account Details']")]
         public IWebElement title { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-input-0")]
+        [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='title']")]
         public IWebElement titleInput { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-input-1")]
+        [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='firstName']")]
         public IWebElement firstNameInput { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-input-2")]
+        [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='lastName']")]
         public IWebElement lastNameInput { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-input-3")]
+        [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='birthday']")]
         public IWebElement dateInput { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-input-4")]
+        [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='address']")]
         public IWebElement addressInput { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-input-5")]
+        [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='email']")]
         public IWebElement emailInput { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-input-6")]
+        [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='phoneNumber']")]
         public IWebElement phoneInput { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-select-0")]
+        [FindsBy(How = How.XPath, Using = "//mat-label[text()='Gender']/ancestor::mat-form-field//mat-select")]
         public IWebElement genderSelect { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-select-1")]
+        [FindsBy(How = How.XPath, Using = "//mat-label[text()='GMC specialty']/ancestor::mat-form-field//mat-select")]
         public IWebElement gmcSpecialitySelect { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-input-7")]
+        [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='gmcNumber']")]
         public IWebElement gmcNumberInput { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-select-2")]
+        [FindsBy(How = How.XPath, Using = "//mat-label[text()='Career Grade']/ancestor::mat-form-field//mat-select")]
         public IWebElement careerGradeSelect { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Cosmetic breast surgery')]/ancestor::mat-checkbox")]

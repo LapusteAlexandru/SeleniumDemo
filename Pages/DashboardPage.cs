@@ -66,6 +66,9 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Registration Requests')]")]
         public IWebElement registrationRequestsBtn { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Application Requests')]")]
+        public IWebElement applicationRequestsBtn { get; set; }
+
         [FindsBy(How = How.XPath, Using = "//*[contains(@class,'user-info')]")]
         public IWebElement username { get; set; }
 
@@ -199,6 +202,13 @@ namespace Pages
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(registrationRequestsBtn));
             registrationRequestsBtn.Click();
             return new RegistrationRequestsPage(TestBase.driver);
+        }
+        public ApplicationRequestsPage getApplicationRequests()
+        {
+            openSideMenuIfClosed();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(applicationRequestsBtn));
+            applicationRequestsBtn.Click();
+            return new ApplicationRequestsPage(TestBase.driver);
         }
         public HomePage logout()
         {

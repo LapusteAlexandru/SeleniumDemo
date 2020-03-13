@@ -22,16 +22,16 @@ namespace Pages
             }
             PageFactory.InitElements(driver, this);
         }
-        [FindsBy(How = How.XPath, Using = "//h4[text()='Operative Exposure']")]
+        [FindsBy(How = How.XPath, Using = "//h4[text()='Operation Numbers']")]
         public IWebElement title { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//mat-card-content//div[@class='panel']")]
         public IWebElement infoPanel { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-checkbox-1")]
+        [FindsBy(How = How.XPath, Using = "//mat-checkbox[@formcontrolname='declareProceduresAreTrue']")]
         public IWebElement proceduresCheckbox { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-checkbox-2")]
+        [FindsBy(How = How.XPath, Using = "//mat-checkbox[@formcontrolname='declareEnvironmentMeetsStandards']")]
         public IWebElement operativeExposureCheckbox { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//input[@type='file']/ancestor::button")]

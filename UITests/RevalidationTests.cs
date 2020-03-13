@@ -50,7 +50,7 @@ namespace RevalidationTests
             Thread.Sleep(300);
             foreach (var e in revalidationPage.requiredMsgs)
                 Assert.That(e.Displayed);
-            Assert.That(revalidationPage.requiredMsgs.Count.Equals(3));
+            Assert.That(revalidationPage.requiredMsgs.Count.Equals(5));
         }
         [Test, Order(2)]
         public void TestSubmitSuccessfully()

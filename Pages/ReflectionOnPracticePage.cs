@@ -50,16 +50,16 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Reflection on Practice')]/..//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-tab-label-0-0")]
+        [FindsBy(How = How.XPath, Using = "//div[text()='Case 1']/..")]
         public IWebElement case1TabBtn { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-tab-label-0-1")]
+        [FindsBy(How = How.XPath, Using = "//div[text()='Case 2']/..")]
         public IWebElement case2TabBtn { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-tab-label-0-2")]
+        [FindsBy(How = How.XPath, Using = "//div[text()='Case 3']/..")]
         public IWebElement case3TabBtn { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-tab-label-0-3")]
+        [FindsBy(How = How.XPath, Using = "//div[text()='Case 4']/..")]
         public IWebElement case4TabBtn { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='caseDate']")]
@@ -109,8 +109,10 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//mat-hint")]
         public IList<IWebElement> textareaLimitCounter { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//button[@type='submit']")]
+        [FindsBy(How = How.XPath, Using = "//span[text()=' Save ']/..")]
         public IWebElement submitBtn { get; set; }
+        [FindsBy(How = How.XPath, Using = "//span[text()=' Save as draft ']/..")]
+        public IWebElement saveAsDraftBtn { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();
         public IList<IWebElement> inputElements = new List<IWebElement>();

@@ -61,7 +61,7 @@ namespace PaymentCheckTests
             PaymentCheckPage paymentCheckPage = certificateConfirmationPage.getPaymentCheck();
             ApplicationThankYouPage tyPage = paymentCheckPage.getThankYou();
             Assert.That(tyPage.thankYouMsgCard.Displayed);
-
+            Assert.That(TestBase.driver.FindElement(By.XPath("//div[contains(text(),'Submit Application')]/ancestor::a")).GetAttribute("class").Contains("disabled"));
         }
         [Test]
         public void TestHaventPaid()

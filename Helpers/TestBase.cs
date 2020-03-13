@@ -24,6 +24,7 @@ namespace RCoS
         public static string username = "amdaris.rcos@gmail.com";
         public static string password = "123aA@123";
         public static string uiUsername = "amdaris.rcos.ui@gmail.com";
+        public static string appUsername = "amdaris.rcos.application@gmail.com";
         public static string adminUsername = "mail@mail.com";
         public static string adminPassword = "P@ssword1";
         public static string apiUsername = "amdaris.rcos.api@gmail.com";
@@ -44,6 +45,7 @@ namespace RCoS
         public static string userBirthday = currentMonth + " 01, " + currentYear;
         public static string caseDate = DateTime.Now.Month + "/1/" + currentYear;
         public static List<string> userData = new List<string> {userGender, currentDate, username, userBirthday, userGmcNumber.ToString(),userGmcSpecialty,userCareerGrade };
+        public static List<string> applicantData = new List<string> {appUsername, userGmcNumber.ToString(),userGmcSpecialty};
         public static List<string> expandableUserData = new List<string> {userPhone,userAddress};
         public static IWebDriver driver { get; set; }
         public static WebDriverWait wait { get; set; }
@@ -185,7 +187,7 @@ namespace RCoS
             command.ExecuteNonQuery();
             command.Dispose();
         }
-        public static void deleteSectionData(string tableName, string username, string section)
+        public static void deleteSectionData(string tableName, string username, string section,int statusValue)
         {
             SqlConnection cnn;
             SqlCommand command;
@@ -206,7 +208,11 @@ namespace RCoS
             }
             if(section == "Status")
             {
-                sql = "UPDATE [dbo].[Applications] SET " + section + "= 1 WHERE Id =" + id ;
+                sql = "SELECT Id FROM [dbo].[Applications] WHERE ApplicantId =" + id;
+                command = new SqlCommand(sql, cnn);
+                int applicationId = (int)(command.ExecuteScalar());
+                command.Dispose();
+                sql = "UPDATE [dbo].[Applications] SET " + section + " = "+ statusValue + " WHERE Id =" + applicationId;
                 command = new SqlCommand(sql, cnn);
                 command.ExecuteNonQuery();
                 command.Dispose();
@@ -233,7 +239,10 @@ namespace RCoS
         }
         public static void deleteSectionData(string tableName, string username)
         {
-            deleteSectionData(tableName, username, "");
+            deleteSectionData(tableName, username, "",1);
+        }public static void deleteSectionData(string tableName, string username,string section)
+        {
+            deleteSectionData(tableName, username, section,1);
         }
     }
 }

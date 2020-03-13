@@ -29,16 +29,16 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//mat-card-content//div[@class='panel']")]
         public IWebElement infoPanel { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-checkbox-1")]
+        [FindsBy(How = How.XPath, Using = "//mat-checkbox[@formcontrolname='acceptProfessionalObligations']")]
         public IWebElement professionalObligationsCheckbox { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-checkbox-2")]
+        [FindsBy(How = How.XPath, Using = "//mat-checkbox[@formcontrolname='acceptAbsenceOfSuspensions']")]
         public IWebElement suspensionCheckbox { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-radio-2")]
+        [FindsBy(How = How.XPath, Using = "//mat-radio-button[@value='I have nothing to declare']")]
         public IWebElement nothingToDeclareRadio { get; set; }
 
-        [FindsBy(How = How.Id, Using = "mat-radio-3")]
+        [FindsBy(How = How.XPath, Using = "//mat-radio-button[@value='I have something to declare']")]
         public IWebElement somethingToDeclareRadio { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//button[@type='submit']")]

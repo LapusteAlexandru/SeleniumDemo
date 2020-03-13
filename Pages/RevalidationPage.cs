@@ -35,10 +35,10 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "(//input[@type='file']/ancestor::button)[2]")]
         public IWebElement annualAppraisalSummaryUploadInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Yes')]/ancestor::mat-radio-button")]
+        [FindsBy(How = How.XPath, Using = "//input[@value='true']/ancestor::mat-radio-button")]
         public IWebElement declareAppraisalYes { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'No')]/ancestor::mat-radio-button")]
+        [FindsBy(How = How.XPath, Using = "//input[@value='false']/ancestor::mat-radio-button")]
         public IWebElement declareAppraisalNo { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//button[@type='submit']")]

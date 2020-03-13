@@ -43,6 +43,9 @@ namespace Helpers
                 case Subject.RegistrationRejected:
                     sub = "Registration Request Rejection";
                     break;
+                case Subject.ApplicationApproval:
+                    sub = "Application Approval";
+                    break;
 
                 default:
                     break;
