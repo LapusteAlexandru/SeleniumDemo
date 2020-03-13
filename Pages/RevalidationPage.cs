@@ -68,6 +68,11 @@ namespace Pages
 
         public void CompleteForm(YesOrNoRadio radio, string filename1)
         {
+
+            TestBase.driver.FindElement(By.XPath("//input[@formcontrolname='mostRecentRevalidation']/ancestor::mat-form-field//mat-datepicker-toggle")).Click();
+            TestBase.driver.FindElement(By.XPath($"//div[text()='{TestBase.currentDayNumber}']")).Click();
+            TestBase.driver.FindElement(By.XPath("//input[@formcontrolname='nextRevalidation']/ancestor::mat-form-field//mat-datepicker-toggle")).Click();
+            TestBase.driver.FindElement(By.XPath($"//div[text()='{TestBase.currentDayNumber}']")).Click();
             string fileExtension = "png";
             if (radio.Equals(YesOrNoRadio.Yes))
                 declareAppraisalYes.Click();

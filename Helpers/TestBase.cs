@@ -38,12 +38,15 @@ namespace RCoS
         public static string userGmcNumber = "1231231";
         public static string userGmcSpecialty = "Vascular Surgery";
         public static string userCareerGrade = "Consultant established";
-        public static string currentMonth = DateTime.Now.ToString("MMMM");
-        public static string currentDay = DateTime.Now.ToString("dd");
-        public static string currentYear = DateTime.Now.Year.ToString();
+        public static int sectionId ;
+        public static DateTime dt = DateTime.Now;
+        public static string currentMonth = dt.ToString("MMMM");
+        public static int currentDay = dt.Day;
+        public static string currentDayNumber = dt.ToString("dd");
+        public static string currentYear = dt.Year.ToString();
         public static string currentDate = currentMonth + " " + currentDay + ", " + currentYear;
         public static string userBirthday = currentMonth + " 01, " + currentYear;
-        public static string caseDate = DateTime.Now.Month + "/1/" + currentYear;
+        public static string caseDate = dt.Month + "/1/" + currentYear;
         public static List<string> userData = new List<string> {userGender, currentDate, username, userBirthday, userGmcNumber.ToString(),userGmcSpecialty,userCareerGrade };
         public static List<string> applicantData = new List<string> {appUsername, userGmcNumber.ToString(),userGmcSpecialty};
         public static List<string> expandableUserData = new List<string> {userPhone,userAddress};
@@ -201,36 +204,39 @@ namespace RCoS
                 Console.WriteLine("Connected successfully!");
             if (section != "" && section !="Status")
             {
-                sql = "UPDATE [dbo].[Applications] SET " + section + "Id = null WHERE Id =" + id ;
+                sql = $"SELECT {section}Id FROM [dbo].[Applications] WHERE ApplicantId ={id}";
+                command = new SqlCommand(sql, cnn);
+                sectionId= (int)(command.ExecuteScalar());
+                sql = $"UPDATE [dbo].[Applications] SET {section}Id = null WHERE ApplicantId ={id}" ;
                 command = new SqlCommand(sql, cnn);
                 command.ExecuteNonQuery();
                 command.Dispose();
             }
             if(section == "Status")
             {
-                sql = "SELECT Id FROM [dbo].[Applications] WHERE ApplicantId =" + id;
+                sql = $"SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={id}";
                 command = new SqlCommand(sql, cnn);
                 int applicationId = (int)(command.ExecuteScalar());
                 command.Dispose();
-                sql = "UPDATE [dbo].[Applications] SET " + section + " = "+ statusValue + " WHERE Id =" + applicationId;
+                sql = $"UPDATE [dbo].[Applications] SET {section} = {statusValue} WHERE Id ={applicationId}";
                 command = new SqlCommand(sql, cnn);
                 command.ExecuteNonQuery();
                 command.Dispose();
             }
             if (tableName.Contains("Documents"))
             {
-                sql = "SELECT Id FROM [dbo].[Applications] WHERE ApplicantId =" + id;
+                sql = $"SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={id}";
                 command = new SqlCommand(sql, cnn);
                 int applicationId = (int)(command.ExecuteScalar());
                 command.Dispose();
-                sql = "DELETE FROM " + tableName + " WHERE ApplicationId =" + applicationId;
+                sql = $"DELETE FROM {tableName} WHERE ApplicationId ={applicationId}";
                 command = new SqlCommand(sql, cnn);
                 command.ExecuteNonQuery();
                 command.Dispose();
             }
             else if (!tableName.Contains("Applications"))
             {
-                sql = "DELETE FROM " + tableName + " WHERE Id ='" + id + "'"; 
+                sql = $"DELETE FROM {tableName} WHERE Id ={sectionId}"; 
                 command = new SqlCommand(sql, cnn);
                 command.ExecuteNonQuery();
                 command.Dispose();
