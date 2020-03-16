@@ -7,6 +7,7 @@ namespace Helpers
     class ReflectionOnPracticeModel
     {
         public int? id { get; set; }
+        public int applicationId { get; set; }
         public int caseNumber { get; set; }
         public string caseDate { get; set; }
         public string hospitalSite { get; set; }

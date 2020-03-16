@@ -19,8 +19,10 @@ namespace APITests
         public void GetRevalidationTest()
         {
             // create request
-            RestRequest request = new RestRequest("/api/revalidation", Method.GET);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
+            var id = TestBase.getObjectID("/api/applicants", jwt);
+            var applicationId = TestBase.getApplicationId(id);
+            RestRequest request = new RestRequest($"/api/revalidation/{applicationId}", Method.GET);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             // act
             IRestResponse response = apiClient.Execute(request);
@@ -40,7 +42,9 @@ namespace APITests
             documentModel.fileName = "string";
             documentModel.blobStorageId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
             RevalidationModel revalidationModel = new RevalidationModel();
+            var id = TestBase.getObjectID("/api/applicants", jwt);
             revalidationModel.id = 0;
+            revalidationModel.applicationId = TestBase.getApplicationId(id);
             revalidationModel.declareAppraisal = true;
             revalidationModel.gmcLetters = new List<DocumentsModel>();
             revalidationModel.gmcLetters.Add(documentModel);
@@ -61,12 +65,15 @@ namespace APITests
             RestRequest request = new RestRequest("/api/revalidation", Method.PUT);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
-            var insuranceId = TestBase.getObjectID("/api/revalidation", jwt);
+            var id = TestBase.getObjectID("/api/applicants", jwt);
+            var applicationId = TestBase.getApplicationId(id);
+            var insuranceId = TestBase.getObjectID("/api/revalidation", jwt, applicationId);
             DocumentsModel documentModel = new DocumentsModel();
             documentModel.fileName = "string";
             documentModel.blobStorageId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
             RevalidationModel revalidationModel = new RevalidationModel();
             revalidationModel.id = insuranceId;
+            revalidationModel.applicationId = applicationId;
             revalidationModel.declareAppraisal = false;
             revalidationModel.gmcLetters = new List<DocumentsModel>();
             revalidationModel.gmcLetters.Add(documentModel);

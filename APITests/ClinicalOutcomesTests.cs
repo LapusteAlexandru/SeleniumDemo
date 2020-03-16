@@ -19,8 +19,10 @@ namespace APITests
         public void GetClinicalOutcomesTest()
         {
             // create request
-            RestRequest request = new RestRequest("/api/clinical-outcomes", Method.GET);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
+            var id = TestBase.getObjectID("/api/applicants", jwt);
+            var applicationId = TestBase.getApplicationId(id);
+            RestRequest request = new RestRequest($"/api/clinical-outcomes/{applicationId}", Method.GET);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             // act
             IRestResponse response = apiClient.Execute(request);
@@ -40,7 +42,9 @@ namespace APITests
             documentModel.fileName = "string";
             documentModel.blobStorageId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
             ClinicalOutcomesModel clinicalOutcome = new ClinicalOutcomesModel();
+            var id = TestBase.getObjectID("/api/applicants", jwt);
             clinicalOutcome.id = 0;
+            clinicalOutcome.applicationId = TestBase.getApplicationId(id);
             clinicalOutcome.declareFamiliarWithRequirements = true;
             clinicalOutcome.documents = new List<DocumentsModel>();
             clinicalOutcome.documents.Add(documentModel);

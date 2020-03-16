@@ -24,7 +24,7 @@ namespace APITests
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             // act
             IRestResponse response = apiClient.Execute(request);
-            List<string> expectedCertificates = new List<string> { "Cosmetic surgery of the face/nose/periorbital region/ears", "Cosmetic breast surgery", "Cosmetic facial contouring surgery", "Cosmetic surgery of ear", "Cosmetic Surgery of periorbital region", "Cosmetic nasal surgery", "Cosmetic surgery of the face" };
+            List<string> expectedCertificates = new List<string> { "Cosmetic breast surgery", "Cosmetic nasal surgery", "Cosmetic Surgery of the periorbital region", "Cosmetic surgery of the ear", "Cosmetic facial contouring surgery", "Cosmetic surgery of the face", "Cosmetic surgery of the face/nose/periorbital region/ears", "Cosmetic body contouring surgery", "Supplementary certificate in body contouring following massive weight loss", "Cosmetic Surgery" };
             var actualCertificates = JsonConvert.DeserializeObject<List<CertificationsModel>>(response.Content);
             // assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));

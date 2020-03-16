@@ -5,6 +5,7 @@ using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using static Helpers.RadioButtonEnum;
 
 namespace Pages
@@ -73,6 +74,7 @@ namespace Pages
             TestBase.driver.FindElement(By.XPath($"//div[text()='{TestBase.currentDayNumber}']")).Click();
             TestBase.driver.FindElement(By.XPath("//input[@formcontrolname='nextRevalidation']/ancestor::mat-form-field//mat-datepicker-toggle")).Click();
             TestBase.driver.FindElement(By.XPath($"//div[text()='{TestBase.currentDayNumber}']")).Click();
+            Thread.Sleep(300);
             string fileExtension = "png";
             if (radio.Equals(YesOrNoRadio.Yes))
                 declareAppraisalYes.Click();

@@ -17,8 +17,10 @@ namespace APITests
         public void GetReflectionOnPracticeTest()
         {
             // create request
-            RestRequest request = new RestRequest("/api/reflection-on-practice", Method.GET);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
+            var id = TestBase.getObjectID("/api/applicants", jwt);
+            var applicationId = TestBase.getApplicationId(id);
+            RestRequest request = new RestRequest($"/api/reflection-on-practice/{applicationId}", Method.GET);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             // act
             IRestResponse response = apiClient.Execute(request);
@@ -40,7 +42,9 @@ namespace APITests
             for (int i = 1; i <= 4; i++)
             {
                 ReflectionOnPracticeModel reflectionOnPractice = new ReflectionOnPracticeModel();
+                var id = TestBase.getObjectID("/api/applicants", jwt);
                 reflectionOnPractice.id = 0;
+                reflectionOnPractice.applicationId = TestBase.getApplicationId(id);
                 reflectionOnPractice.caseNumber = i;
                 reflectionOnPractice.caseDate = "2020-02-10T09:43:25.179Z";
                 reflectionOnPractice.hospitalSite = "HospitalSite "+i;

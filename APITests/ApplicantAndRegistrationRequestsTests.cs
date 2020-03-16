@@ -16,11 +16,6 @@ namespace APITests
     {
         private static RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");
 
-        [OneTimeSetUp]
-        public void Clear()
-        {
-            TestBase.deleteUserData("[dbo].[Applicants]", TestBase.apiUsername);
-        }
 
         [Test, Order(2)]
         public void GetRegistrationRequestsTest()
@@ -40,7 +35,8 @@ namespace APITests
         public void AcceptRegistrationRequestsTest()
         {
 
-            UpdateApplicant(3);
+            TestBase.deleteUserData("[dbo].[Applicants]", TestBase.apiUsername);
+            submitApplicant();
             // create request
             RestRequest request = new RestRequest("/api/registration-requests/accept", Method.POST);
             var jwt = TestBase.getJWT(TestBase.adminUsername, TestBase.adminPassword);
@@ -110,7 +106,7 @@ namespace APITests
             Assert.That(actualApplicant.gmcNumber.Equals(TestBase.userGmcNumber));
             Assert.That(actualApplicant.gmcSpecialty.description.Equals(TestBase.userGmcSpecialty));
             Assert.That(actualApplicant.careerGrade.description.Equals(TestBase.userCareerGrade));
-            Assert.That(actualApplicant.certifications[0].id.Equals(1));
+            Assert.That(actualApplicant.certifications[0].id.Equals(8));
 
         }
 
@@ -119,58 +115,17 @@ namespace APITests
         [Test, Order(1)]
         public void PostApplicantTest()
         {
+            TestBase.deleteUserData("[dbo].[Applicants]", TestBase.apiUsername);
             // create request
-            RestRequest request = new RestRequest("/api/applicants", Method.POST);
-            var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
-            request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
-            GMCSPecialtiesModel specialitiesModel = new GMCSPecialtiesModel();
-            GradesModel gradesModel = new GradesModel();
-            CertificationsModel certificationsModel = new CertificationsModel();
-            specialitiesModel.id = 1;
-            gradesModel.id = 1;
-            certificationsModel.id = 1;
-            int gen;
-            if (TestBase.userGender.Equals("Male"))
-                gen = 1;
-            else
-                gen = 2;
-            ApplicantsModel applicantModel = new ApplicantsModel();
-            applicantModel.id = 0;
-            applicantModel.title = TestBase.userTitle;
-            applicantModel.firstName = TestBase.userFirstName;
-            applicantModel.lastName = TestBase.userLastName;
-            applicantModel.birthday = "2020-02-10T09:43:25.179Z";
-            applicantModel.email = TestBase.apiUsername;
-            applicantModel.phoneNumber = TestBase.userPhone;
-            applicantModel.gender = gen;
-            applicantModel.address = TestBase.userAddress;
-            applicantModel.gmcNumber = "1231231";
-            applicantModel.gmcSpecialty = specialitiesModel;
-            applicantModel.careerGrade = gradesModel;
-            applicantModel.status = 3;
-            applicantModel.certifications = new List<CertificationsModel>();
-            applicantModel.certifications.Add(certificationsModel);
 
-            var body = JsonConvert.SerializeObject(applicantModel);
-            request.AddJsonBody(body);
-
-            // act
-            var response = apiClient.Execute(request);
             // assert
-
+            var response = submitApplicant();
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
         }
         [Test, Order(5)]
         public void PutApplicantTest()
         {
             // create request
-            var response = UpdateApplicant(2);
-            // assert
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-        }
-
-        public static IRestResponse UpdateApplicant(int statusId)
-        {
             RestRequest request = new RestRequest("/api/applicants", Method.PUT);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
@@ -180,7 +135,7 @@ namespace APITests
             var id = TestBase.getObjectID("/api/applicants", jwt);
             specialitiesModel.id = 1;
             gradesModel.id = 1;
-            certificationsModel.id = 1;
+            certificationsModel.id = 8;
             int gen;
             if (TestBase.userGender.Equals("Male"))
                 gen = 1;
@@ -197,9 +152,53 @@ namespace APITests
             applicantModel.gender = gen;
             applicantModel.address = TestBase.userAddress;
             applicantModel.gmcNumber = "1231231";
+            applicantModel.role = "rcs.user";
             applicantModel.gmcSpecialty = specialitiesModel;
             applicantModel.careerGrade = gradesModel;
-            applicantModel.status = statusId;
+            applicantModel.status = 2;
+            applicantModel.certifications = new List<CertificationsModel>();
+            applicantModel.certifications.Add(certificationsModel);
+
+            var body = JsonConvert.SerializeObject(applicantModel);
+            request.AddJsonBody(body);
+
+            // act
+            var response = apiClient.Execute(request);
+            // assert
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+        }
+
+        public static IRestResponse submitApplicant()
+        {
+            RestRequest request = new RestRequest("/api/applicants", Method.POST);
+            var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
+            request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
+            GMCSPecialtiesModel specialitiesModel = new GMCSPecialtiesModel();
+            GradesModel gradesModel = new GradesModel();
+            CertificationsModel certificationsModel = new CertificationsModel();
+            specialitiesModel.id = 1;
+            gradesModel.id = 1;
+            certificationsModel.id = 8;
+            int gen;
+            if (TestBase.userGender.Equals("Male"))
+                gen = 1;
+            else
+                gen = 2;
+            ApplicantsModel applicantModel = new ApplicantsModel();
+            applicantModel.id = 0;
+            applicantModel.title = TestBase.userTitle;
+            applicantModel.firstName = TestBase.userFirstName;
+            applicantModel.lastName = TestBase.userLastName;
+            applicantModel.birthday = "2020-02-10T09:43:25.179Z";
+            applicantModel.email = TestBase.apiUsername;
+            applicantModel.phoneNumber = TestBase.userPhone;
+            applicantModel.gender = gen;
+            applicantModel.address = TestBase.userAddress;
+            applicantModel.gmcNumber = "1231231";
+            applicantModel.role = "rcs.user";
+            applicantModel.gmcSpecialty = specialitiesModel;
+            applicantModel.careerGrade = gradesModel;
+            applicantModel.status = 1;
             applicantModel.certifications = new List<CertificationsModel>();
             applicantModel.certifications.Add(certificationsModel);
 

@@ -19,8 +19,10 @@ namespace APITests
         public void GetOperativeExposure()
         {
             // create request
-            RestRequest request = new RestRequest("/api/operative-exposure", Method.GET);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
+            var id = TestBase.getObjectID("/api/applicants", jwt);
+            var applicationId = TestBase.getApplicationId(id);
+            RestRequest request = new RestRequest($"/api/operative-exposure/{applicationId}", Method.GET);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             // act
             IRestResponse response = apiClient.Execute(request);
@@ -40,8 +42,10 @@ namespace APITests
             DocumentsModel documentModel = new DocumentsModel();
             documentModel.fileName = "string";
             documentModel.blobStorageId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
-            OperativeExposureModel operativeExposure = new OperativeExposureModel();
+            OperativeExposureModel operativeExposure = new OperativeExposureModel(); 
+            var id = TestBase.getObjectID("/api/applicants", jwt);
             operativeExposure.id = 0;
+            operativeExposure.applicationId = TestBase.getApplicationId(id); 
             operativeExposure.declareEnvironmentMeetsStandards = true;
             operativeExposure.declareProceduresAreTrue = true;
             operativeExposure.documents = new List<DocumentsModel>();

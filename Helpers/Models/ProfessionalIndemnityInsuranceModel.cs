@@ -7,6 +7,7 @@ namespace Helpers
     class ProfessionalIndemnityInsuranceModel
     {
         public int id { get; set; }
+        public int applicationId { get; set; }
         public bool hasIndemnityArrangements { get; set; }
         public bool isPracticeDisclosed { get; set; }
         public bool isPracticeOverseas { get; set; }

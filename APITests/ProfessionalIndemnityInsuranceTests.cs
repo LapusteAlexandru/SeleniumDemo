@@ -19,8 +19,11 @@ namespace APITests
         public void GetProfessionalIndemnityInsuranceTest()
         {
             // create request
-            RestRequest request = new RestRequest("/api/professional-indemnity-insurance", Method.GET);
+
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
+            var id = TestBase.getObjectID("/api/applicants", jwt);
+            var applicationId = TestBase.getApplicationId(id);
+            RestRequest request = new RestRequest($"/api/professional-indemnity-insurance/{applicationId}", Method.GET);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             // act
             IRestResponse response = apiClient.Execute(request);
@@ -43,7 +46,9 @@ namespace APITests
             documentModel.fileName = "string";
             documentModel.blobStorageId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
             ProfessionalIndemnityInsuranceModel professionalInsurance = new ProfessionalIndemnityInsuranceModel();
+            var id = TestBase.getObjectID("/api/applicants", jwt);
             professionalInsurance.id = 0;
+            professionalInsurance.applicationId = TestBase.getApplicationId(id);
             professionalInsurance.hasIndemnityArrangements = true;
             professionalInsurance.isPracticeDisclosed = true;
             professionalInsurance.isPracticeOverseas = true;
@@ -64,12 +69,15 @@ namespace APITests
             RestRequest request = new RestRequest("/api/professional-indemnity-insurance", Method.PUT);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
-            var insuranceId = TestBase.getObjectID("/api/professional-indemnity-insurance", jwt);
+            var id = TestBase.getObjectID("/api/applicants", jwt);
+            var applicationId = TestBase.getApplicationId(id);
+            var insuranceId = TestBase.getObjectID("/api/professional-indemnity-insurance", jwt, applicationId);
             DocumentsModel documentModel = new DocumentsModel();
             documentModel.fileName = "string";
             documentModel.blobStorageId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
             ProfessionalIndemnityInsuranceModel professionalInsurance = new ProfessionalIndemnityInsuranceModel();
             professionalInsurance.id = insuranceId;
+            professionalInsurance.applicationId = applicationId;
             professionalInsurance.hasIndemnityArrangements = true;
             professionalInsurance.isPracticeDisclosed = true;
             professionalInsurance.isPracticeOverseas = false;

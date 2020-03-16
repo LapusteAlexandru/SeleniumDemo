@@ -16,6 +16,7 @@ namespace Helpers
         public int gender { get; set; }
         public string address { get; set; }
         public string gmcNumber { get; set; }
+        public string role { get; set; }
         public GMCSPecialtiesModel gmcSpecialty { get; set; }
         public GradesModel careerGrade { get; set; }
         public int status { get; set; }

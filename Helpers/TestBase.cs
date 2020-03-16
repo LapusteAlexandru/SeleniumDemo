@@ -65,7 +65,7 @@ namespace RCoS
                 driver.Url = "https://rcs-cosmetics-client-dev.azurewebsites.net/";
             else
                 driver.Url = baseURL;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
         }
         public static void SwitchTab()
         {
@@ -127,11 +127,15 @@ namespace RCoS
             jwt = responseBody.GetValue("access_token").ToString();
             return jwt;
         }
-        public static int getObjectID(string endpoint,string jwt)
+        public static int getObjectID(string endpoint,string jwt,int id)
         {
-            int id;
+            int objectId;
             RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");
-            RestRequest request = new RestRequest(endpoint, Method.GET);
+            RestRequest request;
+            if (!endpoint.Contains("applicants")) 
+                request = new RestRequest(endpoint+"/"+id, Method.GET);
+            else
+                request = new RestRequest(endpoint , Method.GET);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             // act
             IRestResponse response = apiClient.Execute(request);
@@ -140,16 +144,20 @@ namespace RCoS
             if (token is JArray)
             {
                 var responseBody = token.ToObject<List<JObject>>();
-                id = (int)responseBody[0].GetValue("id");
+                objectId = (int)responseBody[0].GetValue("id");
             }
             else
             {
                 var responseBody = token.ToObject<JObject>();
-                id = (int)responseBody.GetValue("id");
+                objectId = (int)responseBody.GetValue("id");
             }
-            return id;
+            return objectId;
         }
-        public static void uploadField(string fileName,string fileExtension)
+        public static int getObjectID(string endpoint, string jwt)
+        {
+            return getObjectID(endpoint, jwt, 0);
+        }
+            public static void uploadField(string fileName,string fileExtension)
         {
             IList<IWebElement> uploadInputs = driver.FindElements(By.XPath("//input[@type='file']"));
             foreach (IWebElement e in uploadInputs)
@@ -194,6 +202,7 @@ namespace RCoS
         {
             SqlConnection cnn;
             SqlCommand command;
+            object result = null;
             string sql;
             string connetionString = TestContext.Parameters["cosmeticsConnectionString"];
             var jwt = getJWT(username, password);
@@ -206,7 +215,12 @@ namespace RCoS
             {
                 sql = $"SELECT {section}Id FROM [dbo].[Applications] WHERE ApplicantId ={id}";
                 command = new SqlCommand(sql, cnn);
-                sectionId= (int)(command.ExecuteScalar());
+                try { result = command.ExecuteScalar(); }
+                catch(Exception e) { Console.WriteLine(e.Message); }
+                if (result is System.DBNull)
+                    return;
+                else
+                    sectionId = (int)(result);
                 sql = $"UPDATE [dbo].[Applications] SET {section}Id = null WHERE ApplicantId ={id}" ;
                 command = new SqlCommand(sql, cnn);
                 command.ExecuteNonQuery();
@@ -242,6 +256,21 @@ namespace RCoS
                 command.Dispose();
             }
             
+        }
+
+        public static int getApplicationId(int applicantId)
+        {
+            SqlConnection cnn;
+            SqlCommand command;
+            string sql;
+            string connetionString = TestContext.Parameters["cosmeticsConnectionString"];
+            cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            sql = $"SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={applicantId}";
+            command = new SqlCommand(sql, cnn);
+            int applicationId = (int)(command.ExecuteScalar());
+            command.Dispose();
+            return applicationId;
         }
         public static void deleteSectionData(string tableName, string username)
         {
