@@ -131,15 +131,15 @@ namespace EditApplicationTests
             }
         }
         [Test, Order(1)]
-        public void TestOperativeExposurePageLoads()
+        public void TestOperationNumbersPageLoads()
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
             ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
             EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
-            OperativeExposurePage operativeExposurePage = editPage.getOperativeExposure();
-            foreach (var e in operativeExposurePage.GetMainElements())
+            OperationNumbersPage OperationNumbersPage = editPage.getOperativeExposure();
+            foreach (var e in OperationNumbersPage.GetMainElements())
             {
                     Assert.That(e.Displayed);
 
@@ -276,13 +276,13 @@ namespace EditApplicationTests
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
             ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests(); 
             EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.username);
-            OperativeExposurePage operativeExposurePage = editPage.getOperativeExposure();
-            operativeExposurePage.saveBtn.Click();
+            OperationNumbersPage OperationNumbersPage = editPage.getOperativeExposure();
+            OperationNumbersPage.saveBtn.Click();
             Thread.Sleep(300);
-            foreach (var e in operativeExposurePage.requiredMsgs)
+            foreach (var e in OperationNumbersPage.requiredMsgs)
                 Assert.That(e.Displayed);
 
-            Assert.That(operativeExposurePage.requiredMsgs.Count.Equals(3));
+            Assert.That(OperationNumbersPage.requiredMsgs.Count.Equals(3));
         }
         [Test, Order(2)]
         public void TestClinicalOutcomesRequiredMsgs()

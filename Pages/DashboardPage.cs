@@ -45,8 +45,8 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Revalidation')]")]
         public IWebElement revalidationBtn { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Operative Exposure')]")]
-        public IWebElement operativeExposureBtn { get; set; }
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Operation Numbers')]")]
+        public IWebElement operationNumbersBtn { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Clinical Outcomes')]")]
         public IWebElement clinicalOutcomesBtn { get; set; }
@@ -109,7 +109,7 @@ namespace Pages
             mainElements.Add(professionalInsuranceBtn);
             mainElements.Add(professionalBehavioursBtn);
             mainElements.Add(revalidationBtn);
-            mainElements.Add(operativeExposureBtn);
+            mainElements.Add(operationNumbersBtn);
             mainElements.Add(clinicalOutcomesBtn);
             mainElements.Add(professionalDevelopmentBtn);
             mainElements.Add(practiceBtn);
@@ -161,12 +161,12 @@ namespace Pages
             revalidationBtn.Click();
             return new RevalidationPage(TestBase.driver);
         }
-        public OperativeExposurePage getOperativeExposure()
+        public OperationNumbersPage getOperationNUmbers()
         {
             openSideMenuIfClosed();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(operativeExposureBtn));
-            operativeExposureBtn.Click();
-            return new OperativeExposurePage(TestBase.driver);
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(operationNumbersBtn));
+            operationNumbersBtn.Click();
+            return new OperationNumbersPage(TestBase.driver);
         }
         public ClinicalOutcomesPage getClinicalOutcomes()
         {

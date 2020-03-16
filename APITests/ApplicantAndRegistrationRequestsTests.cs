@@ -35,7 +35,7 @@ namespace APITests
         public void AcceptRegistrationRequestsTest()
         {
 
-            TestBase.deleteUserData("[dbo].[Applicants]", TestBase.apiUsername);
+            TestBase.deleteUserData("[dbo].[Users]", TestBase.apiUsername);
             submitApplicant();
             // create request
             RestRequest request = new RestRequest("/api/registration-requests/accept", Method.POST);
@@ -83,8 +83,8 @@ namespace APITests
         public void GetApplicantTest()
         {
             // create request
-            RestRequest request = new RestRequest("/api/applicants", Method.GET);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
+            RestRequest request = new RestRequest($"/api/applicants", Method.GET);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             // act
             IRestResponse response = apiClient.Execute(request);
@@ -115,7 +115,7 @@ namespace APITests
         [Test, Order(1)]
         public void PostApplicantTest()
         {
-            TestBase.deleteUserData("[dbo].[Applicants]", TestBase.apiUsername);
+            TestBase.deleteUserData("[dbo].[Users]", TestBase.apiUsername);
             // create request
 
             // assert

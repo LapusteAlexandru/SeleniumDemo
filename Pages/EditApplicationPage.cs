@@ -104,12 +104,12 @@ namespace Pages
             revalidationTab.Click();
             return new RevalidationPage(TestBase.driver);
         }
-        public OperativeExposurePage getOperativeExposure()
+        public OperationNumbersPage getOperativeExposure()
         {
             while (!operativeExposureTab.Displayed)
                 navigateRightBtn.Click();
             operativeExposureTab.Click();
-            return new OperativeExposurePage(TestBase.driver);
+            return new OperationNumbersPage(TestBase.driver);
         }
         public ClinicalOutcomesPage getClinicalOutcomes()
         {

@@ -132,7 +132,7 @@ namespace RCoS
             int objectId;
             RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");
             RestRequest request;
-            if (!endpoint.Contains("applicants")) 
+            if (id>0) 
                 request = new RestRequest(endpoint+"/"+id, Method.GET);
             else
                 request = new RestRequest(endpoint , Method.GET);
@@ -185,7 +185,7 @@ namespace RCoS
             SqlCommand command;
             string sql; 
             string connetionString;
-            if (tableName.Contains("Users"))
+            if (tableName.Contains("AspNetUsers"))
                 connetionString = TestContext.Parameters["identityConnectionString"];
             else
                 connetionString = TestContext.Parameters["cosmeticsConnectionString"];

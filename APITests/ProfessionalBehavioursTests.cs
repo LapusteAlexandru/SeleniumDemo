@@ -19,8 +19,10 @@ namespace APITests
         public void GetProfessionalBehavioursTest()
         {
             // create request
-            RestRequest request = new RestRequest("/api/professional-behaviours", Method.GET);
             var jwt = TestBase.getJWT(TestBase.apiUsername, TestBase.apiPassword);
+            var id = TestBase.getObjectID("/api/applicants", jwt);
+            var applicationId = TestBase.getApplicationId(id);
+            RestRequest request = new RestRequest($"/api/professional-behaviours/{applicationId}", Method.GET);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
             // act
             IRestResponse response = apiClient.Execute(request);
@@ -40,7 +42,9 @@ namespace APITests
             documentModel.fileName = "string";
             documentModel.blobStorageId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
             ProfessionalBehavioursModel professionalBehaviour = new ProfessionalBehavioursModel();
+            var id = TestBase.getObjectID("/api/applicants", jwt);
             professionalBehaviour.id = 0;
+            professionalBehaviour.applicationId = TestBase.getApplicationId(id);
             professionalBehaviour.accept = true;
             professionalBehaviour.documents = new List<DocumentsModel>();
             professionalBehaviour.documents.Add(documentModel);

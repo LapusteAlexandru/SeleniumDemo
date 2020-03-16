@@ -59,7 +59,7 @@ namespace SidebarTests
         public void TestClickOperativeExposure()
         {
 
-            OperativeExposurePage obj = ClickOn("OperativeExposurePage");
+            OperationNumbersPage obj = ClickOn("OperationNumbersPage");
             Assert.That(obj.title.Displayed);
         }
         [Test]
@@ -158,8 +158,8 @@ namespace SidebarTests
                     return dashboardPage.getProfessionalBehaviours();
                 case "RevalidationPage":
                     return dashboardPage.getRevalidation();
-                case "OperativeExposurePage":
-                    return dashboardPage.getOperativeExposure();
+                case "OperationNumbersPage":
+                    return dashboardPage.getOperationNUmbers();
                 case "ClinicalOutcomesPage":
                     return dashboardPage.getClinicalOutcomes();
                 case "ContinuingDevelopmentPage":

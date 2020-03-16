@@ -16,7 +16,7 @@ namespace SignUpTests
         [OneTimeSetUp]
         public void Clear()
         {
-            TestBase.deleteUserData("[dbo].[Applicants]", TestBase.username);
+            TestBase.deleteUserData("[dbo].[Users]", TestBase.username);
             TestBase.deleteUserData("[dbo].[AspNetUsers]", TestBase.username);
         }
         [SetUp]

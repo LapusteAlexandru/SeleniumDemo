@@ -34,7 +34,7 @@ namespace OperativeExposureTests
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            OperativeExposurePage ope = dashboardPage.getOperativeExposure();
+            OperationNumbersPage ope = dashboardPage.getOperationNUmbers();
             foreach (var e in ope.GetMainElements())
                 Assert.That(e.Displayed);
         }
@@ -44,12 +44,12 @@ namespace OperativeExposureTests
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            OperativeExposurePage operativeExposurePage = dashboardPage.getOperativeExposure();
-            operativeExposurePage.saveBtn.Click();
+            OperationNumbersPage OperationNumbersPage = dashboardPage.getOperationNUmbers();
+            OperationNumbersPage.saveBtn.Click();
             Thread.Sleep(300);
-            foreach (var e in operativeExposurePage.requiredMsgs)
+            foreach (var e in OperationNumbersPage.requiredMsgs)
                 Assert.That(e.Displayed);
-            Assert.That(operativeExposurePage.requiredMsgs.Count.Equals(3));
+            Assert.That(OperationNumbersPage.requiredMsgs.Count.Equals(3));
         }
         [Test]
         public void TestSubmitSuccessfully()
@@ -57,14 +57,14 @@ namespace OperativeExposureTests
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            OperativeExposurePage operativeExposurePage = dashboardPage.getOperativeExposure();
-            operativeExposurePage.CompleteForm("png");
+            OperationNumbersPage OperationNumbersPage = dashboardPage.getOperationNUmbers();
+            OperationNumbersPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(operativeExposurePage.title));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(OperationNumbersPage.title));
             dashboardPage.openSideMenuIfClosed();
-            Assert.That(operativeExposurePage.proceduresCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(operativeExposurePage.operativeExposureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(operativeExposurePage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
+            Assert.That(OperationNumbersPage.proceduresCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(OperationNumbersPage.operativeExposureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(OperationNumbersPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
     }
 }
