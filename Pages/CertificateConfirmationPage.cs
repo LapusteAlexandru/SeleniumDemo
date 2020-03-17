@@ -38,7 +38,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Cosmetic nasal surgery')]/ancestor::mat-checkbox")]
         public IWebElement nasalSurgeryCheckbox { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Cosmetic Surgery of periorbital region')]/ancestor::mat-checkbox")]
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Cosmetic Surgery of the periorbital region')]/ancestor::mat-checkbox")]
         public IWebElement periorbitalSurgeryCheckbox { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Cosmetic surgery of ear')]/ancestor::mat-checkbox")]
