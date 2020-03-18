@@ -60,6 +60,7 @@ namespace ApplicationRequestsTests
             rowValue = TestBase.driver.FindElement(By.XPath(string.Format(applicationRequestsPage.statusCell, TestBase.appUsername))).Text;
             Assert.That(rowValue.Equals("Submitted"));
             applicationRequestsPage.AcceptRequest(TestBase.appUsername);
+            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[text()='Filter']/ancestor::div[@class='mat-form-field-infix']//input")));
             applicationRequestsPage.filterInput.Clear();
             applicationRequestsPage.filterInput.SendKeys(TestBase.appUsername);
             TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(string.Format(applicationRequestsPage.emailCell, TestBase.appUsername))));

@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using Pages;
 using RCoS;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,11 @@ namespace PaymentCheckTests
     [Category("PaymentCheck")]
     class PaymentCheckTests
     {
+        [OneTimeSetUp]
+        public void Clear()
+        {
+            TestBase.deleteSectionData("[dbo].[Applications]", TestBase.uiUsername, "Status", 1);
+        }
         [SetUp]
         public void Setup()
         {
@@ -61,9 +67,10 @@ namespace PaymentCheckTests
             PaymentCheckPage paymentCheckPage = certificateConfirmationPage.getPaymentCheck();
             ApplicationThankYouPage tyPage = paymentCheckPage.getThankYou();
             Assert.That(tyPage.thankYouMsgCard.Displayed);
+            Thread.Sleep(500);
             Assert.That(TestBase.driver.FindElement(By.XPath("//div[contains(text(),'Submit Application')]/ancestor::a")).GetAttribute("class").Contains("disabled"));
         }
-        [Test]
+        [Test, Order(1)]
         public void TestHaventPaid()
         {
             HomePage homePage = new HomePage(TestBase.driver);
