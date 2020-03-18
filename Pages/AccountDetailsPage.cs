@@ -119,6 +119,7 @@ namespace Pages
         public IWebElement accountSubmittedMsg { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();
+        public IList<IWebElement> evaluatorMainElements = new List<IWebElement>();
 
         public IList<IWebElement> GetMainElements()
         {
@@ -146,6 +147,23 @@ namespace Pages
             mainElements.Add(submitBtn);
             return mainElements;
         }
+        public IList<IWebElement> GetEvaluatorMainElements()
+        {
+            evaluatorMainElements.Add(titleInput);
+            evaluatorMainElements.Add(firstNameInput);
+            evaluatorMainElements.Add(lastNameInput);
+            evaluatorMainElements.Add(dateInput);
+            evaluatorMainElements.Add(addressInput);
+            evaluatorMainElements.Add(emailInput);
+            evaluatorMainElements.Add(phoneInput);
+            evaluatorMainElements.Add(genderSelect);
+            evaluatorMainElements.Add(gmcNumberInput);
+            evaluatorMainElements.Add(gmcSpecialitySelect);
+            evaluatorMainElements.Add(careerGradeSelect);
+           
+            mainElements.Add(submitBtn);
+            return evaluatorMainElements;
+        }
 
         public void CompleteForm(string title,string firstName,string lastName,string address,string phone,string gender,string gmcNumber,string gmcSpeciality,string careerGrade)
         {
@@ -166,8 +184,13 @@ namespace Pages
             gmcNumberInput.SendKeys(gmcNumber);
             TestBase.SelectOption("mat-select-1", gmcSpeciality);
             TestBase.SelectOption("mat-select-2", careerGrade);
-            earsSurgeryCheckbox.Click();
-            submitBtn.Click();
+            if (emailInput.GetAttribute("value").Contains("evaluator"))
+                submitBtn.Click();
+            else
+            {
+                earsSurgeryCheckbox.Click();
+                submitBtn.Click();
+            }
         }
     }
 }

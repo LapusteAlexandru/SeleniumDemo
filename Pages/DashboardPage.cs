@@ -88,6 +88,7 @@ namespace Pages
         public IWebElement logoutBtn { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();
+        public IList<IWebElement> sidebarElements = new List<IWebElement>();
 
         public IList<IWebElement> GetMainElements()
         {
@@ -97,6 +98,20 @@ namespace Pages
             mainElements.Add(accountDetailsBtn);
             mainElements.Add(homeBtn);
             return mainElements;
+        }
+        public IList<IWebElement> GetSidebarElements()
+        {
+            sidebarElements.Add(probityStatementsBtn);
+            sidebarElements.Add(professionalInsuranceBtn);
+            sidebarElements.Add(professionalBehavioursBtn);
+            sidebarElements.Add(revalidationBtn);
+            sidebarElements.Add(operationNumbersBtn);
+            sidebarElements.Add(clinicalOutcomesBtn);
+            sidebarElements.Add(professionalDevelopmentBtn);
+            sidebarElements.Add(practiceBtn);
+            sidebarElements.Add(referencesBtn);
+            sidebarElements.Add(submitAppBtn);
+            return sidebarElements;
         }
         public IList<IWebElement> GetAllElements()
         {

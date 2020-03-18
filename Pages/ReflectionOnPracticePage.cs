@@ -34,7 +34,7 @@ namespace Pages
         private static string learnt = "Learnt";
         private static string result = "Result";
         private static string futureLearning = "Future Learning";
-        public List<string> userData = new List<string> { hospitalSite, eventLocation, role, procedure, eventDescription, colleagueName, colleagueEmail,eventOutcome,learnt,result,futureLearning };
+        public List<string> userData = new List<string> { hospitalSite, eventLocation, role, procedure, eventDescription, colleagueName, colleagueEmail, eventOutcome, learnt, result, futureLearning };
         public string inputText = "TestInput";
         public string textareaText = "TestTextarea";
 
@@ -142,6 +142,7 @@ namespace Pages
             mainElements.Add(case3TabBtn);
             mainElements.Add(case4TabBtn);
             mainElements.Add(submitBtn);
+            mainElements.Add(saveAsDraftBtn);
             return mainElements;
         }
         public IList<IWebElement> GetInputElements()
@@ -153,7 +154,7 @@ namespace Pages
             inputElements.Add(descriptionOfEventInput);
             inputElements.Add(nameOfColleagueInput);
             inputElements.Add(colleaguesEmailInput);
-           
+
             return inputElements;
         }
         public IList<IWebElement> GetTextareaElements()
@@ -183,19 +184,19 @@ namespace Pages
 
             return textElements;
         }
-        
+
         public IList<IWebElement> GetFormTabs()
         {
             tabs.Add(case1TabBtn);
             tabs.Add(case2TabBtn);
             tabs.Add(case3TabBtn);
             tabs.Add(case4TabBtn);
-           
+
             return tabs;
         }
 
 
-        public void CompleteForm(int formNo, string filename, bool update)
+        public void CompleteForm(int formNo, string filename, bool update, bool draft)
         {
             IWebElement tab = case1TabBtn;
             IList<IWebElement> input = GetInputElements();
@@ -224,7 +225,7 @@ namespace Pages
                 inputText += "Updated";
                 textareaText += "Updated";
                 TestBase.wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.XPath("//span[contains(text(),'successfully updated')]")));
-            } 
+            }
             tab.Click();
             var selected = tab.GetAttribute("aria-selected");
             TestBase.wait.Equals(selected.Equals(true));
@@ -248,22 +249,29 @@ namespace Pages
                     input[i].SendKeys(inputText);
                 }
             }
-            for (int i = 0; i < textarea.Count; i++) 
+            for (int i = 0; i < textarea.Count; i++)
             {
                 textarea[i].Clear();
                 IJavaScriptExecutor js = (IJavaScriptExecutor)TestBase.driver;
-                string myExecution = "document.getElementsByTagName('textarea')["+ i +"].value='"+ textareaText +"'";
+                string myExecution = "document.getElementsByTagName('textarea')[" + i + "].value='" + textareaText + "'";
                 js.ExecuteScript(myExecution);
                 textarea[i].SendKeys(inputText);
             }
-            
+
             string fileExtension = "png";
-            if (filename.Length > 0)
+            if (filename.Length > 0 && !draft)
             {
                 TestBase.uploadField(filename, fileExtension);
             }
-            submitBtn.Click();
-            
+            if (draft)
+                saveAsDraftBtn.Click();
+            else
+                submitBtn.Click();
+
+        }
+        public void CompleteForm(int formNo, string filename, bool update)
+        {
+            CompleteForm(formNo, filename, update, false);
         }
     }
 }

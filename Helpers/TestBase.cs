@@ -22,6 +22,7 @@ namespace RCoS
     public class TestBase
     {
         public static string username = "amdaris.rcos@gmail.com";
+        public static string evaluatorUsername = "amdaris.rcos.evaluator@gmail.com";
         public static string password = "123aA@123";
         public static string uiUsername = "amdaris.rcos.ui@gmail.com";
         public static string appUsername = "amdaris.rcos.application@gmail.com";

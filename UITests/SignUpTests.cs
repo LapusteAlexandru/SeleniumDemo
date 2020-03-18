@@ -18,6 +18,8 @@ namespace SignUpTests
         {
             TestBase.deleteUserData("[dbo].[Users]", TestBase.username);
             TestBase.deleteUserData("[dbo].[AspNetUsers]", TestBase.username);
+            TestBase.deleteUserData("[dbo].[Users]", TestBase.evaluatorUsername);
+            TestBase.deleteUserData("[dbo].[AspNetUsers]", TestBase.evaluatorUsername);
         }
         [SetUp]
         public void Setup()
@@ -41,6 +43,19 @@ namespace SignUpTests
             foreach (var e in signUpPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
+        
+        [Test, Order(1)]
+        public void TestEvaluatorPageLoads()
+        {
+            TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
+            SignUpPage signupPage = new SignUpPage(TestBase.driver);
+            DashboardPage dashboardPage = new DashboardPage(TestBase.driver);
+            foreach (var e in signupPage.GetEvaluatorMainElements())
+                Assert.That(e.Displayed);
+            Assert.False(TestBase.ElementIsPresent(signupPage.cancelBtn));
+            Assert.False(TestBase.ElementIsPresent(signupPage.loginBtn));
+            Assert.False(TestBase.ElementIsPresent(dashboardPage.homeBtn));
+        }
 
         [Test]
         public void TestRequired()
@@ -54,11 +69,31 @@ namespace SignUpTests
         }
 
         [Test]
+        public void TestEvaluatorRequired()
+        {
+            TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
+            SignUpPage signUpPage = new SignUpPage(TestBase.driver);
+            signUpPage.registerBtn.Click();
+            Assert.That(signUpPage.emailRequiredMsg.Displayed && signUpPage.passwordRequiredMsg.Displayed
+                && signUpPage.confirmPasswordRequiredMsg.Displayed && signUpPage.tosRequiredMsg.Displayed);
+        }
+
+        [Test]
         public void TestInvalidEmail()
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             SignUpPage signUpPage = loginPage.GetSignUp();
+            signUpPage.DoRegister("InvalidEmail", "", "");
+            Assert.That(signUpPage.emailInvalidMsg.Displayed);
+        }
+        
+
+        [Test]
+        public void TestEvaluatorInvalidEmail()
+        {
+            TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
+            SignUpPage signUpPage = new SignUpPage(TestBase.driver);
             signUpPage.DoRegister("InvalidEmail", "", "");
             Assert.That(signUpPage.emailInvalidMsg.Displayed);
         }
@@ -74,11 +109,29 @@ namespace SignUpTests
         }
 
         [Test]
+        public void TestEvaluatorPassDontMatch()
+        {
+            TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
+            SignUpPage signUpPage = new SignUpPage(TestBase.driver);
+            signUpPage.DoRegister(TestBase.username,"123","321");
+            Assert.That(signUpPage.passwordsDontMatchMsg.Displayed);
+        }
+
+        [Test]
         public void TestPasswordMinCharValidation()
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             SignUpPage signUpPage = loginPage.GetSignUp();
+            signUpPage.DoRegister(TestBase.username, "1!qQ", "1!qQ");
+            Assert.That(signUpPage.passwordMinLengthMsg.Displayed);
+        }
+
+        [Test]
+        public void TestEvaluatorPasswordMinCharValidation()
+        {
+            TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
+            SignUpPage signUpPage = new SignUpPage(TestBase.driver);
             signUpPage.DoRegister(TestBase.username, "1!qQ", "1!qQ");
             Assert.That(signUpPage.passwordMinLengthMsg.Displayed);
         }
@@ -92,11 +145,27 @@ namespace SignUpTests
             Assert.That(signUpPage.passwordAlphanumericMsg.Displayed);
         }
         [Test]
+        public void TestEvaluatorPasswordAlphanumericValidation()
+        {
+            TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
+            SignUpPage signUpPage = new SignUpPage(TestBase.driver);
+            signUpPage.DoRegister(TestBase.username, "1234qQ", "1234qQ");
+            Assert.That(signUpPage.passwordAlphanumericMsg.Displayed);
+        }
+        [Test]
         public void TestPasswordLowercaseValidation()
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             SignUpPage signUpPage = loginPage.GetSignUp();
+            signUpPage.DoRegister(TestBase.username, "12!@QQ", "12!@QQ");
+            Assert.That(signUpPage.passwordLowercaseMsg.Displayed);
+        }
+        [Test]
+        public void TestEvaluatorPasswordLowercaseValidation()
+        {
+            TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
+            SignUpPage signUpPage = new SignUpPage(TestBase.driver);
             signUpPage.DoRegister(TestBase.username, "12!@QQ", "12!@QQ");
             Assert.That(signUpPage.passwordLowercaseMsg.Displayed);
         }
@@ -110,11 +179,27 @@ namespace SignUpTests
             Assert.That(signUpPage.passwordUppercaseMsg.Displayed);
         }
         [Test]
+        public void TestEvaluatorPasswordUpercaseValidation()
+        {
+            TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
+            SignUpPage signUpPage = new SignUpPage(TestBase.driver);
+            signUpPage.DoRegister(TestBase.username, "12!@qq", "12!@qq");
+            Assert.That(signUpPage.passwordUppercaseMsg.Displayed);
+        }
+        [Test]
         public void TestPasswordNumberValidation()
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             SignUpPage signUpPage = loginPage.GetSignUp();
+            signUpPage.DoRegister(TestBase.username, "!@qqQQ", "!@qqQQ");
+            Assert.That(signUpPage.passwordNumberMsg.Displayed);
+        }
+        [Test]
+        public void TestEvaluatorPasswordNumberValidation()
+        {
+            TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
+            SignUpPage signUpPage = new SignUpPage(TestBase.driver);
             signUpPage.DoRegister(TestBase.username, "!@qqQQ", "!@qqQQ");
             Assert.That(signUpPage.passwordNumberMsg.Displayed);
         }
@@ -136,6 +221,21 @@ namespace SignUpTests
             SignUpTyPage signupTyPage =  signUpPage.DoRegister(TestBase.username, TestBase.password, TestBase.password);
             Assert.That(signupTyPage.tyMessage.Displayed);
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
+            string allEmails = mailRepository.GetUnreadMails(Subject.Register);
+            var linkParser = new Regex(@"(?:https?://rcs-cosmetics-identity-dev.azurewebsites.net/Account)\S+\b");
+            var link = linkParser.Matches(allEmails);
+            TestBase.driver.Url = link.SingleOrDefault().ToString().Replace("&amp;","&");
+            TyRegistrationPage trp = new TyRegistrationPage(TestBase.driver);
+            Assert.That(trp.title.Displayed);
+        }
+        [Test]
+        public void TestEvaluatorSuccessfulSignup()
+        {
+            TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
+            SignUpPage signUpPage = new SignUpPage(TestBase.driver);
+            SignUpTyPage signupTyPage =  signUpPage.DoRegister(TestBase.evaluatorUsername, TestBase.password, TestBase.password);
+            Assert.That(signupTyPage.tyMessage.Displayed);
+            var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.evaluatorUsername, TestBase.password);
             string allEmails = mailRepository.GetUnreadMails(Subject.Register);
             var linkParser = new Regex(@"(?:https?://rcs-cosmetics-identity-dev.azurewebsites.net/Account)\S+\b");
             var link = linkParser.Matches(allEmails);

@@ -53,18 +53,24 @@ namespace RegistrationRequestsTests
         {
 
             string expectedText = "Your registration request has been accepted";
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            RegistrationRequestsPage registrationRequestsPage = dashboardPage.getRegistrationRequests();
-            registrationRequestsPage.AcceptRequest(TestBase.username);
-            dashboardPage.logout();
-            homePage.GetLogin();
-            loginPage.DoLogin(TestBase.username, TestBase.password);
-            dashboardPage.openSideMenuIfClosed();
+            DashboardPage dashboardPage = AcceptRequest(TestBase.username);
             foreach (var e in dashboardPage.GetAllElements())
                 Assert.That(e.Displayed); 
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
+            string allEmails = mailRepository.GetUnreadMails(Subject.RegistrationAccepted);
+            Assert.That(allEmails.Contains(expectedText));
+            
+        }
+        [Test]
+        public void TestEvaluatorAcceptRequest()
+        {
+
+            string expectedText = "Your registration request has been accepted";
+            DashboardPage dashboardPage = AcceptRequest(TestBase.evaluatorUsername);
+            Assert.That(dashboardPage.applicationRequestsBtn.Displayed);
+            foreach (var e in dashboardPage.GetSidebarElements())
+                Assert.False(TestBase.ElementIsPresent(e));
+            var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.evaluatorUsername, TestBase.password);
             string allEmails = mailRepository.GetUnreadMails(Subject.RegistrationAccepted);
             Assert.That(allEmails.Contains(expectedText));
             
@@ -180,6 +186,20 @@ namespace RegistrationRequestsTests
                 rowValue = TestBase.driver.FindElement(By.XPath(string.Format(registrationRequestsPage.expandableRegistrationTD, TestBase.username, registrationRequestsPage.expandableDataRows[i]))).Text;
                 Assert.That(rowValue.Equals(TestBase.expandableUserData[i]));
             }
+        }
+
+        private DashboardPage AcceptRequest(string username)
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            RegistrationRequestsPage registrationRequestsPage = dashboardPage.getRegistrationRequests();
+            registrationRequestsPage.AcceptRequest(username);
+            dashboardPage.logout();
+            homePage.GetLogin();
+            loginPage.DoLogin(username, TestBase.password);
+            dashboardPage.openSideMenuIfClosed();
+            return dashboardPage;
         }
     }
 }

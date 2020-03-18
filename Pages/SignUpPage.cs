@@ -14,7 +14,7 @@ namespace Pages
         {
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[text()='Not yet registered?']")));
+                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//form[@name='registryForm']")));
             }
             catch (Exception e)
             {
@@ -83,6 +83,7 @@ namespace Pages
         public IWebElement passwordNumberMsg { get; set; }
 
         public IList<IWebElement> mainElements = new List<IWebElement>();
+        public IList<IWebElement> evaluatorMainElements = new List<IWebElement>();
 
         public IList<IWebElement> GetMainElements()
         {
@@ -95,6 +96,17 @@ namespace Pages
             mainElements.Add(cancelBtn);
             mainElements.Add(loginBtn);
             return mainElements;
+        }
+        
+        public IList<IWebElement> GetEvaluatorMainElements()
+        {
+            evaluatorMainElements.Add(emailInput);
+            evaluatorMainElements.Add(passwordInput);
+            evaluatorMainElements.Add(confirmPasswordInput);
+            evaluatorMainElements.Add(tosCheckbox);
+            evaluatorMainElements.Add(tosBtn);
+            evaluatorMainElements.Add(registerBtn);
+            return evaluatorMainElements;
         }
 
         public LoginPage AlreadyHaveAccount()

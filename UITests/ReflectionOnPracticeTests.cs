@@ -107,6 +107,49 @@ namespace ReflectionOnPracticeTests
             dashboardPage.openSideMenuIfClosed();
             Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
+        [Test, Order(2)]
+        public void TestSaveAsDraft()
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
+            ReflectionOnPracticePage reflectionOnPracticePage = dashboardPage.getReflectionOnPractice();
+            reflectionOnPracticePage.CompleteForm(1,"png", false,true);
+            reflectionOnPracticePage = new ReflectionOnPracticePage(TestBase.driver);
+            reflectionOnPracticePage.CompleteForm(2,"png", false, true);
+            reflectionOnPracticePage = new ReflectionOnPracticePage(TestBase.driver);
+            reflectionOnPracticePage.CompleteForm(3,"png", false, true);
+            reflectionOnPracticePage = new ReflectionOnPracticePage(TestBase.driver);
+            reflectionOnPracticePage.CompleteForm(4,"png", false, true);
+            TestBase.driver.Navigate().Refresh();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(reflectionOnPracticePage.title));
+            foreach (var e in reflectionOnPracticePage.GetFormTabs())
+            {
+                e.Click();
+                var selected = e.GetAttribute("aria-selected");
+                TestBase.wait.Equals(selected.Equals(true));
+                reflectionOnPracticePage = new ReflectionOnPracticePage(TestBase.driver);
+                Thread.Sleep(500);
+                IList<IWebElement> actualInputs = reflectionOnPracticePage.GetTextElements();
+                for (int i = 0; i < actualInputs.Count; i++)
+                {
+                    if (actualInputs[i].TagName.Equals("input"))
+                    {
+                        if (actualInputs[i].GetAttribute("formcontrolname").Contains("Email"))
+                            Assert.That(actualInputs[i].GetAttribute("value").Equals(TestBase.uiUsername));
+                        else
+                            Assert.That(actualInputs[i].GetAttribute("value").Equals(reflectionOnPracticePage.inputText)); 
+                    }
+                    else
+                        Assert.That(actualInputs[i].GetAttribute("value").Equals(reflectionOnPracticePage.textareaText + reflectionOnPracticePage.inputText)); 
+                    
+                }
+                Assert.That(reflectionOnPracticePage.dateInput.GetAttribute("value").Equals(TestBase.caseDate));
+            }
+
+            dashboardPage.openSideMenuIfClosed();
+            Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("mattooltip").Contains("Not Stared"));
+        }
         [Test]
         public void TestNoOfCharLimit()
         {
