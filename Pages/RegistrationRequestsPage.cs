@@ -110,6 +110,8 @@ namespace Pages
         }
         public void RejectRequest(string user,string reason)
         {
+            filterInput.Clear();
+            filterInput.SendKeys(user);
             openRequestData(user);
             Thread.Sleep(300);
             IWebElement reject = TestBase.driver.FindElement(By.XPath(string.Format(rejectBtn, user)));
@@ -121,6 +123,8 @@ namespace Pages
         }
         public void AcceptRequest(string user)
         {
+            filterInput.Clear();
+            filterInput.SendKeys(user);
             openRequestData(user);
             Thread.Sleep(300);
             IWebElement accept = TestBase.driver.FindElement(By.XPath(string.Format(acceptBtn, user)));
