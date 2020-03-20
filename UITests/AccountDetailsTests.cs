@@ -1,5 +1,6 @@
 ﻿
 using NUnit.Framework;
+using OpenQA.Selenium;
 using Pages;
 using RCoS;
 using SeleniumExtras.WaitHelpers;
@@ -96,9 +97,7 @@ namespace AccountDetailsTests
         [Test]
         public void TestEvaluatorSubmitSuccessfully()
         {
-            DashboardPage dashboardPage = new DashboardPage(TestBase.driver);
             AccountDetailsPage accountDetailsPage = Submit(TestBase.evaluatorUsername);
-            dashboardPage.openSideMenuIfClosed();
             Assert.That(accountDetailsPage.accountSubmittedMsg.Displayed);
 
         }
@@ -201,8 +200,6 @@ namespace AccountDetailsTests
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(username, TestBase.password);
             AccountDetailsPage accountDetailsPage = dashboardPage.getAccountDetails();
-            dashboardPage.openSideMenuIfClosed();
-            Assert.That(accountDetailsPage.statusIndicator.GetAttribute("mattooltip").Contains("Not Stared"));
             accountDetailsPage.CompleteForm(TestBase.userTitle, TestBase.userFirstName, TestBase.userLastName, TestBase.userAddress, TestBase.userPhone, TestBase.userGender, TestBase.userGmcNumber.ToString(), TestBase.userGmcSpecialty, TestBase.userCareerGrade);
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(accountDetailsPage.accountSubmittedMsg));
             return accountDetailsPage;

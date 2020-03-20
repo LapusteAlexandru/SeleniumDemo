@@ -137,7 +137,6 @@ namespace Pages
         public AccountDetailsPage getAccountDetails()
         {
             openSideMenuIfClosed();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(accountDetailsBtn));
             accountDetailsBtn.Click();
             return new AccountDetailsPage(TestBase.driver);
         }

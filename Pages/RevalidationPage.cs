@@ -30,6 +30,12 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//mat-card-content//div[@class='panel']")]
         public IWebElement infoPanel { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='mostRecentRevalidation']/ancestor::mat-form-field//mat-datepicker-toggle")]
+        public IWebElement mostRecentRevalidationDate { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='nextRevalidation']/ancestor::mat-form-field//mat-datepicker-toggle")]
+        public IWebElement nextRevalidationDate { get; set; }
+
         [FindsBy(How = How.XPath, Using = "(//input[@type='file']/ancestor::button)[1]")]
         public IWebElement GMCLetterUploadInput { get; set; }
 
@@ -69,10 +75,13 @@ namespace Pages
 
         public void CompleteForm(YesOrNoRadio radio, string filename1)
         {
-
-            TestBase.driver.FindElement(By.XPath("//input[@formcontrolname='mostRecentRevalidation']/ancestor::mat-form-field//mat-datepicker-toggle")).Click();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(mostRecentRevalidationDate));
+            mostRecentRevalidationDate.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath($"//div[text()='{TestBase.currentDayNumber}']")));
             TestBase.driver.FindElement(By.XPath($"//div[text()='{TestBase.currentDayNumber}']")).Click();
-            TestBase.driver.FindElement(By.XPath("//input[@formcontrolname='nextRevalidation']/ancestor::mat-form-field//mat-datepicker-toggle")).Click();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(nextRevalidationDate));
+            nextRevalidationDate.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath($"//div[text()='{TestBase.currentDayNumber}']")));
             TestBase.driver.FindElement(By.XPath($"//div[text()='{TestBase.currentDayNumber}']")).Click();
             Thread.Sleep(300);
             string fileExtension = "png";

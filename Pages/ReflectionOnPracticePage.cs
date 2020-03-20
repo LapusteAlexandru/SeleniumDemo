@@ -224,8 +224,8 @@ namespace Pages
             {
                 inputText += "Updated";
                 textareaText += "Updated";
-                TestBase.wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.XPath("//span[contains(text(),'successfully updated')]")));
             }
+            TestBase.wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.XPath("//span[contains(text(),'successfully updated')]")));
             tab.Click();
             var selected = tab.GetAttribute("aria-selected");
             TestBase.wait.Equals(selected.Equals(true));
@@ -267,6 +267,13 @@ namespace Pages
                 saveAsDraftBtn.Click();
             else
                 submitBtn.Click();
+            bool wait = true;
+            while (wait) 
+            {
+                wait = TestBase.ElementIsPresent(pageUpdatedMsg);
+                Thread.Sleep(1000);
+            }
+            Thread.Sleep(1000);
 
         }
         public void CompleteForm(int formNo, string filename, bool update)

@@ -53,6 +53,7 @@ namespace RCoS
         public static List<string> expandableUserData = new List<string> {userPhone,userAddress};
         public static IWebDriver driver { get; set; }
         public static WebDriverWait wait { get; set; }
+        public static WebDriverWait uploadWait { get; set; }
         public static void RootInit()
         {
             var cap = new ChromeOptions();
@@ -66,7 +67,8 @@ namespace RCoS
                 driver.Url = "https://rcs-cosmetics-client-dev.azurewebsites.net/";
             else
                 driver.Url = baseURL;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            uploadWait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
         }
         public static void SwitchTab()
         {
@@ -175,7 +177,7 @@ namespace RCoS
             IList <IWebElement> deleteButtons = driver.FindElements(By.XPath("//app-file-item//button"));
             foreach (IWebElement e in deleteButtons)
             {
-                wait.Until(ExpectedConditions.ElementToBeClickable(e));
+                uploadWait.Until(ExpectedConditions.ElementToBeClickable(e));
             }
 
         }
@@ -239,6 +241,17 @@ namespace RCoS
                 command.Dispose();
             }
             if (tableName.Contains("Documents"))
+            {
+                sql = $"SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={id}";
+                command = new SqlCommand(sql, cnn);
+                int applicationId = (int)(command.ExecuteScalar());
+                command.Dispose();
+                sql = $"DELETE FROM {tableName} WHERE ApplicationId ={applicationId}";
+                command = new SqlCommand(sql, cnn);
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            if (tableName.Contains("Practice"))
             {
                 sql = $"SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={id}";
                 command = new SqlCommand(sql, cnn);

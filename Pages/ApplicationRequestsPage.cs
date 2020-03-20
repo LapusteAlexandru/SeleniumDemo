@@ -25,6 +25,7 @@ namespace Pages
         }
         public string approveBtn = "//span[contains(text(),'{0}')]/ancestor::tr//i[contains(@class,'fa-check-circle')]/ancestor::button";
         public string editBtn = "//span[contains(text(),'{0}')]/ancestor::tr//i[contains(@class,'fa-edit')]/ancestor::button";
+        public string assignEvaluatorBtn = "//span[contains(text(),'{0}')]/ancestor::tr//i[contains(@class,'fa-tasks')]/ancestor::button";
         public string fullNameCell = "//span[contains(text(),'{0}')]/ancestor::tr//td[contains(@class,'cdk-column-fullName')]";
         public string emailCell = "//span[contains(text(),'{0}')]/ancestor::tr//td[contains(@class,'cdk-column-email')]";
         public string GMCNumberCell = "//span[contains(text(),'{0}')]/ancestor::tr//td[contains(@class,'cdk-column-gmcNumber')]";
@@ -98,6 +99,9 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Application was successfully accepted')]")]
         public IWebElement acceptedMsg { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//p[contains(text(),'No requests found')]")]
+        public IWebElement noRequestsMsg { get; set; }
+
         public IList<IWebElement> mainElements = new List<IWebElement>();
 
         public IList<IWebElement> GetMainElements()
@@ -136,6 +140,15 @@ namespace Pages
             approveTextArea.SendKeys("Test");
             requestSubmitBtn.Click();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(acceptedMsg));
+        }
+
+        public AssignEvaluatorsPage GetAssignEvaluatorsPanel(string username)
+        {
+            filterInput.Clear();
+            filterInput.SendKeys(username);
+            IWebElement assign = TestBase.driver.FindElement(By.XPath(string.Format(assignEvaluatorBtn, username)));
+            assign.Click();
+            return new AssignEvaluatorsPage(TestBase.driver);
         }
     }
 }
