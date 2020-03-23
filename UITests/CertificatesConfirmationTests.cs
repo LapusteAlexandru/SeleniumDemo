@@ -73,19 +73,24 @@ namespace CertificatesConfirmationTests
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             CertificateConfirmationPage certificateConfirmationPage = dashboardPage.getSubmitApplication();
+            bool check = false;
+            if(certificateConfirmationPage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"))
+                check = true;
             certificateConfirmationPage.breastSurgeryCheckbox.Click();
             certificateConfirmationPage.getPaymentCheck();
             TestBase.driver.Navigate().Refresh();
             dashboardPage.getSubmitApplication();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(certificateConfirmationPage.submitBtn));
-            Assert.That(certificateConfirmationPage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            if(check)
+                Assert.False(certificateConfirmationPage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            else
+                Assert.True(certificateConfirmationPage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             dashboardPage.openSideMenuIfClosed();
             AccountDetailsPage accountDetailspage = dashboardPage.getAccountDetails();
-            Assert.That(accountDetailspage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            dashboardPage.getSubmitApplication();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(certificateConfirmationPage.submitBtn));
-            certificateConfirmationPage.breastSurgeryCheckbox.Click();
-            certificateConfirmationPage.getPaymentCheck();
+            if (check)
+                Assert.False(accountDetailspage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            else
+                Assert.True(accountDetailspage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             
         }
     }

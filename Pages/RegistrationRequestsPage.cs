@@ -103,6 +103,8 @@ namespace Pages
 
         public void openRequestData(string username)
         {
+            filterInput.Clear();
+            filterInput.SendKeys(username);
             TestBase.wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(By.XPath("//table")));
             IWebElement user = TestBase.driver.FindElement(By.XPath(string.Format(tableEmailCell, username)));
             user.Click();
