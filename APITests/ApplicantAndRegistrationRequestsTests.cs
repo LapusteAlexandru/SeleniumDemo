@@ -37,14 +37,15 @@ namespace APITests
 
             TestBase.deleteUserData("[dbo].[Users]", TestBase.apiUsername);
             submitApplicant();
+            int userID = TestBase.getUserId(TestBase.apiUsername);
+            int registrationID = TestBase.getRegistrationId(userID);
             // create request
             RestRequest request = new RestRequest("/api/registration-requests/accept", Method.POST);
             var jwt = TestBase.getJWT(TestBase.adminUsername, TestBase.adminPassword);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
-            var id = TestBase.getObjectID("/api/registration-requests", jwt);
 
             request.RequestFormat = DataFormat.Json;
-            request.AddJsonBody(id);
+            request.AddJsonBody(registrationID);
             // act
             var response = apiClient.Execute(request);
             // assert
@@ -58,9 +59,10 @@ namespace APITests
             RestRequest request = new RestRequest("/api/registration-requests/reject", Method.POST);
             var jwt = TestBase.getJWT(TestBase.adminUsername, TestBase.adminPassword);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
-            var id = TestBase.getObjectID("/api/registration-requests", jwt);
+            int userID = TestBase.getUserId(TestBase.apiUsername);
+            int registrationID = TestBase.getRegistrationId(userID);
             RejectRequestModel rejectModel = new RejectRequestModel();
-            rejectModel.id = id;
+            rejectModel.id = registrationID;
             rejectModel.comment = "Test";
 
             var body = JsonConvert.SerializeObject(rejectModel);
@@ -132,7 +134,7 @@ namespace APITests
             GMCSPecialtiesModel specialitiesModel = new GMCSPecialtiesModel();
             GradesModel gradesModel = new GradesModel();
             CertificationsModel certificationsModel = new CertificationsModel();
-            var id = TestBase.getObjectID("/api/applicants", jwt);
+            var id = TestBase.getUserId(TestBase.apiUsername);
             specialitiesModel.id = 1;
             gradesModel.id = 1;
             certificationsModel.id = 8;

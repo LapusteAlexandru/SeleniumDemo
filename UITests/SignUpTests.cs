@@ -57,7 +57,7 @@ namespace SignUpTests
             Assert.False(TestBase.ElementIsPresent(dashboardPage.homeBtn));
         }
 
-        [Test]
+        [Test, Order(1)]
         public void TestRequired()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -68,7 +68,7 @@ namespace SignUpTests
                 && signUpPage.confirmPasswordRequiredMsg.Displayed && signUpPage.tosRequiredMsg.Displayed);
         }
 
-        [Test]
+        [Test, Order(1)]
         public void TestEvaluatorRequired()
         {
             TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
@@ -78,7 +78,7 @@ namespace SignUpTests
                 && signUpPage.confirmPasswordRequiredMsg.Displayed && signUpPage.tosRequiredMsg.Displayed);
         }
 
-        [Test]
+        [Test, Order(1)]
         public void TestInvalidEmail()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -87,9 +87,9 @@ namespace SignUpTests
             signUpPage.DoRegister("InvalidEmail", "", "");
             Assert.That(signUpPage.emailInvalidMsg.Displayed);
         }
-        
 
-        [Test]
+
+        [Test, Order(1)]
         public void TestEvaluatorInvalidEmail()
         {
             TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
@@ -98,7 +98,7 @@ namespace SignUpTests
             Assert.That(signUpPage.emailInvalidMsg.Displayed);
         }
 
-        [Test]
+        [Test, Order(1)]
         public void TestPassDontMatch()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -108,7 +108,7 @@ namespace SignUpTests
             Assert.That(signUpPage.passwordsDontMatchMsg.Displayed);
         }
 
-        [Test]
+        [Test, Order(1)]
         public void TestEvaluatorPassDontMatch()
         {
             TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
@@ -117,7 +117,7 @@ namespace SignUpTests
             Assert.That(signUpPage.passwordsDontMatchMsg.Displayed);
         }
 
-        [Test]
+        [Test, Order(1)]
         public void TestPasswordMinCharValidation()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -127,7 +127,7 @@ namespace SignUpTests
             Assert.That(signUpPage.passwordMinLengthMsg.Displayed);
         }
 
-        [Test]
+        [Test, Order(1)]
         public void TestEvaluatorPasswordMinCharValidation()
         {
             TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
@@ -135,7 +135,7 @@ namespace SignUpTests
             signUpPage.DoRegister(TestBase.username, "1!qQ", "1!qQ");
             Assert.That(signUpPage.passwordMinLengthMsg.Displayed);
         }
-        [Test]
+        [Test, Order(1)]
         public void TestPasswordAlphanumericValidation()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -144,7 +144,7 @@ namespace SignUpTests
             signUpPage.DoRegister(TestBase.username, "1234qQ", "1234qQ");
             Assert.That(signUpPage.passwordAlphanumericMsg.Displayed);
         }
-        [Test]
+        [Test, Order(1)]
         public void TestEvaluatorPasswordAlphanumericValidation()
         {
             TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
@@ -152,7 +152,7 @@ namespace SignUpTests
             signUpPage.DoRegister(TestBase.username, "1234qQ", "1234qQ");
             Assert.That(signUpPage.passwordAlphanumericMsg.Displayed);
         }
-        [Test]
+        [Test, Order(1)]
         public void TestPasswordLowercaseValidation()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -161,7 +161,7 @@ namespace SignUpTests
             signUpPage.DoRegister(TestBase.username, "12!@QQ", "12!@QQ");
             Assert.That(signUpPage.passwordLowercaseMsg.Displayed);
         }
-        [Test]
+        [Test, Order(1)]
         public void TestEvaluatorPasswordLowercaseValidation()
         {
             TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
@@ -169,7 +169,7 @@ namespace SignUpTests
             signUpPage.DoRegister(TestBase.username, "12!@QQ", "12!@QQ");
             Assert.That(signUpPage.passwordLowercaseMsg.Displayed);
         }
-        [Test]
+        [Test, Order(1)]
         public void TestPasswordUpercaseValidation()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -178,7 +178,7 @@ namespace SignUpTests
             signUpPage.DoRegister(TestBase.username, "12!@qq", "12!@qq");
             Assert.That(signUpPage.passwordUppercaseMsg.Displayed);
         }
-        [Test]
+        [Test, Order(1)]
         public void TestEvaluatorPasswordUpercaseValidation()
         {
             TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
@@ -186,7 +186,7 @@ namespace SignUpTests
             signUpPage.DoRegister(TestBase.username, "12!@qq", "12!@qq");
             Assert.That(signUpPage.passwordUppercaseMsg.Displayed);
         }
-        [Test]
+        [Test, Order(1)]
         public void TestPasswordNumberValidation()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -195,7 +195,7 @@ namespace SignUpTests
             signUpPage.DoRegister(TestBase.username, "!@qqQQ", "!@qqQQ");
             Assert.That(signUpPage.passwordNumberMsg.Displayed);
         }
-        [Test]
+        [Test, Order(1)]
         public void TestEvaluatorPasswordNumberValidation()
         {
             TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
@@ -203,7 +203,7 @@ namespace SignUpTests
             signUpPage.DoRegister(TestBase.username, "!@qqQQ", "!@qqQQ");
             Assert.That(signUpPage.passwordNumberMsg.Displayed);
         }
-        [Test]
+        [Test, Order(1)]
         public void TestCancelBtn()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -212,7 +212,7 @@ namespace SignUpTests
             signUpPage.ClickCancel();
             Assert.That(loginPage.title.Displayed);
         }
-        [Test]
+        [Test, Order(2)]
         public void TestSuccessfulSignup()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -228,7 +228,7 @@ namespace SignUpTests
             TyRegistrationPage trp = new TyRegistrationPage(TestBase.driver);
             Assert.That(trp.title.Displayed);
         }
-        [Test]
+        [Test, Order(2)]
         public void TestEvaluatorSuccessfulSignup()
         {
             TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
@@ -242,6 +242,15 @@ namespace SignUpTests
             TestBase.driver.Url = link.SingleOrDefault().ToString().Replace("&amp;","&");
             TyRegistrationPage trp = new TyRegistrationPage(TestBase.driver);
             Assert.That(trp.title.Displayed);
+        }
+        [Test, Order(3)]
+        public void TestEmailTaken()
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            SignUpPage signUpPage = loginPage.GetSignUp();
+            signUpPage.DoRegister(TestBase.uiUsername, TestBase.password, TestBase.password);
+            Assert.That(signUpPage.emailTakenMsg.Displayed);
         }
     }
 }

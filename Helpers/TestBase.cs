@@ -286,6 +286,35 @@ namespace RCoS
             command.Dispose();
             return applicationId;
         }
+        
+        public static int getUserId(string username)
+        {
+            SqlConnection cnn;
+            SqlCommand command;
+            string sql;
+            string connetionString = TestContext.Parameters["cosmeticsConnectionString"];
+            cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            sql = $"SELECT Id FROM [dbo].[Users] WHERE Email ='{username}'";
+            command = new SqlCommand(sql, cnn);
+            int userId = (int)(command.ExecuteScalar());
+            command.Dispose();
+            return userId;
+        }
+        public static int getRegistrationId(int userId)
+        {
+            SqlConnection cnn;
+            SqlCommand command;
+            string sql;
+            string connetionString = TestContext.Parameters["cosmeticsConnectionString"];
+            cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            sql = $"SELECT Id FROM [dbo].[RegistrationRequests] WHERE UserId ={userId}";
+            command = new SqlCommand(sql, cnn);
+            int registrationId = (int)(command.ExecuteScalar());
+            command.Dispose();
+            return registrationId;
+        }
         public static void deleteSectionData(string tableName, string username)
         {
             deleteSectionData(tableName, username, "",1);

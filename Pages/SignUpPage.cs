@@ -82,6 +82,9 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//li[text()=\"Passwords must have at least one digit ('0'-'9').\"]")]
         public IWebElement passwordNumberMsg { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//li[contains(text(),\"is already taken\")]")]
+        public IWebElement emailTakenMsg { get; set; }
+
         public IList<IWebElement> mainElements = new List<IWebElement>();
         public IList<IWebElement> evaluatorMainElements = new List<IWebElement>();
 
