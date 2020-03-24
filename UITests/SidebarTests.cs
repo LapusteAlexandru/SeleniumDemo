@@ -99,14 +99,6 @@ namespace SidebarTests
             Assert.That(certificationsPage.title.Displayed);
         }
         [Test]
-        public void TestFailClickSubmitApplication()
-        {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
-            Assert.That(!dashboardPage.submitAppBtn.Enabled);
-        }
-        [Test]
         public void TestHideSidebar()
         {
             HomePage homePage = new HomePage(TestBase.driver);

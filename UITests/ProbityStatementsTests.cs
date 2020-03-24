@@ -41,6 +41,15 @@ namespace ProbityStatementsTests
             foreach (var e in probityStatementsPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
+
+        [Test, Order(2)]
+        public void TestSubmitApplicationDisabled()
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            Assert.That(!dashboardPage.submitAppBtn.Enabled);
+        }
         [Test, Order(2)]
         public void TestRequiredMsgs()
         {
