@@ -16,8 +16,12 @@ namespace Pages
         {
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementExists(By.XPath("//mat-nav-list")));
-                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("home")));
+                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//mat-nav-list")));
+                IWebElement homeContainer = TestBase.driver.FindElement(By.ClassName("home"));
+                if(TestBase.ElementIsPresent(homeContainer))
+                    TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("home")));
+                else
+                    TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-account-details//form")));
             }
             catch (Exception e)
             {

@@ -148,7 +148,7 @@ namespace ReflectionOnPracticeTests
             }
 
             dashboardPage.openSideMenuIfClosed();
-            Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("mattooltip").Contains("Not Stared"));
+            Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("mattooltip").Contains("Not Started"));
         }
         [Test]
         public void TestNoOfCharLimit()
@@ -168,51 +168,7 @@ namespace ReflectionOnPracticeTests
             foreach (var e in reflectionOnPracticePage.textareaLimitCounter)
                 Assert.That(e.Text.Equals("8000/8000"));
             Assert.That(reflectionOnPracticePage.limitReachedMsgs.Count.Equals(6));
-            reflectionOnPracticePage.case2TabBtn.Click();
-            var selected = reflectionOnPracticePage.case2TabBtn.GetAttribute("aria-selected");
-            TestBase.wait.Equals(selected.Equals(true));
-            Thread.Sleep(500);
-            reflectionOnPracticePage = new ReflectionOnPracticePage(TestBase.driver);
-            reflectionOnPracticePage.textareaText = dummyExtraLongText;
-            reflectionOnPracticePage.inputText = dummyLongText;
-            reflectionOnPracticePage.CompleteForm(2,"png", false);
-            reflectionOnPracticePage.case2TabBtn.Click();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//mat-datepicker-toggle")));
-            foreach (var e in reflectionOnPracticePage.limitReachedMsgs)
-                Assert.That(e.Displayed);
-            foreach (var e in reflectionOnPracticePage.textareaLimitCounter)
-                Assert.That(e.Text.Equals("8000/8000"));
-            Assert.That(reflectionOnPracticePage.limitReachedMsgs.Count.Equals(6));
-            reflectionOnPracticePage.case3TabBtn.Click();
-            selected = reflectionOnPracticePage.case3TabBtn.GetAttribute("aria-selected");
-            TestBase.wait.Equals(selected.Equals(true));
-            Thread.Sleep(500);
-            reflectionOnPracticePage = new ReflectionOnPracticePage(TestBase.driver);
-            reflectionOnPracticePage.textareaText = dummyExtraLongText;
-            reflectionOnPracticePage.inputText = dummyLongText;
-            reflectionOnPracticePage.CompleteForm(3,"png", false);
-            reflectionOnPracticePage.case3TabBtn.Click();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//mat-datepicker-toggle")));
-            foreach (var e in reflectionOnPracticePage.limitReachedMsgs)
-                Assert.That(e.Displayed);
-            foreach (var e in reflectionOnPracticePage.textareaLimitCounter)
-                Assert.That(e.Text.Equals("8000/8000"));
-            Assert.That(reflectionOnPracticePage.limitReachedMsgs.Count.Equals(6));
-            reflectionOnPracticePage.case4TabBtn.Click();
-            selected = reflectionOnPracticePage.case4TabBtn.GetAttribute("aria-selected");
-            TestBase.wait.Equals(selected.Equals(true));
-            Thread.Sleep(500);
-            reflectionOnPracticePage = new ReflectionOnPracticePage(TestBase.driver);
-            reflectionOnPracticePage.textareaText = dummyExtraLongText;
-            reflectionOnPracticePage.inputText = dummyLongText;
-            reflectionOnPracticePage.CompleteForm(4,"png", false);
-            reflectionOnPracticePage.case4TabBtn.Click();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//mat-datepicker-toggle")));
-            foreach (var e in reflectionOnPracticePage.limitReachedMsgs)
-                Assert.That(e.Displayed);
-            foreach (var e in reflectionOnPracticePage.textareaLimitCounter)
-                Assert.That(e.Text.Equals("8000/8000"));
-            Assert.That(reflectionOnPracticePage.limitReachedMsgs.Count.Equals(6));
+           
 
         }
 

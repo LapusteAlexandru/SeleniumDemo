@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using Pages;
 using RCoS;
 using SeleniumExtras.WaitHelpers;
@@ -47,8 +48,8 @@ namespace ProbityStatementsTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
-            Assert.That(!dashboardPage.submitAppBtn.Enabled);
+            loginPage.DoLogin(TestBase.username, TestBase.password);
+            Assert.True(TestBase.driver.FindElement(By.XPath("//a[@id='submit']")).GetAttribute("class").Contains("disabled"));
         }
         [Test, Order(2)]
         public void TestRequiredMsgs()

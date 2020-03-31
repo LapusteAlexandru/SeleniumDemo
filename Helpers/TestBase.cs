@@ -30,6 +30,10 @@ namespace RCoS
         public static string adminPassword = "P@ssword1";
         public static string apiUsername = "amdaris.rcos.api@gmail.com";
         public static string apiPassword = "123aA@123";
+        public static string cardNumber = "4111111111111111";
+        public static string expiryMonthDate = "02";
+        public static string expiryYearDate = "30";
+        public static string cvv = "123";
         public static string userTitle = "Dr.";
         public static string userFirstName = "John";
         public static string userLastName = "Doe";

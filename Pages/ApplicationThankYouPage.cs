@@ -14,7 +14,7 @@ namespace Pages
         {
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementExists(By.XPath("//mat-card")));
+                TestBase.wait.Until(ExpectedConditions.ElementExists(By.XPath("//app-thank-you-submitting//mat-card")));
             }
             catch (Exception e)
             {
