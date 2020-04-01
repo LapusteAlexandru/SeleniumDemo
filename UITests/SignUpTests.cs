@@ -18,6 +18,7 @@ namespace SignUpTests
         {
             TestBase.deleteUserData("[dbo].[Users]", TestBase.username);
             TestBase.deleteUserData("[dbo].[AspNetUsers]", TestBase.username);
+            TestBase.deleteUserData("[dbo].[AssignedApplications]", TestBase.evaluatorUsername);
             TestBase.deleteUserData("[dbo].[Users]", TestBase.evaluatorUsername);
             TestBase.deleteUserData("[dbo].[AspNetUsers]", TestBase.evaluatorUsername);
         }

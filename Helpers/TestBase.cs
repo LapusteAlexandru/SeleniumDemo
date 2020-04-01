@@ -200,7 +200,13 @@ namespace RCoS
             cnn.Open();
             if (cnn.State == ConnectionState.Open)
                 Console.WriteLine("Connected successfully!");
-            sql = "DELETE FROM "+ tableName + " WHERE Email ='" + username + "'";
+            if (tableName.Contains("AssignedApplications"))
+            {
+                var id = getUserId(username);
+                sql = $"DELETE FROM {tableName} WHERE EvaluatorID = {id}";
+            }
+            else
+                sql = $"DELETE FROM {tableName} WHERE Email = {username}";
             command = new SqlCommand(sql, cnn);
             command.ExecuteNonQuery();
             command.Dispose();
