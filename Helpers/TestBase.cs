@@ -47,7 +47,7 @@ namespace RCoS
         public static DateTime dt = DateTime.Now;
         public static string currentMonth = dt.ToString("MMMM");
         public static int currentDay = dt.Day;
-        public static string currentDayNumber = dt.ToString("dd");
+        public static string currentDayNumber = dt.Day.ToString();
         public static string currentYear = dt.Year.ToString();
         public static string currentDate = currentMonth + " " + currentDay + ", " + currentYear;
         public static string userBirthday = currentMonth + " 01, " + currentYear;
