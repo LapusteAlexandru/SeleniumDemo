@@ -9,7 +9,7 @@ using System.Threading;
 namespace PaymentTests
 {
     [TestFixture]
-    [Category("PaymentCheck")]
+    [Category("Payment")]
     class PaymentTests
     {
         [OneTimeSetUp]
