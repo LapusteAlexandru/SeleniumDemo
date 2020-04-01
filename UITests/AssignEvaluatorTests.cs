@@ -10,6 +10,11 @@ namespace AssignEvaluatorTests
     [Category("AssignEvaluator")]
     class AssignEvaluatorTests
     {
+        [OneTimeSetUp]
+        public void Clear()
+        {
+            TestBase.deleteSectionData("[dbo].[Applications]", TestBase.appUsername, "Status", 2);
+        }
         [SetUp]
         public void Setup()
         {
@@ -75,6 +80,7 @@ namespace AssignEvaluatorTests
             IWebElement selectedEvaluator = TestBase.driver.FindElement(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorName, TestBase.userFirstName)));
             Assert.That(selectedEvaluator.Displayed);
             assignEvaluatorsPage.cancelBtn.Click();
+            TestBase.driver.Navigate().Refresh();
             applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
             Assert.That(TestBase.driver.FindElements(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorName, TestBase.userFirstName))).Count.Equals(0));
 
@@ -89,6 +95,7 @@ namespace AssignEvaluatorTests
             AssignEvaluatorsPage assignEvaluatorsPage = applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
             assignEvaluatorsPage.AssignEvaluator(TestBase.evaluatorUsername);
             assignEvaluatorsPage.assignBtn.Click();
+            TestBase.driver.Navigate().Refresh();
             applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
             IWebElement selectedEvaluator = TestBase.driver.FindElement(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorName, TestBase.userFirstName)));
             Assert.That(selectedEvaluator.Displayed);
@@ -117,7 +124,8 @@ namespace AssignEvaluatorTests
             AssignEvaluatorsPage assignEvaluatorsPage = applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
             IWebElement removeSelectedEvaluatorBtn = TestBase.driver.FindElement(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorRemoveBtn, TestBase.userFirstName)));
             removeSelectedEvaluatorBtn.Click();
-            assignEvaluatorsPage.assignBtn.Click(); 
+            assignEvaluatorsPage.assignBtn.Click();
+            TestBase.driver.Navigate().Refresh();
             applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
             Assert.That(TestBase.driver.FindElements(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorName, TestBase.userFirstName))).Count.Equals(0));
             assignEvaluatorsPage.cancelBtn.Click();

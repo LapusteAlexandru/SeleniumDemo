@@ -199,7 +199,7 @@ namespace RegistrationRequestsTests
             homePage.GetLogin();
             loginPage.DoLogin(username, TestBase.password);
             dashboardPage.openSideMenuIfClosed();
-            return dashboardPage;
+            return new DashboardPage(TestBase.driver);
         }
     }
 }

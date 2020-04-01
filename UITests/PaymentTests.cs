@@ -77,7 +77,10 @@ namespace PaymentTests
             CertificateConfirmationPage certificateConfirmationPage = dashboardPage.getSubmitApplication();
             PaymentCheckPage paymentCheckPage = certificateConfirmationPage.getPaymentCheck(); 
             PaymentPage paymentPage = paymentCheckPage.getPayment();
-            paymentPage.Submit("411111111111",TestBase.userFirstName,TestBase.userLastName,TestBase.expiryMonthDate,TestBase.expiryYearDate,TestBase.cvv);
+            paymentPage.cardNumberInput.Clear();
+            paymentPage.cardNumberInput.SendKeys("411111111111");
+            paymentPage.submitBtn.Click();
+            Thread.Sleep(500);
             Assert.That(paymentPage.shortCardNumberMsg.Displayed);
         }
         [Test, Order(2)]
@@ -89,8 +92,11 @@ namespace PaymentTests
             CertificateConfirmationPage certificateConfirmationPage = dashboardPage.getSubmitApplication();
             PaymentCheckPage paymentCheckPage = certificateConfirmationPage.getPaymentCheck(); 
             PaymentPage paymentPage = paymentCheckPage.getPayment();
-            paymentPage.Submit(TestBase.cardNumber,TestBase.userFirstName,TestBase.userLastName,TestBase.expiryMonthDate,TestBase.expiryYearDate,"12");
-            Assert.That(paymentPage.shortCardNumberMsg.Displayed);
+            paymentPage.cvvInput.Clear();
+            paymentPage.cvvInput.SendKeys("12");
+            paymentPage.submitBtn.Click();
+            Thread.Sleep(500);
+            Assert.That(paymentPage.shortCVVMsg.Displayed);
         }
         [Test, Order(2)]
         public void TestCharLimit()
@@ -103,7 +109,12 @@ namespace PaymentTests
             CertificateConfirmationPage certificateConfirmationPage = dashboardPage.getSubmitApplication();
             PaymentCheckPage paymentCheckPage = certificateConfirmationPage.getPaymentCheck(); 
             PaymentPage paymentPage = paymentCheckPage.getPayment();
-            paymentPage.Submit(TestBase.cardNumber, testText, testText, TestBase.expiryMonthDate,TestBase.expiryYearDate,TestBase.cvv);
+            paymentPage.firstNameInput.Clear();
+            paymentPage.firstNameInput.SendKeys(testText);
+            paymentPage.lastNameInput.Clear();
+            paymentPage.lastNameInput.SendKeys(testText);
+            paymentPage.submitBtn.Click();
+            Thread.Sleep(500);
             foreach (var e in paymentPage.limitReachedMsgs)
                 Assert.That(e.Displayed);
         }

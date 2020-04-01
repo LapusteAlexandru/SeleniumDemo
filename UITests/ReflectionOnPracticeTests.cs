@@ -64,7 +64,7 @@ namespace ReflectionOnPracticeTests
         {
             requiredMessages(4);
         }
-        [Test, Order(3)]
+        [Test, Order(4)]
         public void TestSubmitSuccessfully()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -107,7 +107,7 @@ namespace ReflectionOnPracticeTests
             dashboardPage.openSideMenuIfClosed();
             Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
-        [Test, Order(2)]
+        [Test, Order(3)]
         public void TestSaveAsDraft()
         {
             HomePage homePage = new HomePage(TestBase.driver);

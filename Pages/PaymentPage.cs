@@ -25,15 +25,15 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//app-payment//form")]
         public IWebElement paymentForm { get; set; }
         [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='cardNumber']")]
-        private IWebElement cardNumberInput { get; set; }
+        public IWebElement cardNumberInput { get; set; }
         [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='firstName']")]
-        private IWebElement firstNameInput { get; set; }
+        public IWebElement firstNameInput { get; set; }
         [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='lastName']")]
-        private IWebElement lastNameInput { get; set; }
+        public IWebElement lastNameInput { get; set; }
         [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='cardExpiry']")]
-        private IWebElement dateInput { get; set; }
+        public IWebElement dateInput { get; set; }
         [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='cardCodeVerification']")]
-        private IWebElement cvvInput { get; set; }
+        public IWebElement cvvInput { get; set; }
         [FindsBy(How = How.XPath, Using = "//button[@type='submit']")]
         public IWebElement submitBtn { get; set; }
 

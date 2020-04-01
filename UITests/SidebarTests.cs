@@ -103,7 +103,7 @@ namespace SidebarTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             if (TestBase.ElementIsPresent(dashboardPage.sidebar))
                 dashboardPage.sidebarMenuBtn.Click();
             else { 
@@ -120,7 +120,7 @@ namespace SidebarTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             if (!TestBase.ElementIsPresent(dashboardPage.sidebar))
                 dashboardPage.sidebarMenuBtn.Click();
             else

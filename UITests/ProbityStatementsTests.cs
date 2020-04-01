@@ -48,7 +48,8 @@ namespace ProbityStatementsTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            loginPage.DoLogin(TestBase.username, TestBase.password);
+            loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
+            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[@id='submit']")));
             Assert.True(TestBase.driver.FindElement(By.XPath("//a[@id='submit']")).GetAttribute("class").Contains("disabled"));
         }
         [Test, Order(2)]

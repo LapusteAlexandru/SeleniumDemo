@@ -69,11 +69,14 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//button[contains(text(),'Created At')]")]
         public IWebElement createdAtTableHeader { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//th[contains(text(),'Approve')]")]
+        [FindsBy(How = How.XPath, Using = "//th[contains(@class,'mat-column-approve')]")]
         public IWebElement approveTableHeader { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//th[contains(text(),'Edit')]")]
+        [FindsBy(How = How.XPath, Using = "//th[contains(@class,'mat-column-edit')]")]
         public IWebElement editTableHeader { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//th[contains(@class,'mat-column-assignEvaluators')]")]
+        public IWebElement assignEvaluatorTableHeader { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//button[contains(text(),'Payment Status')]")]
         public IWebElement paymentStatusTableHeader { get; set; }
@@ -117,6 +120,7 @@ namespace Pages
             mainElements.Add(paymentStatusTableHeader);
             mainElements.Add(editTableHeader);
             mainElements.Add(approveTableHeader);
+            mainElements.Add(assignEvaluatorTableHeader);
             mainElements.Add(nextPageBtn);
             mainElements.Add(prevPageBtn);
             return mainElements;
@@ -144,6 +148,7 @@ namespace Pages
 
         public AssignEvaluatorsPage GetAssignEvaluatorsPanel(string username)
         {
+            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[text()='Filter']/ancestor::div[@class='mat-form-field-infix']//input")));
             filterInput.Clear();
             filterInput.SendKeys(username);
             IWebElement assign = TestBase.driver.FindElement(By.XPath(string.Format(assignEvaluatorBtn, username)));
