@@ -24,6 +24,10 @@ namespace Pages
             PageFactory.InitElements(driver, this);
         }
         public string approveBtn = "//span[contains(text(),'{0}')]/ancestor::tr//i[contains(@class,'fa-check-circle')]/ancestor::button";
+        public string feedBackBtn = "//span[contains(text(),'{0}')]/ancestor::tr//i[contains(@class,'fa-comments')]/ancestor::button";
+        public string feedbackExpansionPanel = "//div[contains(text(),'{0}')]/..//mat-expansion-panel";
+        public string feedbackComment = "//div[contains(text(),'{0}')]/..//div[contains(@class,'comments')]";
+        public string feedbackStatus = "//app-evaluators-comments-dialog//div[contains(text(),'{0}')]";
         public string editBtn = "//span[contains(text(),'{0}')]/ancestor::tr//i[contains(@class,'fa-edit')]/ancestor::button";
         public string assignEvaluatorBtn = "//span[contains(text(),'{0}')]/ancestor::tr//i[contains(@class,'fa-tasks')]/ancestor::button";
         public string fullNameCell = "//span[contains(text(),'{0}')]/ancestor::tr//td[contains(@class,'cdk-column-fullName')]";
@@ -94,12 +98,15 @@ namespace Pages
         public IWebElement approveTextArea { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//mat-dialog-actions//span[contains(text(),'Approve')]")]
-        public IWebElement requestSubmitBtn { get; set; }
+        public IWebElement requestApproveBtn { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//mat-dialog-actions//span[contains(text(),'Reject')]")]
+        public IWebElement requestRejectBtn { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//button//span[contains(text(),'Cancel')]")]
         public IWebElement cancelBtn { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Application was successfully accepted')]")]
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Application was successfully')]")]
         public IWebElement acceptedMsg { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//p[contains(text(),'No requests found')]")]
@@ -138,12 +145,40 @@ namespace Pages
         
         public void AcceptRequest(string user)
         {
+
+            filterInput.Clear();
+            filterInput.SendKeys(TestBase.appUsername);
             IWebElement accept = TestBase.driver.FindElement(By.XPath(string.Format(approveBtn, user)));
             accept.Click(); 
             Thread.Sleep(300);
-            approveTextArea.SendKeys("Test");
-            requestSubmitBtn.Click();
+            approveTextArea.SendKeys("Test accept " + TestBase.currentDay);
+            requestApproveBtn.Click();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(acceptedMsg));
+        }
+        public void RejectRequest(string user)
+        {
+            filterInput.Clear();
+            filterInput.SendKeys(TestBase.appUsername);
+            IWebElement accept = TestBase.driver.FindElement(By.XPath(string.Format(approveBtn, user)));
+            accept.Click(); 
+            Thread.Sleep(300);
+            approveTextArea.SendKeys("Test reject " + TestBase.currentDay);
+            requestRejectBtn.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(acceptedMsg));
+        }
+        public string ReadComment(string applicationUser,string evaluatorUser)
+        {
+            filterInput.Clear();
+            filterInput.SendKeys(applicationUser);
+            IWebElement feedback = TestBase.driver.FindElement(By.XPath(string.Format(feedBackBtn, applicationUser)));
+            feedback.Click();
+            Thread.Sleep(300);
+
+            IWebElement feedbackPanel = TestBase.driver.FindElement(By.XPath(string.Format(feedbackExpansionPanel, evaluatorUser)));
+            feedbackPanel.Click();
+
+            string feedbackText = TestBase.driver.FindElement(By.XPath(string.Format(feedbackComment, evaluatorUser))).Text;
+            return feedbackText;
         }
 
         public AssignEvaluatorsPage GetAssignEvaluatorsPanel(string username)

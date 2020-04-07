@@ -17,7 +17,7 @@ namespace ProbityStatementsTests
         {
             TestBase.deleteSectionData("[dbo].[Documents]", TestBase.uiUsername);
             TestBase.deleteSectionData("[dbo].[ProbityStatements]", TestBase.uiUsername, "ProbityStatement");
-            TestBase.deleteSectionData("[dbo].[Applications]", TestBase.uiUsername, "Status",1);
+            TestBase.deleteSectionData("[dbo].[Applications]", TestBase.uiUsername, "Status");
         }
         [SetUp]
         public void Setup()

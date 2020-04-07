@@ -17,7 +17,7 @@ namespace PaymentCheckTests
         [OneTimeSetUp]
         public void Clear()
         {
-            TestBase.deleteSectionData("[dbo].[Applications]", TestBase.uiUsername, "Status", 1);
+            TestBase.deleteSectionData("[dbo].[Applications]", TestBase.uiUsername, "Status");
         }
         [SetUp]
         public void Setup()

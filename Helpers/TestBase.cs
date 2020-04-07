@@ -200,18 +200,18 @@ namespace RCoS
             cnn.Open();
             if (cnn.State == ConnectionState.Open)
                 Console.WriteLine("Connected successfully!");
-            if (tableName.Contains("AssignedApplications"))
+            if (tableName.Contains("AssignedApplications") || tableName.Contains("ApplicationReviews"))
             {
                 var id = getUserId(username);
                 sql = $"DELETE FROM {tableName} WHERE EvaluatorID = {id}";
             }
             else
-                sql = $"DELETE FROM {tableName} WHERE Email = {username}";
+                sql = $"DELETE FROM {tableName} WHERE Email = '{username}'";
             command = new SqlCommand(sql, cnn);
             command.ExecuteNonQuery();
             command.Dispose();
         }
-        public static void deleteSectionData(string tableName, string username, string section,int statusValue)
+        public static void deleteSectionData(string tableName, string username, string section="",int statusValue=1)
         {
             SqlConnection cnn;
             SqlCommand command;
@@ -241,33 +241,14 @@ namespace RCoS
             }
             if(section == "Status")
             {
-                sql = $"SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={id}";
-                command = new SqlCommand(sql, cnn);
-                int applicationId = (int)(command.ExecuteScalar());
-                command.Dispose();
-                sql = $"UPDATE [dbo].[Applications] SET {section} = {statusValue} WHERE Id ={applicationId}";
+                sql = $"UPDATE [dbo].[Applications] SET {section} = {statusValue} WHERE Id = (SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={id})";
                 command = new SqlCommand(sql, cnn);
                 command.ExecuteNonQuery();
                 command.Dispose();
             }
-            if (tableName.Contains("Documents"))
+            if (tableName.Contains("Documents") || tableName.Contains("Practice"))
             {
-                sql = $"SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={id}";
-                command = new SqlCommand(sql, cnn);
-                int applicationId = (int)(command.ExecuteScalar());
-                command.Dispose();
-                sql = $"DELETE FROM {tableName} WHERE ApplicationId ={applicationId}";
-                command = new SqlCommand(sql, cnn);
-                command.ExecuteNonQuery();
-                command.Dispose();
-            }
-            if (tableName.Contains("Practice"))
-            {
-                sql = $"SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={id}";
-                command = new SqlCommand(sql, cnn);
-                int applicationId = (int)(command.ExecuteScalar());
-                command.Dispose();
-                sql = $"DELETE FROM {tableName} WHERE ApplicationId ={applicationId}";
+                sql = $"DELETE a FROM {tableName} a INNER JOIN [dbo].[Applications] b ON a.ApplicationId = b.Id WHERE b.ApplicantId={id}";
                 command = new SqlCommand(sql, cnn);
                 command.ExecuteNonQuery();
                 command.Dispose();
@@ -307,7 +288,15 @@ namespace RCoS
             cnn.Open();
             sql = $"SELECT Id FROM [dbo].[Users] WHERE Email ='{username}'";
             command = new SqlCommand(sql, cnn);
-            int userId = (int)(command.ExecuteScalar());
+            int userId=-1;
+            try
+            { 
+            userId = (int)(command.ExecuteScalar());
+            }
+            catch(NullReferenceException e) 
+            {
+                Console.WriteLine(e.Message);
+            }
             command.Dispose();
             return userId;
         }
@@ -324,13 +313,6 @@ namespace RCoS
             int registrationId = (int)(command.ExecuteScalar());
             command.Dispose();
             return registrationId;
-        }
-        public static void deleteSectionData(string tableName, string username)
-        {
-            deleteSectionData(tableName, username, "",1);
-        }public static void deleteSectionData(string tableName, string username,string section)
-        {
-            deleteSectionData(tableName, username, section,1);
         }
     }
 }
