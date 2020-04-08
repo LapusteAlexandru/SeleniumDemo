@@ -196,7 +196,7 @@ namespace Pages
         }
 
 
-        public void CompleteForm(int formNo, string filename, bool update, bool draft)
+        public void CompleteForm(int formNo, string filename, bool update, bool draft = false)
         {
             IWebElement tab = case1TabBtn;
             IList<IWebElement> input = GetInputElements();
@@ -275,10 +275,6 @@ namespace Pages
             }
             Thread.Sleep(1000);
 
-        }
-        public void CompleteForm(int formNo, string filename, bool update)
-        {
-            CompleteForm(formNo, filename, update, false);
         }
     }
 }

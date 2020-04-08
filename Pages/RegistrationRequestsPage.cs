@@ -33,8 +33,14 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//h4[contains(text(),'Registration Requests')]")]
         public IWebElement title { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//app-registration-requests//table")]
+        public IWebElement requestsTable { get; set; }
+
         [FindsBy(How = How.Id, Using = "mat-input-0")]
         public IWebElement filterInput { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//p[contains(text(),'No requests found')]")]
+        public IWebElement noRequestsMsg { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//button//span[contains(text(),'Add column')]")]
         public IWebElement addColumnBtn { get; set; }

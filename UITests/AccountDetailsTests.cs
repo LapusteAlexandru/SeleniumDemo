@@ -82,6 +82,28 @@ namespace AccountDetailsTests
             AccountDetailsPage accountDetailsPage = TriggerGMCNumberValidatio(TestBase.evaluatorUsername);
             Assert.That(accountDetailsPage.gmcNumberMinCharValidation.Displayed);
         }
+        [Test, Order(2)]
+        public void TestEmptyApplicationRequests()
+        {
+
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+            Assert.That(applicationRequestsPage.noRequestsMsg.Displayed);
+            Assert.False(applicationRequestsPage.requestsTable.Displayed);
+        }
+        [Test, Order(2)]
+        public void TestEmptyRegistrationRequests()
+        {
+
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            RegistrationRequestsPage registrationRequestsPage = dashboardPage.getRegistrationRequests();
+            Assert.That(registrationRequestsPage.noRequestsMsg.Displayed);
+            Assert.False(registrationRequestsPage.requestsTable.Displayed);
+        }
 
         [Test]
         public void TestSubmitSuccessfully()
