@@ -25,8 +25,8 @@ namespace Pages
 
         public string evaluatorName = "//app-assign-evaluators//td[contains(@class,'mat-column-fullName')]//span[contains(text(),'{0}')]";
         public string evaluatorCheckbox = "//app-assign-evaluators//td[contains(@class,'mat-column-fullName')]//span[contains(text(),'{0}')]/ancestor::tr//mat-checkbox";
-        public string assignedEvaluatorName = "//div[@class='selected-evaluators']//div[contains(text(),'{0}')]";
-        public string assignedEvaluatorRemoveBtn = "//div[@class='selected-evaluators']//div[contains(text(),'{0}')]/following-sibling::i";
+        public string assignedEvaluatorName = "//div[@class='selected-evaluators']//span[contains(text(),'{0}')]";
+        public string assignedEvaluatorRemoveBtn = "//div[@class='selected-evaluators']//span[contains(text(),'{0}')]/ancestor::app-expandable-text/following-sibling::i";
 
         [FindsBy(How = How.XPath, Using = "//h4[contains(text(),'Assign evaluators')]")]
         public IWebElement title { get; set; }
