@@ -16,7 +16,6 @@ namespace Pages
         {
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//mat-nav-list")));
                 IWebElement homeContainer = TestBase.driver.FindElement(By.ClassName("home"));
                 if(TestBase.ElementIsPresent(homeContainer))
                     TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("home")));
@@ -33,6 +32,15 @@ namespace Pages
 
         [FindsBy(How = How.XPath, Using = "//title[text()='RCS.Cosmetics.Web']")]
         public IWebElement title { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Current Application')]")]
+        public IWebElement currentAppBtn { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'New Application')]")]
+        public IWebElement newAppBtn { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Applications History')]")]
+        public IWebElement appHistoryBtn { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Account Details')]")]
         public IWebElement accountDetailsBtn { get; set; }
@@ -105,6 +113,7 @@ namespace Pages
         }
         public IList<IWebElement> GetSidebarElements()
         {
+            sidebarElements.Add(currentAppBtn);
             sidebarElements.Add(probityStatementsBtn);
             sidebarElements.Add(professionalInsuranceBtn);
             sidebarElements.Add(professionalBehavioursBtn);
@@ -115,6 +124,8 @@ namespace Pages
             sidebarElements.Add(practiceBtn);
             sidebarElements.Add(referencesBtn);
             sidebarElements.Add(submitAppBtn);
+            sidebarElements.Add(newAppBtn);
+            sidebarElements.Add(appHistoryBtn);
             return sidebarElements;
         }
         public IList<IWebElement> GetAllElements()
@@ -122,6 +133,7 @@ namespace Pages
             mainElements.Add(sidebarMenuBtn);
             mainElements.Add(username);
             mainElements.Add(signOutBtn);
+            mainElements.Add(currentAppBtn);
             mainElements.Add(accountDetailsBtn);
             mainElements.Add(homeBtn);
             mainElements.Add(probityStatementsBtn);
@@ -133,6 +145,8 @@ namespace Pages
             mainElements.Add(professionalDevelopmentBtn);
             mainElements.Add(practiceBtn);
             mainElements.Add(referencesBtn);
+            mainElements.Add(newAppBtn);
+            mainElements.Add(appHistoryBtn);
             mainElements.Add(submitAppBtn);
 
             return mainElements;
@@ -141,12 +155,14 @@ namespace Pages
         public AccountDetailsPage getAccountDetails()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             accountDetailsBtn.Click();
             return new AccountDetailsPage(TestBase.driver);
         }
         public ProbityStatementsPage getProbityStatements()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(probityStatementsBtn));
             probityStatementsBtn.Click();
             return new ProbityStatementsPage(TestBase.driver);
@@ -154,6 +170,7 @@ namespace Pages
         public ProfessionalInsurancePage getProfessionalInsurance()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalInsuranceBtn));
             professionalInsuranceBtn.Click();
             return new ProfessionalInsurancePage(TestBase.driver);
@@ -161,6 +178,7 @@ namespace Pages
         public ProfessionalBehavioursPage getProfessionalBehaviours()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalBehavioursBtn));
             professionalBehavioursBtn.Click();
             return new ProfessionalBehavioursPage(TestBase.driver);
@@ -168,6 +186,7 @@ namespace Pages
         public ReflectionOnPracticePage getReflectionOnPractice()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(practiceBtn));
             practiceBtn.Click();
             return new ReflectionOnPracticePage(TestBase.driver);
@@ -175,6 +194,7 @@ namespace Pages
         public RevalidationPage getRevalidation()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(revalidationBtn));
             revalidationBtn.Click();
             return new RevalidationPage(TestBase.driver);
@@ -182,6 +202,7 @@ namespace Pages
         public OperationNumbersPage getOperationNUmbers()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(operationNumbersBtn));
             operationNumbersBtn.Click();
             return new OperationNumbersPage(TestBase.driver);
@@ -189,6 +210,7 @@ namespace Pages
         public ClinicalOutcomesPage getClinicalOutcomes()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(clinicalOutcomesBtn));
             clinicalOutcomesBtn.Click();
             return new ClinicalOutcomesPage(TestBase.driver);
@@ -196,6 +218,7 @@ namespace Pages
         public ContinuingDevelopmentPage getContinuingDevelopment()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalDevelopmentBtn));
             professionalDevelopmentBtn.Click();
             return new ContinuingDevelopmentPage(TestBase.driver);
@@ -203,6 +226,7 @@ namespace Pages
         public ReferencesPage getReferences()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(referencesBtn));
             referencesBtn.Click();
             return new ReferencesPage(TestBase.driver);
@@ -210,6 +234,7 @@ namespace Pages
         public CertificateConfirmationPage getSubmitApplication()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(submitAppBtn));
             submitAppBtn.Click();
             return new CertificateConfirmationPage(TestBase.driver);
@@ -217,6 +242,7 @@ namespace Pages
         public RegistrationRequestsPage getRegistrationRequests()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(registrationRequestsBtn));
             registrationRequestsBtn.Click();
             return new RegistrationRequestsPage(TestBase.driver);
@@ -224,13 +250,15 @@ namespace Pages
         public ApplicationRequestsPage getApplicationRequests()
         {
             openSideMenuIfClosed();
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(applicationRequestsBtn));
             applicationRequestsBtn.Click();
             return new ApplicationRequestsPage(TestBase.driver);
         }
         public HomePage logout()
         {
-            openSideMenuIfClosed();
+            openSideMenuIfClosed(); 
+            openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(logoutBtn));
             logoutBtn.Click();
             return new HomePage(TestBase.driver);
@@ -241,6 +269,16 @@ namespace Pages
             if (TestBase.driver.Manage().Window.Size.Width < 1200 && !TestBase.ElementIsPresent(sidebar)){
                 TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(sidebarMenuBtn));
                 sidebarMenuBtn.Click();
+                Thread.Sleep(500);
+            }
+        } 
+        
+        public void openCurrentAppIfClosed()
+        {
+            if (TestBase.driver.FindElement(By.TagName("mat-nested-tree-node")).GetAttribute("aria-expanded").Equals("false"))
+            {
+                TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(currentAppBtn));
+                currentAppBtn.Click();
                 Thread.Sleep(500);
             }
         }

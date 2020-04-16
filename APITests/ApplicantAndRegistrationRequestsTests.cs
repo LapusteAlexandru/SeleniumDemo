@@ -105,7 +105,7 @@ namespace APITests
             Assert.That(actualApplicant.phoneNumber.Equals(TestBase.userPhone));
             Assert.That(actualApplicant.gender.Equals(gender));
             Assert.That(actualApplicant.address.Equals(TestBase.userAddress));
-            Assert.That(actualApplicant.gmcNumber.Equals(TestBase.userGmcNumber));
+            Assert.That(actualApplicant.gmcNumber.Equals(TestBase.apiUserGmcNumber));
             Assert.That(actualApplicant.gmcSpecialty.description.Equals(TestBase.userGmcSpecialty));
             Assert.That(actualApplicant.careerGrade.description.Equals(TestBase.userCareerGrade));
             Assert.That(actualApplicant.certifications[0].id.Equals(8));
@@ -153,7 +153,7 @@ namespace APITests
             applicantModel.phoneNumber = TestBase.userPhone;
             applicantModel.gender = gen;
             applicantModel.address = TestBase.userAddress;
-            applicantModel.gmcNumber = "1231231";
+            applicantModel.gmcNumber = TestBase.apiUserGmcNumber;
             applicantModel.role = "rcs.user";
             applicantModel.gmcSpecialty = specialitiesModel;
             applicantModel.careerGrade = gradesModel;
@@ -196,7 +196,7 @@ namespace APITests
             applicantModel.phoneNumber = TestBase.userPhone;
             applicantModel.gender = gen;
             applicantModel.address = TestBase.userAddress;
-            applicantModel.gmcNumber = "1231231";
+            applicantModel.gmcNumber = TestBase.apiUserGmcNumber;
             applicantModel.role = "rcs.user";
             applicantModel.gmcSpecialty = specialitiesModel;
             applicantModel.careerGrade = gradesModel;

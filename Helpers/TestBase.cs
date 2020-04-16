@@ -40,7 +40,11 @@ namespace RCoS
         public static string userAddress = "UK";
         public static string userPhone = "123123123";
         public static string userGender = "Male";
-        public static string userGmcNumber = "1231231";
+        public static string userGmcNumber = "0000001";
+        public static string apiUserGmcNumber = "0000003";
+        public static string uiUserGmcNumber = "0000002";
+        public static string appUserGmcNumber = "0000004";
+        public static string evalUserGmcNumber = "0000005";
         public static string userGmcSpecialty = "Vascular Surgery";
         public static string userCareerGrade = "Consultant established";
         public static int sectionId ;
@@ -53,7 +57,7 @@ namespace RCoS
         public static string userBirthday = currentMonth + " 01, " + currentYear;
         public static string caseDate = dt.Month + "/1/" + currentYear;
         public static List<string> userData = new List<string> {userGender, currentDate, username, userBirthday, userGmcNumber.ToString(),userGmcSpecialty,userCareerGrade };
-        public static List<string> applicantData = new List<string> {appUsername, userGmcNumber.ToString(),userGmcSpecialty};
+        public static List<string> applicantData = new List<string> {appUsername, appUserGmcNumber.ToString(),userGmcSpecialty};
         public static List<string> expandableUserData = new List<string> {userPhone,userAddress};
         public static IWebDriver driver { get; set; }
         public static WebDriverWait wait { get; set; }

@@ -109,7 +109,7 @@ namespace AccountDetailsTests
         public void TestSubmitSuccessfully()
         {
             DashboardPage dashboardPage = new DashboardPage(TestBase.driver);
-            AccountDetailsPage accountDetailsPage = Submit(TestBase.username);
+            AccountDetailsPage accountDetailsPage = Submit(TestBase.username,TestBase.userGmcNumber);
             foreach (var e in accountDetailsPage.GetMainElements())
                 Assert.That(!e.Enabled || e.GetAttribute("class").Contains("mat-checkbox-disabled") || e.GetAttribute("class").Contains("mat-select-disabled"));
             dashboardPage.openSideMenuIfClosed();
@@ -119,7 +119,7 @@ namespace AccountDetailsTests
         [Test]
         public void TestEvaluatorSubmitSuccessfully()
         {
-            AccountDetailsPage accountDetailsPage = Submit(TestBase.evaluatorUsername);
+            AccountDetailsPage accountDetailsPage = Submit(TestBase.evaluatorUsername,TestBase.evalUserGmcNumber);
             Assert.That(accountDetailsPage.accountSubmittedMsg.Displayed);
 
         }
@@ -216,13 +216,13 @@ namespace AccountDetailsTests
             return accountDetailsPage;
         }
 
-        private AccountDetailsPage Submit(string username)
+        private AccountDetailsPage Submit(string username,string gmcNumber)
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(username, TestBase.password);
             AccountDetailsPage accountDetailsPage = dashboardPage.getAccountDetails();
-            accountDetailsPage.CompleteForm(TestBase.userTitle, TestBase.userFirstName, TestBase.userLastName, TestBase.userAddress, TestBase.userPhone, TestBase.userGender, TestBase.userGmcNumber.ToString(), TestBase.userGmcSpecialty, TestBase.userCareerGrade);
+            accountDetailsPage.CompleteForm(TestBase.userTitle, TestBase.userFirstName, TestBase.userLastName, TestBase.userAddress, TestBase.userPhone, TestBase.userGender, gmcNumber, TestBase.userGmcSpecialty, TestBase.userCareerGrade);
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(accountDetailsPage.accountSubmittedMsg));
             return accountDetailsPage;
         }

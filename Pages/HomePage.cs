@@ -41,6 +41,15 @@ namespace Pages
         [FindsBy(How = How.PartialLinkText, Using = "Evidence")]
         public IWebElement evidenceBtn { get; set; }
 
+        [FindsBy(How = How.PartialLinkText, Using = "Information for Applicants")]
+        public IWebElement informationForApplicantsBtn { get; set; }
+
+        [FindsBy(How = How.PartialLinkText, Using = "Patient Information")]
+        public IWebElement patientInformationBtn { get; set; }
+
+        [FindsBy(How = How.PartialLinkText, Using = "Register of Certified Cosmetic Surgeons")]
+        public IWebElement registerOfSurgeonsBtn { get; set; }
+
         [FindsBy(How = How.PartialLinkText, Using = "GMC")]
         public IWebElement gmcBtn { get; set; }
 
@@ -74,10 +83,9 @@ namespace Pages
             mainElements.Add(homeBtn);
             mainElements.Add(introToCosmeticsBtn);
             mainElements.Add(eligibilityBtn);
-            mainElements.Add(standardsBtn);
-            mainElements.Add(guidelinesBtn);
-            mainElements.Add(evidenceBtn);
-            mainElements.Add(gmcBtn);
+            mainElements.Add(informationForApplicantsBtn);
+            mainElements.Add(patientInformationBtn);
+            mainElements.Add(registerOfSurgeonsBtn);
             mainElements.Add(loginRegisterBtn);
             return mainElements;
         }

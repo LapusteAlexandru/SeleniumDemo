@@ -68,6 +68,7 @@ namespace RegistrationRequestsTests
             string expectedText = "Your registration request has been accepted";
             DashboardPage dashboardPage = AcceptRequest(TestBase.evaluatorUsername);
             Assert.That(dashboardPage.applicationRequestsBtn.Displayed);
+            
             foreach (var e in dashboardPage.GetSidebarElements())
                 Assert.False(TestBase.ElementIsPresent(e));
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.evaluatorUsername, TestBase.password);
@@ -199,6 +200,7 @@ namespace RegistrationRequestsTests
             homePage.GetLogin();
             loginPage.DoLogin(username, TestBase.password);
             dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             return new DashboardPage(TestBase.driver);
         }
     }

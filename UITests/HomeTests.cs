@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Pages;
 using SeleniumExtras.WaitHelpers;
 using OpenQA.Selenium;
+using System.Threading;
 
 namespace HomeTests
 {
@@ -44,41 +45,80 @@ namespace HomeTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             homePage.introToCosmeticsBtn.Click();
-            TestBase.SwitchTab();
-            Assert.That(TestBase.driver.Url.Equals("https://www.gmc-uk.org/"));
+            Thread.Sleep(500);
+            Assert.That(TestBase.driver.Url.Contains("/introduction-to-cosmetics"));
+            Assert.That(TestBase.driver.FindElement(By.TagName("app-introduction-to-cosmetics")).Displayed);
+        } 
+        
+        [Test]
+        public void TestPatientInformationBtn()
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.patientInformationBtn.Click();
+            Thread.Sleep(500);
+            Assert.That(TestBase.driver.Url.Contains("/patient-information"));
+            Assert.That(TestBase.driver.FindElement(By.TagName("app-patient-information")).Displayed);
+        }
+        
+        [Test]
+        public void TestRegisterSurgeonsBtn()
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.registerOfSurgeonsBtn.Click();
+            Thread.Sleep(500);
+            Assert.That(TestBase.driver.Url.Contains("/register-of-certified-cosmetics-surgeons"));
+            Assert.That(TestBase.driver.FindElement(By.TagName("app-register-of-certified-cosmetics-surgeons")).Displayed);
+        }
+        
+        [Test]
+        public void TestInformationForApplicantsBtn()
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.informationForApplicantsBtn.Click();
+            Thread.Sleep(500);
+            Assert.That(TestBase.driver.Url.Contains("/information-for-applicants"));
+            Assert.That(TestBase.driver.FindElement(By.TagName("app-information-for-applicants")).Displayed);
         }
         [Test]
         public void TestEligibilityBtn()
         {
             HomePage homePage = new HomePage(TestBase.driver);
             homePage.eligibilityBtn.Click();
-            TestBase.SwitchTab();
-            Assert.That(TestBase.driver.Url.Equals("https://www.gmc-uk.org/"));
+            Thread.Sleep(500);
+            Assert.That(TestBase.driver.Url.Contains("/eligibility-for-certification"));
+            Assert.That(TestBase.driver.FindElement(By.TagName("app-eligibility-for-certification")).Displayed);
         }
         [Test]
         public void TestStandardsBtn()
         {
             HomePage homePage = new HomePage(TestBase.driver);
-            homePage.standardsBtn.Click();
-            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h4[contains(text(),'Professional Standards for Cosmetic Surgery')]")));
-            Assert.That(TestBase.driver.Url.Contains("/standards"));
+            homePage.informationForApplicantsBtn.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-information-for-applicants")));
+            Assert.That(homePage.evidenceBtn.GetAttribute("href").Equals("https://www.rcseng.ac.uk/-/media/files/rcs/standards-and-research/standards-and-policy/service-standards/cosmetic-surgery/application-evidence-summary.pdf?la=en"));
+
         }
         [Test]
         public void TestGuildelinesBtn()
         {
             HomePage homePage = new HomePage(TestBase.driver);
+            homePage.informationForApplicantsBtn.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-information-for-applicants")));
             Assert.That(homePage.guidelinesBtn.GetAttribute("href").Equals("https://www.rcseng.ac.uk/-/media/files/rcs/standards-and-research/standards-and-policy/service-standards/cosmetic-surgery/cosmetic-surgery-certification-application-guidelines.pdf?la=en"));
         }
         [Test]
         public void TestEvidenceBtn()
         {
             HomePage homePage = new HomePage(TestBase.driver);
+            homePage.informationForApplicantsBtn.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-information-for-applicants")));
             Assert.That(homePage.evidenceBtn.GetAttribute("href").Equals("https://www.rcseng.ac.uk/-/media/files/rcs/standards-and-research/standards-and-policy/service-standards/cosmetic-surgery/application-evidence-summary.pdf?la=en"));
         }
         [Test]
         public void TestGMCBtn()
         {
             HomePage homePage = new HomePage(TestBase.driver);
+            homePage.informationForApplicantsBtn.Click();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(homePage.gmcBtn));
             homePage.gmcBtn.Click();
             TestBase.SwitchTab();
             Assert.That(TestBase.driver.Url.Contains("/specialist-registration"));
