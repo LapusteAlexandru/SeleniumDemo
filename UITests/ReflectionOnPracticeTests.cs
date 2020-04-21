@@ -103,8 +103,8 @@ namespace ReflectionOnPracticeTests
                 }
                 Assert.That(reflectionOnPracticePage.dateInput.GetAttribute("value").Equals(TestBase.caseDate));
             }
-
             dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
         [Test, Order(3)]
@@ -146,8 +146,8 @@ namespace ReflectionOnPracticeTests
                 }
                 Assert.That(reflectionOnPracticePage.dateInput.GetAttribute("value").Equals(TestBase.caseDate));
             }
-
             dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("mattooltip").Contains("Not Started"));
         }
         [Test]
@@ -211,6 +211,7 @@ namespace ReflectionOnPracticeTests
                 Assert.That(reflectionOnPracticePage.dateInput.GetAttribute("value").Equals(TestBase.caseDate));
             }
             dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             Assert.That(reflectionOnPracticePage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
 

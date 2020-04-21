@@ -50,8 +50,9 @@ namespace ProbityStatementsTests
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[@id='submit']")));
-            Assert.True(TestBase.driver.FindElement(By.XPath("//a[@id='submit']")).GetAttribute("class").Contains("disabled"));
+            Assert.True(TestBase.driver.FindElement(By.XPath("//a[@id='submit']/parent::li")).GetAttribute("class").Contains("disabled"));
         }
         [Test, Order(2)]
         public void TestRequiredMsgs()
@@ -77,10 +78,11 @@ namespace ProbityStatementsTests
             probityStatementsPage.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(probityStatementsPage.title));
-            dashboardPage.openSideMenuIfClosed();
             Assert.That(probityStatementsPage.professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(probityStatementsPage.suspensionCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(probityStatementsPage.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked")); 
+            Assert.That(probityStatementsPage.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"));
+            dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openSideMenuIfClosed();
             Assert.That(probityStatementsPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
         [Test]
@@ -96,13 +98,15 @@ namespace ProbityStatementsTests
             probityStatementsPage.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(probityStatementsPage.title));
-            dashboardPage.openSideMenuIfClosed();
             Assert.That(probityStatementsPage.professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(probityStatementsPage.suspensionCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             if (radioOption.Equals(ProbityRadio.Nothing))
                 Assert.That(probityStatementsPage.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"));
             else
                 Assert.That(probityStatementsPage.somethingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"));
+            dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openSideMenuIfClosed();
+            Assert.That(probityStatementsPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
     }
 }

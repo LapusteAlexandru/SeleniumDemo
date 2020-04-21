@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using Pages;
 using RCoS;
+using SeleniumExtras.WaitHelpers;
 using System.Threading;
 
 namespace SidebarTests
@@ -104,6 +105,7 @@ namespace SidebarTests
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(dashboardPage.sidebarMenuBtn));
             if (TestBase.ElementIsPresent(dashboardPage.sidebar))
                 dashboardPage.sidebarMenuBtn.Click();
             else { 
@@ -121,6 +123,7 @@ namespace SidebarTests
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(dashboardPage.sidebarMenuBtn));
             if (!TestBase.ElementIsPresent(dashboardPage.sidebar))
                 dashboardPage.sidebarMenuBtn.Click();
             else

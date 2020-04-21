@@ -66,7 +66,7 @@ namespace PaymentTests
             PaymentCheckPage paymentCheckPage = certificateConfirmationPage.getPaymentCheck(); 
             PaymentPage paymentPage = paymentCheckPage.getPayment();
             ApplicationThankYouPage tyPage = paymentPage.Submit(TestBase.cardNumber,TestBase.userFirstName,TestBase.userLastName,TestBase.expiryMonthDate,TestBase.expiryYearDate,TestBase.cvv);
-            Assert.That(tyPage.thankYouMsg.Displayed);
+            Assert.That(tyPage.thankYouMsgCard.Displayed);
         }
         [Test, Order(2)]
         public void TestShortCardNumber()

@@ -61,8 +61,9 @@ namespace ProfessionalBehavioursTests
             professionalBehavioursPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalBehavioursPage.title));
-            dashboardPage.openSideMenuIfClosed();
             Assert.That(professionalBehavioursPage.professionalResponsibilitiesCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             Assert.That(professionalBehavioursPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
     }

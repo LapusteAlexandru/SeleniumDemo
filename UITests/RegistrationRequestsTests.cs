@@ -90,7 +90,7 @@ namespace RegistrationRequestsTests
             homePage.GetLogin();
             loginPage.DoLogin(TestBase.username, TestBase.password);
             dashboardPage.openSideMenuIfClosed();
-            var e = dashboardPage.GetAllElements();
+            var e = dashboardPage.GetSidebarElements();
             for (int i = 5; i < e.Count; i++)
             {
                 Assert.IsFalse(TestBase.ElementIsPresent(e[i]));
@@ -198,9 +198,9 @@ namespace RegistrationRequestsTests
             registrationRequestsPage.AcceptRequest(username);
             dashboardPage.logout();
             homePage.GetLogin();
-            loginPage.DoLogin(username, TestBase.password);
-            dashboardPage.openSideMenuIfClosed();
-            dashboardPage.openCurrentAppIfClosed();
+            DashboardPage userDashboardPage = loginPage.DoLogin(username, TestBase.password);
+            userDashboardPage.openSideMenuIfClosed();
+            userDashboardPage.openCurrentAppIfClosed();
             return new DashboardPage(TestBase.driver);
         }
     }

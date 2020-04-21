@@ -43,6 +43,7 @@ namespace ReferencesTests
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(referencesPage.title));
             dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             Assert.That(referencesPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
     }

@@ -62,8 +62,9 @@ namespace RevalidationTests
             revalidationPage.CompleteForm(YesOrNoRadio.Yes,"png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(revalidationPage.title));
-            dashboardPage.openSideMenuIfClosed();
             Assert.That(revalidationPage.declareAppraisalYes.GetAttribute("class").Contains("mat-radio-checked"));
+            dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             Assert.That(revalidationPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
         [Test]
@@ -77,8 +78,9 @@ namespace RevalidationTests
             revalidationPage.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(revalidationPage.title));
-            dashboardPage.openSideMenuIfClosed();
             Assert.That(revalidationPage.declareAppraisalNo.GetAttribute("class").Contains("mat-radio-checked"));
+            dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             Assert.That(revalidationPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
     }

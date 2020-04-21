@@ -309,11 +309,9 @@ namespace EditApplicationTests
             ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests(); 
             EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.username);
             ReflectionOnPracticePage reflectionOnPracticePage = editPage.getReflectionOnPractice();
-            foreach(var e in reflectionOnPracticePage.GetFormTabs())
+            reflectionOnPracticePage.submitBtn.Click();
+            foreach (var e in reflectionOnPracticePage.GetFormTabs())
             {
-                e.Click();
-                TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(reflectionOnPracticePage.hospitalSiteInput));
-                reflectionOnPracticePage.submitBtn.Click();
                 e.Click();
                 var selected = e.GetAttribute("aria-selected");
                 TestBase.wait.Equals(selected.Equals(true));

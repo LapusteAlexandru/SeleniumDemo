@@ -63,10 +63,11 @@ namespace ProfessionalInsuranceTests
             professionalInsurancePage.CompleteForm(radioOption,"png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalInsurancePage.title));
-            dashboardPage.openSideMenuIfClosed();
             Assert.That(professionalInsurancePage.indemnityArrangementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(professionalInsurancePage.disclosedNatureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(professionalInsurancePage.yesPracticeRadio.GetAttribute("class").Contains("mat-radio-checked"));
+            dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             Assert.That(professionalInsurancePage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
         
@@ -81,10 +82,11 @@ namespace ProfessionalInsuranceTests
             professionalInsurancePage.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalInsurancePage.title));
-            dashboardPage.openSideMenuIfClosed();
             Assert.That(professionalInsurancePage.indemnityArrangementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(professionalInsurancePage.disclosedNatureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(professionalInsurancePage.noPracticeRadio.GetAttribute("class").Contains("mat-radio-checked"));
+            dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             Assert.That(professionalInsurancePage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
     }

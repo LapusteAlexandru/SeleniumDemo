@@ -43,6 +43,7 @@ namespace ContinuingDevelopmentTests
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(continuingDevelopmentPage.title));
             dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             Assert.That(continuingDevelopmentPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
     }

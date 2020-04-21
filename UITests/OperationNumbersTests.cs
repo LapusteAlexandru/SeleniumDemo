@@ -7,7 +7,7 @@ using System.Threading;
 namespace OperativeExposureTests
 {
     [TestFixture]
-    [Category("OperativeExposure")]
+    [Category("OperationNumbers")]
     class OperativeExposureTests
     {
         [OneTimeSetUp]
@@ -61,9 +61,10 @@ namespace OperativeExposureTests
             OperationNumbersPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(OperationNumbersPage.title));
-            dashboardPage.openSideMenuIfClosed();
             Assert.That(OperationNumbersPage.proceduresCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(OperationNumbersPage.operativeExposureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
             Assert.That(OperationNumbersPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
         }
     }

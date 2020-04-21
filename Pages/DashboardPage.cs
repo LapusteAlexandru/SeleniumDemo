@@ -156,6 +156,7 @@ namespace Pages
         {
             openSideMenuIfClosed();
             openCurrentAppIfClosed();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(accountDetailsBtn));
             accountDetailsBtn.Click();
             return new AccountDetailsPage(TestBase.driver);
         }
@@ -271,16 +272,23 @@ namespace Pages
                 sidebarMenuBtn.Click();
                 Thread.Sleep(500);
             }
+            else
+                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.TagName("mat-tree")));
         } 
         
         public void openCurrentAppIfClosed()
         {
-            if (TestBase.driver.FindElement(By.TagName("mat-nested-tree-node")).GetAttribute("aria-expanded").Equals("false"))
+            try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(currentAppBtn));
-                currentAppBtn.Click();
-                Thread.Sleep(500);
+                if (TestBase.driver.FindElement(By.TagName("mat-nested-tree-node")).GetAttribute("aria-expanded").Equals("false"))
+                {
+                    TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(currentAppBtn));
+                    currentAppBtn.Click();
+                    Thread.Sleep(500);
+                }
             }
+            
+            catch (NoSuchElementException e) { Console.WriteLine(e); }
         }
     }
 }
