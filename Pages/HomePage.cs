@@ -56,20 +56,8 @@ namespace Pages
         [FindsBy(How = How.ClassName, Using = "mat-button-wrapper")]
         public IWebElement loginRegisterBtn { get; set; }
 
-        [FindsBy(How = How.ClassName, Using = "fa-twitter")]
-        public IWebElement twitterBtn { get; set; }
-
-        [FindsBy(How = How.ClassName, Using = "fa-facebook-f")]
-        public IWebElement facebookBtn { get; set; }
-
-        [FindsBy(How = How.ClassName, Using = "fa-google-plus-g")]
-        public IWebElement googleBtn { get; set; }
-
-        [FindsBy(How = How.ClassName, Using = "fa-linkedin-in")]
-        public IWebElement linkedInBtn { get; set; }
-
         [FindsBy(How = How.ClassName, Using = "fa-youtube")]
-        public IWebElement youtubeBtn { get; set; }
+        public IWebElement contactsBtn { get; set; }
 
 
         [FindsBy(How = How.XPath, Using = "//h4[text()='Cosmetic Surgery Certification']")]
@@ -87,6 +75,7 @@ namespace Pages
             mainElements.Add(patientInformationBtn);
             mainElements.Add(registerOfSurgeonsBtn);
             mainElements.Add(loginRegisterBtn);
+            mainElements.Add(contactsBtn);
             return mainElements;
         }
 

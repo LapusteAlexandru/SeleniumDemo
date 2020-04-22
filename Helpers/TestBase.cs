@@ -64,6 +64,7 @@ namespace RCoS
         public static WebDriverWait uploadWait { get; set; }
         public static void RootInit()
         {
+            
             var cap = new ChromeOptions();
             cap.AddArgument("start-maximized");
             cap.AddArgument("--ignore-certificate-errors");
@@ -74,9 +75,18 @@ namespace RCoS
             if (baseURL == null || baseURL == "")
                 driver.Url = "https://rcs-cosmetics-client-dev.azurewebsites.net/";
             else
-                driver.Url = baseURL;
+                driver.Url = baseURL; 
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
             uploadWait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+            try
+            {
+                wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[contains(text(),'Got it')]")));
+                driver.FindElement(By.XPath("//a[contains(text(),'Got it')]")).Click();
+            }
+            catch(NoSuchElementException e)
+            {
+                Console.WriteLine(e);
+            }
         }
         public static void SwitchTab()
         {

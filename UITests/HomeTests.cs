@@ -39,6 +39,13 @@ namespace HomeTests
             homePage.homeBtn.Click();
             Assert.That(TestBase.driver.Url.Equals("https://rcs-cosmetics-client-dev.azurewebsites.net/home"));
         }
+        [Test]
+        public void TestContactsBtn()
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            homePage.contactsBtn.Click();
+            Assert.That(TestBase.driver.Url.Equals("https://rcs-cosmetics-client-dev.azurewebsites.net/contacts"));
+        }
 
         [Test]
         public void TestIntroductionBtn()
