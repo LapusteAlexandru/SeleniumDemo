@@ -255,7 +255,7 @@ namespace RCoS
             }
             if(section == "Status")
             {
-                sql = $"UPDATE [dbo].[Applications] SET {section} = {statusValue} WHERE Id = (SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={id})";
+                sql = $"UPDATE [dbo].[Applications] SET {section} = {statusValue} WHERE Id in (SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={id})";
                 command = new SqlCommand(sql, cnn);
                 command.ExecuteNonQuery();
                 command.Dispose();

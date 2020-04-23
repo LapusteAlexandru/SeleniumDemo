@@ -38,7 +38,7 @@ namespace ClinicalOutcomesTests
             foreach (var e in clinicalOutcomesPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
-        [Test, Order(2)]
+        [Test, Order(1)]
         public void TestRequiredMsgs()
         {
             HomePage homePage = new HomePage(TestBase.driver);
@@ -51,17 +51,36 @@ namespace ClinicalOutcomesTests
                 Assert.That(e.Displayed);
             Assert.That(clinicalOutcomesPage.requiredMsgs.Count.Equals(2));
         }
-        [Test]
+        [Test,Order(2)]
         public void TestSubmitSuccessfully()
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             ClinicalOutcomesPage clinicalOutcomesPage = dashboardPage.getClinicalOutcomes();
-            clinicalOutcomesPage.CompleteForm("png");
+            clinicalOutcomesPage.CompleteForm("PHINLink","png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(clinicalOutcomesPage.title));
             Assert.That(clinicalOutcomesPage.CMARequirementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(clinicalOutcomesPage.phinLink.GetAttribute("value").Equals("PHINLink"));
+
+            dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
+            Assert.That(clinicalOutcomesPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
+        }
+
+        [Test]
+        public void TestEditSuccessfully()
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
+            ClinicalOutcomesPage clinicalOutcomesPage = dashboardPage.getClinicalOutcomes();
+            clinicalOutcomesPage.CompleteForm("UpdatedPHINLink","png");
+            TestBase.driver.Navigate().Refresh();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(clinicalOutcomesPage.title));
+            Assert.That(clinicalOutcomesPage.CMARequirementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(clinicalOutcomesPage.phinLink.GetAttribute("value").Equals("UpdatedPHINLink"));
             dashboardPage.openSideMenuIfClosed();
             dashboardPage.openCurrentAppIfClosed();
             Assert.That(clinicalOutcomesPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));

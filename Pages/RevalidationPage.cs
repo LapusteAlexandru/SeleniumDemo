@@ -73,7 +73,7 @@ namespace Pages
             return mainElements;
         }
 
-        public void CompleteForm(YesOrNoRadio radio, string filename1)
+        public void CompleteForm(YesOrNoRadio radio, string filename="")
         {
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(mostRecentRevalidationDate));
             mostRecentRevalidationDate.Click();
@@ -89,9 +89,9 @@ namespace Pages
                 declareAppraisalYes.Click();
             else
                 declareAppraisalNo.Click();
-            if (filename1.Length > 0)
+            if (filename.Length > 0)
             {
-                TestBase.uploadField(filename1, fileExtension);
+                TestBase.uploadField(filename, fileExtension);
             }
             saveBtn.Click();
             try
@@ -99,10 +99,6 @@ namespace Pages
                 TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(pageUpdatedMsg));
             }
             catch(NoSuchElementException e) { Console.WriteLine(e); }
-        }
-        public void CompleteForm(YesOrNoRadio radio)
-        {
-            CompleteForm(radio, "");
         }
     }
 }

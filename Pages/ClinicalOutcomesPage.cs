@@ -34,6 +34,9 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//input[@type='file']/ancestor::button")]
         public IWebElement uploadInput { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='phinLink']")]
+        public IWebElement phinLink { get; set; }
+
         [FindsBy(How = How.XPath, Using = "//button[@type='submit']")]
         public IWebElement saveBtn { get; set; }
 
@@ -57,13 +60,17 @@ namespace Pages
             return mainElements;
         }
 
-        public void CompleteForm(string filename)
+        public void CompleteForm(string phinLinkValue, string filename="")
         {
             if (!CMARequirementsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"))
                 CMARequirementsCheckbox.Click();
-
+            phinLink.Clear();
+            phinLink.SendKeys(phinLinkValue);
             string fileExtension = "png";
-            TestBase.uploadField(filename, fileExtension);
+            if (filename.Length > 0)
+            {
+                TestBase.uploadField(filename, fileExtension);
+            }
             saveBtn.Click();
             try
             {

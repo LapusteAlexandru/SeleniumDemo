@@ -103,7 +103,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Supplementary certificate in body contouring')]/ancestor::mat-checkbox")]
         public IWebElement massiveWeightLossCheckbox { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//span[text()=' Cosmetic Surgery ']/ancestor::mat-checkbox")]
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Cosmetic Surgery (all areas covered by the scheme)')]/ancestor::mat-checkbox")]
         public IWebElement cosmeticSurgeryCheckbox { get; set; }
 
         [FindsBy(How = How.Id, Using = "mat-expansion-panel-header-0")]
