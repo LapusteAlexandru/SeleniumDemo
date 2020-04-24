@@ -56,7 +56,7 @@ namespace Pages
         [FindsBy(How = How.ClassName, Using = "mat-button-wrapper")]
         public IWebElement loginRegisterBtn { get; set; }
 
-        [FindsBy(How = How.ClassName, Using = "fa-youtube")]
+        [FindsBy(How = How.XPath, Using = "//a[contains(text(),'Contacts')]")]
         public IWebElement contactsBtn { get; set; }
 
 

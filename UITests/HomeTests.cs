@@ -37,6 +37,7 @@ namespace HomeTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             homePage.homeBtn.Click();
+            Thread.Sleep(500);
             Assert.That(TestBase.driver.Url.Equals("https://rcs-cosmetics-client-dev.azurewebsites.net/home"));
         }
         [Test]
@@ -44,7 +45,8 @@ namespace HomeTests
         {
             HomePage homePage = new HomePage(TestBase.driver);
             homePage.contactsBtn.Click();
-            Assert.That(TestBase.driver.Url.Equals("https://rcs-cosmetics-client-dev.azurewebsites.net/contacts"));
+            Thread.Sleep(500);
+            Assert.That(TestBase.driver.Url.Contains("/contacts"));
         }
 
         [Test]
@@ -101,7 +103,7 @@ namespace HomeTests
             HomePage homePage = new HomePage(TestBase.driver);
             homePage.informationForApplicantsBtn.Click();
             TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-information-for-applicants")));
-            Assert.That(homePage.evidenceBtn.GetAttribute("href").Equals("https://www.rcseng.ac.uk/-/media/files/rcs/standards-and-research/standards-and-policy/service-standards/cosmetic-surgery/application-evidence-summary.pdf?la=en"));
+            Assert.That(homePage.standardsBtn.GetAttribute("href").Contains("/assets/pdfs/professional-standards-for-cosmetic-surgery-april-2020.pdf"));
 
         }
         [Test]
@@ -110,7 +112,7 @@ namespace HomeTests
             HomePage homePage = new HomePage(TestBase.driver);
             homePage.informationForApplicantsBtn.Click();
             TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-information-for-applicants")));
-            Assert.That(homePage.guidelinesBtn.GetAttribute("href").Equals("https://www.rcseng.ac.uk/-/media/files/rcs/standards-and-research/standards-and-policy/service-standards/cosmetic-surgery/cosmetic-surgery-certification-application-guidelines.pdf?la=en"));
+            Assert.That(homePage.guidelinesBtn.GetAttribute("href").Contains("/assets/pdfs/certification-application-guidelines-april-2020.pdf"));
         }
         [Test]
         public void TestEvidenceBtn()
@@ -118,7 +120,7 @@ namespace HomeTests
             HomePage homePage = new HomePage(TestBase.driver);
             homePage.informationForApplicantsBtn.Click();
             TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-information-for-applicants")));
-            Assert.That(homePage.evidenceBtn.GetAttribute("href").Equals("https://www.rcseng.ac.uk/-/media/files/rcs/standards-and-research/standards-and-policy/service-standards/cosmetic-surgery/application-evidence-summary.pdf?la=en"));
+            Assert.That(homePage.evidenceBtn.GetAttribute("href").Contains("/assets/pdfs/application-evidence-summary-april-2020.pdf"));
         }
         [Test]
         public void TestGMCBtn()
