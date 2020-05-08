@@ -46,6 +46,8 @@ namespace APITests
             revalidationModel.id = 0;
             revalidationModel.applicationId = TestBase.getApplicationId(id);
             revalidationModel.declareAppraisal = true;
+            revalidationModel.mostRecentRevalidation = "2020-01-06T13:05:37.850Z";
+            revalidationModel.nextRevalidation = "2020-12-06T13:05:37.850Z";
             revalidationModel.gmcLetters = new List<DocumentsModel>();
             revalidationModel.gmcLetters.Add(documentModel);
             revalidationModel.annualAppraisals = new List<DocumentsModel>();
@@ -75,6 +77,8 @@ namespace APITests
             revalidationModel.id = insuranceId;
             revalidationModel.applicationId = applicationId;
             revalidationModel.declareAppraisal = false;
+            revalidationModel.mostRecentRevalidation = "2020-01-06T13:05:37.850Z";
+            revalidationModel.nextRevalidation = "2020-12-06T13:05:37.850Z";
             revalidationModel.gmcLetters = new List<DocumentsModel>();
             revalidationModel.gmcLetters.Add(documentModel);
             revalidationModel.annualAppraisals = new List<DocumentsModel>();

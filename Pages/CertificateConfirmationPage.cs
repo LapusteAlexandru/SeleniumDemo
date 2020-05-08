@@ -82,10 +82,10 @@ namespace Pages
             return mainElements;
         }
 
-        public PaymentCheckPage getPaymentCheck()
+        public ApplicationThankYouPage Submit()
         {
             submitBtn.Click();
-            return new PaymentCheckPage(TestBase.driver);
+            return new ApplicationThankYouPage(TestBase.driver);
         }
     }
 }

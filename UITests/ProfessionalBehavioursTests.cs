@@ -31,20 +31,14 @@ namespace ProfessionalBehavioursTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ProfessionalBehavioursPage professionalBehavioursPage = dashboardPage.getProfessionalBehaviours();
+            ProfessionalBehavioursPage professionalBehavioursPage = getProfessionalBehaviours().Item1;
             foreach (var e in professionalBehavioursPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test, Order(2)]
         public void TestRequiredMsgs()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ProfessionalBehavioursPage professionalBehavioursPage = dashboardPage.getProfessionalBehaviours();
+            ProfessionalBehavioursPage professionalBehavioursPage = getProfessionalBehaviours().Item1;
             professionalBehavioursPage.saveBtn.Click();
             Thread.Sleep(300);
             foreach (var e in professionalBehavioursPage.requiredMsgs)
@@ -54,10 +48,7 @@ namespace ProfessionalBehavioursTests
         [Test]
         public void TestSubmitSuccessfully()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ProfessionalBehavioursPage professionalBehavioursPage = dashboardPage.getProfessionalBehaviours();
+            var (professionalBehavioursPage, dashboardPage) = getProfessionalBehaviours();
             professionalBehavioursPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalBehavioursPage.title));
@@ -65,6 +56,16 @@ namespace ProfessionalBehavioursTests
             dashboardPage.openSideMenuIfClosed();
             dashboardPage.openCurrentAppIfClosed();
             Assert.That(professionalBehavioursPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
+        }
+
+        private (ProfessionalBehavioursPage, DashboardPage) getProfessionalBehaviours()
+        {
+
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
+            ProfessionalBehavioursPage professionalBehavioursPage = dashboardPage.getProfessionalBehaviours();
+            return (professionalBehavioursPage, dashboardPage);
         }
     }
 }

@@ -63,10 +63,10 @@ namespace SignUpTests
         [Test, Order(1)]
         public void TestRequired()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            SignUpPage signUpPage = loginPage.GetSignUp();
+
+            SignUpPage signUpPage = getSignUp();
             signUpPage.registerBtn.Click();
+            Thread.Sleep(500);
             Assert.That(signUpPage.emailRequiredMsg.Displayed && signUpPage.passwordRequiredMsg.Displayed
                 && signUpPage.confirmPasswordRequiredMsg.Displayed && signUpPage.tosRequiredMsg.Displayed);
         }
@@ -77,6 +77,7 @@ namespace SignUpTests
             TestBase.driver.Url = "https://rcs-cosmetics-identity-dev.azurewebsites.net/Account/RegisterEvaluator";
             SignUpPage signUpPage = new SignUpPage(TestBase.driver);
             signUpPage.registerBtn.Click();
+            Thread.Sleep(500);
             Assert.That(signUpPage.emailRequiredMsg.Displayed && signUpPage.passwordRequiredMsg.Displayed
                 && signUpPage.confirmPasswordRequiredMsg.Displayed && signUpPage.tosRequiredMsg.Displayed);
         }
@@ -84,9 +85,8 @@ namespace SignUpTests
         [Test, Order(1)]
         public void TestInvalidEmail()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            SignUpPage signUpPage = loginPage.GetSignUp();
+
+            SignUpPage signUpPage = getSignUp();
             signUpPage.DoRegister("InvalidEmail", "", "");
             Assert.That(signUpPage.emailInvalidMsg.Displayed);
         }
@@ -104,9 +104,8 @@ namespace SignUpTests
         [Test, Order(1)]
         public void TestPassDontMatch()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            SignUpPage signUpPage = loginPage.GetSignUp();
+
+            SignUpPage signUpPage = getSignUp();
             signUpPage.DoRegister(TestBase.username,"123","321");
             Assert.That(signUpPage.passwordsDontMatchMsg.Displayed);
         }
@@ -123,9 +122,8 @@ namespace SignUpTests
         [Test, Order(1)]
         public void TestPasswordMinCharValidation()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            SignUpPage signUpPage = loginPage.GetSignUp();
+
+            SignUpPage signUpPage = getSignUp();
             signUpPage.DoRegister(TestBase.username, "1!qQ", "1!qQ");
             Assert.That(signUpPage.passwordMinLengthMsg.Displayed);
         }
@@ -141,9 +139,8 @@ namespace SignUpTests
         [Test, Order(1)]
         public void TestPasswordAlphanumericValidation()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            SignUpPage signUpPage = loginPage.GetSignUp();
+
+            SignUpPage signUpPage = getSignUp();
             signUpPage.DoRegister(TestBase.username, "1234qQ", "1234qQ");
             Assert.That(signUpPage.passwordAlphanumericMsg.Displayed);
         }
@@ -158,9 +155,8 @@ namespace SignUpTests
         [Test, Order(1)]
         public void TestPasswordLowercaseValidation()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            SignUpPage signUpPage = loginPage.GetSignUp();
+
+            SignUpPage signUpPage = getSignUp();
             signUpPage.DoRegister(TestBase.username, "12!@QQ", "12!@QQ");
             Assert.That(signUpPage.passwordLowercaseMsg.Displayed);
         }
@@ -175,9 +171,8 @@ namespace SignUpTests
         [Test, Order(1)]
         public void TestPasswordUpercaseValidation()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            SignUpPage signUpPage = loginPage.GetSignUp();
+
+            SignUpPage signUpPage = getSignUp();
             signUpPage.DoRegister(TestBase.username, "12!@qq", "12!@qq");
             Assert.That(signUpPage.passwordUppercaseMsg.Displayed);
         }
@@ -192,9 +187,8 @@ namespace SignUpTests
         [Test, Order(1)]
         public void TestPasswordNumberValidation()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            SignUpPage signUpPage = loginPage.GetSignUp();
+
+            SignUpPage signUpPage = getSignUp();
             signUpPage.DoRegister(TestBase.username, "!@qqQQ", "!@qqQQ");
             Assert.That(signUpPage.passwordNumberMsg.Displayed);
         }
@@ -209,18 +203,15 @@ namespace SignUpTests
         [Test, Order(1)]
         public void TestCancelBtn()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin(); 
-            SignUpPage signUpPage = loginPage.GetSignUp();
+
+            SignUpPage signUpPage = getSignUp();
             signUpPage.ClickCancel();
-            Assert.That(loginPage.title.Displayed);
+            Assert.That(!signUpPage.title.Displayed);
         }
         [Test, Order(2)]
         public void TestSuccessfulSignup()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            SignUpPage signUpPage = loginPage.GetSignUp();
+            SignUpPage signUpPage = getSignUp();
             SignUpTyPage signupTyPage =  signUpPage.DoRegister(TestBase.username, TestBase.password, TestBase.password);
             Assert.That(signupTyPage.tyMessage.Displayed);
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
@@ -254,6 +245,14 @@ namespace SignUpTests
             SignUpPage signUpPage = loginPage.GetSignUp();
             signUpPage.DoRegister(TestBase.uiUsername, TestBase.password, TestBase.password);
             Assert.That(signUpPage.emailTakenMsg.Displayed);
+        }
+
+        private SignUpPage getSignUp()
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            SignUpPage signUpPage = loginPage.GetSignUp();
+            return signUpPage;
         }
     }
 }

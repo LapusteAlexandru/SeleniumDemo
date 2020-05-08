@@ -2,6 +2,7 @@
 using Pages;
 using RCoS;
 using SeleniumExtras.WaitHelpers;
+using System;
 
 namespace ContinuingDevelopmentTests
 {
@@ -25,26 +26,31 @@ namespace ContinuingDevelopmentTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ContinuingDevelopmentPage continuingDevelopmentPage = dashboardPage.getContinuingDevelopment();
+
+            var continuingDevelopmentPage = getContinuingDevelopment().Item1;
             foreach (var e in continuingDevelopmentPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test]
         public void TestSubmitSuccessfully()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ContinuingDevelopmentPage continuingDevelopmentPage = dashboardPage.getContinuingDevelopment();
+            var (continuingDevelopmentPage, dashboardPage) = getContinuingDevelopment();
             continuingDevelopmentPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(continuingDevelopmentPage.title));
             dashboardPage.openSideMenuIfClosed();
             dashboardPage.openCurrentAppIfClosed();
             Assert.That(continuingDevelopmentPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
+        }
+
+        private (ContinuingDevelopmentPage,DashboardPage) getContinuingDevelopment()
+        {
+
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
+            ContinuingDevelopmentPage continuingDevelopmentPage = dashboardPage.getContinuingDevelopment();
+            return (continuingDevelopmentPage,dashboardPage);
         }
     }
 }

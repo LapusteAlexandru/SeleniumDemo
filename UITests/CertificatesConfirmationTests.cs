@@ -29,21 +29,17 @@ namespace CertificatesConfirmationTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            CertificateConfirmationPage certificateConfirmationPage = dashboardPage.getSubmitApplication();
+
+            CertificateConfirmationPage certificateConfirmationPage = getCertificationConfirmPage();
             foreach (var e in certificateConfirmationPage.GetMainElements())
                 Assert.That(e.Displayed);
             Assert.That(certificateConfirmationPage.earsSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
         }
-        [Test]
+        [Test, Order(1)]
         public void TestRequiredMsg()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            CertificateConfirmationPage certificateConfirmationPage = dashboardPage.getSubmitApplication();
+
+            CertificateConfirmationPage certificateConfirmationPage = getCertificationConfirmPage();
             IList<IWebElement> checkboxes = certificateConfirmationPage.checkboxes;
             foreach(var e in checkboxes)
             {
@@ -55,43 +51,23 @@ namespace CertificatesConfirmationTests
                 Assert.That(e.Displayed);
         }
 
-        [Test, Order(2)]
+        [Test]
         public void TestSubmit()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            CertificateConfirmationPage certificateConfirmationPage = dashboardPage.getSubmitApplication();
-            PaymentCheckPage paymentCheckPage = certificateConfirmationPage.getPaymentCheck();
-            Assert.That(paymentCheckPage.title.Displayed);
+            CertificateConfirmationPage certificateConfirmationPage = getCertificationConfirmPage();
+            ApplicationThankYouPage appThankYou = certificateConfirmationPage.Submit();
+            Assert.That(appThankYou.thankYouMsg.Displayed);
         }
 
-        [Test, Order(3)]
-        public void TestEdit()
+        private CertificateConfirmationPage getCertificationConfirmPage()
         {
+
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             CertificateConfirmationPage certificateConfirmationPage = dashboardPage.getSubmitApplication();
-            bool check = false;
-            if(certificateConfirmationPage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"))
-                check = true;
-            certificateConfirmationPage.breastSurgeryCheckbox.Click();
-            certificateConfirmationPage.getPaymentCheck();
-            TestBase.driver.Navigate().Refresh();
-            dashboardPage.getSubmitApplication();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(certificateConfirmationPage.submitBtn));
-            if(check)
-                Assert.False(certificateConfirmationPage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            else
-                Assert.True(certificateConfirmationPage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            dashboardPage.openSideMenuIfClosed();
-            AccountDetailsPage accountDetailspage = dashboardPage.getAccountDetails();
-            if (check)
-                Assert.False(accountDetailspage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            else
-                Assert.True(accountDetailspage.breastSurgeryCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            
+            return certificateConfirmationPage;
         }
+
     }
 }

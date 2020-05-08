@@ -22,7 +22,7 @@ namespace Pages
             }
             PageFactory.InitElements(driver, this);
         }
-        [FindsBy(How = How.XPath, Using = "//div[contains(@class,'thank-you-text')]")]
+        [FindsBy(How = How.XPath, Using = "//div[contains(@class,'thank-you-block')]")]
         public IWebElement tyMessage { get; set; }
 
     }

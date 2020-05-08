@@ -32,20 +32,15 @@ namespace RevalidationTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            RevalidationPage revalidationPage = dashboardPage.getRevalidation();
+            RevalidationPage revalidationPage = getRevalidation().Item1;
             foreach (var e in revalidationPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test, Order(1)]
         public void TestRequiredMsgs()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            RevalidationPage revalidationPage = dashboardPage.getRevalidation();
+            
+            RevalidationPage revalidationPage = getRevalidation().Item1;
             revalidationPage.saveBtn.Click();
             Thread.Sleep(300);
             foreach (var e in revalidationPage.requiredMsgs)
@@ -55,10 +50,8 @@ namespace RevalidationTests
         [Test, Order(2)]
         public void TestSubmitSuccessfully()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            RevalidationPage revalidationPage = dashboardPage.getRevalidation();
+
+            var (revalidationPage, dashboardPage) = getRevalidation();
             revalidationPage.CompleteForm(YesOrNoRadio.Yes,"png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(revalidationPage.title));
@@ -70,10 +63,7 @@ namespace RevalidationTests
         [Test]
         public void TestEditSuccessfully()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            RevalidationPage revalidationPage = dashboardPage.getRevalidation();
+            var(revalidationPage, dashboardPage) = getRevalidation();
             YesOrNoRadio radioOption = YesOrNoRadio.No;
             revalidationPage.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
@@ -82,6 +72,16 @@ namespace RevalidationTests
             dashboardPage.openSideMenuIfClosed();
             dashboardPage.openCurrentAppIfClosed();
             Assert.That(revalidationPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
+        }
+
+        private (RevalidationPage,DashboardPage) getRevalidation()
+        {
+
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
+            RevalidationPage revalidationPage = dashboardPage.getRevalidation();
+            return (revalidationPage, dashboardPage);
         }
     }
 }

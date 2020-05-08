@@ -24,7 +24,7 @@ namespace Pages
         }
 
         public string evaluatorName = "//app-assign-evaluators//td[contains(@class,'mat-column-fullName')]//span[contains(text(),'{0}')]";
-        public string evaluatorCheckbox = "//app-assign-evaluators//td[contains(@class,'mat-column-fullName')]//span[contains(text(),'{0}')]/ancestor::tr//mat-checkbox";
+        public string evaluatorCheckbox = "//app-assign-evaluators//td[contains(@class,'mat-column-email')]//span[contains(text(),'{0}')]/ancestor::tr//mat-checkbox";
         public string assignedEvaluatorName = "//div[@class='selected-evaluators']//span[contains(text(),'{0}')]";
         public string assignedEvaluatorRemoveBtn = "//div[@class='selected-evaluators']//span[contains(text(),'{0}')]/ancestor::app-expandable-text/following-sibling::i";
 
@@ -62,11 +62,11 @@ namespace Pages
             mainElements.Add(prevPageBtn);
             return mainElements;
         }
-        public void AssignEvaluator(string evaluatorName)
+        public void AssignEvaluator()
         {
             filterInput.Clear();
-            filterInput.SendKeys(evaluatorName);
-            IWebElement assignCheckbox = TestBase.driver.FindElement(By.XPath(string.Format(evaluatorCheckbox, TestBase.userFirstName)));
+            filterInput.SendKeys(TestBase.evaluatorUsername);
+            IWebElement assignCheckbox = TestBase.driver.FindElement(By.XPath(string.Format(evaluatorCheckbox, TestBase.evaluatorUsername)));
             assignCheckbox.Click();
 
         }

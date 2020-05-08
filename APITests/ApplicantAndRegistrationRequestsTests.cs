@@ -40,12 +40,15 @@ namespace APITests
             int userID = TestBase.getUserId(TestBase.apiUsername);
             int registrationID = TestBase.getRegistrationId(userID);
             // create request
-            RestRequest request = new RestRequest("/api/registration-requests/accept", Method.POST);
+            RestRequest request = new RestRequest("/api/registration-requests/accept", Method.POST); 
             var jwt = TestBase.getJWT(TestBase.adminUsername, TestBase.adminPassword);
             request.AddHeader("Authorization", string.Format("Bearer {0}", jwt));
+            AcceptModel acceptModel = new AcceptModel();
+            acceptModel.id = registrationID;
+            acceptModel.clientHost = "string";
 
-            request.RequestFormat = DataFormat.Json;
-            request.AddJsonBody(registrationID);
+            var body = JsonConvert.SerializeObject(acceptModel);
+            request.AddJsonBody(body);
             // act
             var response = apiClient.Execute(request);
             // assert
@@ -108,7 +111,6 @@ namespace APITests
             Assert.That(actualApplicant.gmcNumber.Equals(TestBase.apiUserGmcNumber));
             Assert.That(actualApplicant.gmcSpecialty.description.Equals(TestBase.userGmcSpecialty));
             Assert.That(actualApplicant.careerGrade.description.Equals(TestBase.userCareerGrade));
-            Assert.That(actualApplicant.certifications[0].id.Equals(8));
 
         }
 
@@ -135,9 +137,9 @@ namespace APITests
             GradesModel gradesModel = new GradesModel();
             CertificationsModel certificationsModel = new CertificationsModel();
             var id = TestBase.getUserId(TestBase.apiUsername);
-            specialitiesModel.id = 1;
+            specialitiesModel.id = 9;
             gradesModel.id = 1;
-            certificationsModel.id = 8;
+            certificationsModel.id = 1;
             int gen;
             if (TestBase.userGender.Equals("Male"))
                 gen = 1;
@@ -178,9 +180,9 @@ namespace APITests
             GMCSPecialtiesModel specialitiesModel = new GMCSPecialtiesModel();
             GradesModel gradesModel = new GradesModel();
             CertificationsModel certificationsModel = new CertificationsModel();
-            specialitiesModel.id = 1;
+            specialitiesModel.id = 9;
             gradesModel.id = 1;
-            certificationsModel.id = 8;
+            certificationsModel.id = 1;
             int gen;
             if (TestBase.userGender.Equals("Male"))
                 gen = 1;

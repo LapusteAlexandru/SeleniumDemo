@@ -25,26 +25,30 @@ namespace ReferencesTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ReferencesPage referencesPage = dashboardPage.getReferences();
+            ReferencesPage referencesPage = getReferences().Item1;
             foreach (var e in referencesPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test]
         public void TestSubmitSuccessfully()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ReferencesPage referencesPage = dashboardPage.getReferences();
+            var(referencesPage, dashboardPage) = getReferences();
             referencesPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(referencesPage.title));
             dashboardPage.openSideMenuIfClosed();
             dashboardPage.openCurrentAppIfClosed();
             Assert.That(referencesPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
+        }
+
+        private (ReferencesPage,DashboardPage) getReferences()
+        {
+
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
+            ReferencesPage referencesPage = dashboardPage.getReferences();
+            return (referencesPage, dashboardPage);
         }
     }
 }

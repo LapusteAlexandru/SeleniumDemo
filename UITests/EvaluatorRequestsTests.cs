@@ -32,10 +32,8 @@ namespace EvaluatorRequestsTests
             string rowValue;
             int day = TestBase.currentDay;
             string expectedText = "Test accept " + day;
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.evaluatorUsername, TestBase.password);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+
+            ApplicationRequestsPage applicationRequestsPage = getApplicationRequests();
             applicationRequestsPage.AcceptRequest(TestBase.appUsername);
             TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[text()='Filter']/ancestor::div[@class='mat-form-field-infix']//input")));
             applicationRequestsPage.filterInput.Clear();
@@ -59,10 +57,7 @@ namespace EvaluatorRequestsTests
             string rowValue;
             int day = TestBase.currentDay;
             string expectedText = "Test reject " + day;
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.evaluatorUsername, TestBase.password);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+            ApplicationRequestsPage applicationRequestsPage = getApplicationRequests();
             applicationRequestsPage.RejectRequest(TestBase.appUsername);
             TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[text()='Filter']/ancestor::div[@class='mat-form-field-infix']//input")));
             applicationRequestsPage.filterInput.Clear();
@@ -78,6 +73,14 @@ namespace EvaluatorRequestsTests
             //           string allEmails = mailRepository.GetUnreadMails(Subject.ApplicationApproval).ToString();
             //            Assert.That(allEmails.Contains(expectedText));
 
+        }
+        private ApplicationRequestsPage getApplicationRequests()
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.evaluatorUsername, TestBase.password);
+            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+            return applicationRequestsPage;
         }
     }
 }

@@ -36,6 +36,9 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Current Application')]")]
         public IWebElement currentAppBtn { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Payment Check')]")]
+        public IWebElement paymentCheckBtn { get; set; }
+
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'New Application')]")]
         public IWebElement newAppBtn { get; set; }
 
@@ -101,6 +104,7 @@ namespace Pages
 
         public IList<IWebElement> mainElements = new List<IWebElement>();
         public IList<IWebElement> sidebarElements = new List<IWebElement>();
+        public IList<IWebElement> sections = new List<IWebElement>();
 
         public IList<IWebElement> GetMainElements()
         {
@@ -127,6 +131,16 @@ namespace Pages
             sidebarElements.Add(newAppBtn);
             sidebarElements.Add(appHistoryBtn);
             return sidebarElements;
+        }
+        public IList<IWebElement> GetSections()
+        {
+            sections.Add(probityStatementsBtn);
+            sections.Add(professionalInsuranceBtn);
+            sections.Add(professionalBehavioursBtn);
+            sections.Add(revalidationBtn);
+            sections.Add(operationNumbersBtn);
+            sections.Add(clinicalOutcomesBtn);
+            return sections;
         }
         public IList<IWebElement> GetAllElements()
         {
@@ -255,6 +269,20 @@ namespace Pages
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(applicationRequestsBtn));
             applicationRequestsBtn.Click();
             return new ApplicationRequestsPage(TestBase.driver);
+        }
+        public NewApplicationPage getNewApp()
+        {
+            openSideMenuIfClosed();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(newAppBtn));
+            newAppBtn.Click();
+            return new NewApplicationPage(TestBase.driver);
+        }
+        public PaymentCheckPage getPaymentCheck()
+        {
+            openSideMenuIfClosed();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(paymentCheckBtn));
+            paymentCheckBtn.Click();
+            return new PaymentCheckPage(TestBase.driver);
         }
         public HomePage logout()
         {

@@ -32,11 +32,9 @@ namespace AssignEvaluatorTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            AssignEvaluatorsPage assignEvaluatorsPage = applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
+
+
+            AssignEvaluatorsPage assignEvaluatorsPage = getAssignEvaluatorPopup(TestBase.appUsername);
             foreach (var e in assignEvaluatorsPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
@@ -44,23 +42,17 @@ namespace AssignEvaluatorTests
         [Test, Order(1)]
         public void TestSelectEvaluator()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            AssignEvaluatorsPage assignEvaluatorsPage = applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
-            assignEvaluatorsPage.AssignEvaluator(TestBase.evaluatorUsername);
+
+            AssignEvaluatorsPage assignEvaluatorsPage = getAssignEvaluatorPopup(TestBase.appUsername);
+            assignEvaluatorsPage.AssignEvaluator();
             Assert.That(TestBase.driver.FindElement(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorName, TestBase.userFirstName))).Displayed);
         }
         [Test, Order(1)]
         public void TestRemoveSelectedEvaluator()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            AssignEvaluatorsPage assignEvaluatorsPage = applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
-            assignEvaluatorsPage.AssignEvaluator(TestBase.evaluatorUsername);
+
+            AssignEvaluatorsPage assignEvaluatorsPage = getAssignEvaluatorPopup(TestBase.appUsername);
+            assignEvaluatorsPage.AssignEvaluator();
             IWebElement selectedEvaluator = TestBase.driver.FindElement(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorName, TestBase.userFirstName)));
             Assert.That(selectedEvaluator.Displayed);
             IWebElement removeSselectedEvaluatorBtn = TestBase.driver.FindElement(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorRemoveBtn, TestBase.userFirstName)));
@@ -71,17 +63,14 @@ namespace AssignEvaluatorTests
         [Test, Order(1)]
         public void TestCancelAssignEvaluator()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            AssignEvaluatorsPage assignEvaluatorsPage = applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
-            assignEvaluatorsPage.AssignEvaluator(TestBase.evaluatorUsername);
+
+            AssignEvaluatorsPage assignEvaluatorsPage = getAssignEvaluatorPopup(TestBase.appUsername);
+            assignEvaluatorsPage.AssignEvaluator();
             IWebElement selectedEvaluator = TestBase.driver.FindElement(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorName, TestBase.userFirstName)));
             Assert.That(selectedEvaluator.Displayed);
             assignEvaluatorsPage.cancelBtn.Click();
             TestBase.driver.Navigate().Refresh();
-            applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
+            assignEvaluatorsPage = getAssignEvaluatorPopup(TestBase.appUsername);
             Assert.That(TestBase.driver.FindElements(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorName, TestBase.userFirstName))).Count.Equals(0));
 
         }
@@ -93,7 +82,7 @@ namespace AssignEvaluatorTests
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
             ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
             AssignEvaluatorsPage assignEvaluatorsPage = applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
-            assignEvaluatorsPage.AssignEvaluator(TestBase.evaluatorUsername);
+            assignEvaluatorsPage.AssignEvaluator();
             assignEvaluatorsPage.assignBtn.Click();
             TestBase.driver.Navigate().Refresh();
             applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
@@ -134,6 +123,17 @@ namespace AssignEvaluatorTests
             loginPage.DoLogin(TestBase.evaluatorUsername, TestBase.password);
             dashboardPage.getApplicationRequests();
             Assert.That(applicationRequestsPage.noRequestsMsg.Displayed);
+        }
+
+        private AssignEvaluatorsPage getAssignEvaluatorPopup(string username)
+        {
+
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+            AssignEvaluatorsPage assignEvaluatorsPage = applicationRequestsPage.GetAssignEvaluatorsPanel(username);
+            return assignEvaluatorsPage;
         }
     }
 }

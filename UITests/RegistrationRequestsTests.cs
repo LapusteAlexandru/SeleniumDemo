@@ -54,8 +54,7 @@ namespace RegistrationRequestsTests
 
             string expectedText = "Your registration request has been accepted";
             DashboardPage dashboardPage = AcceptRequest(TestBase.username);
-            foreach (var e in dashboardPage.GetAllElements())
-                Assert.That(e.Displayed); 
+            Assert.That(dashboardPage.paymentCheckBtn.Displayed);
             var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.username, TestBase.password);
             string allEmails = mailRepository.GetUnreadMails(Subject.RegistrationAccepted);
             Assert.That(allEmails.Contains(expectedText));

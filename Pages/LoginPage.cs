@@ -38,7 +38,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//a[text()='Forgot your password?']")]
         public IWebElement forgotYourPasswordBtn { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//a[text()='Not register yet?']")]
+        [FindsBy(How = How.XPath, Using = "//a[text()='Not registered yet?']")]
         public IWebElement signUpBtn { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//h1[text()='Login']")]

@@ -47,11 +47,11 @@ namespace Pages
             return mainElements;
         }
 
-        public ApplicationThankYouPage getThankYou()
+        public PaymentThankYouPage getThankYou()
         {
             alreadyPaidRadio.Click();
             submitBtn.Click();
-            return new ApplicationThankYouPage(TestBase.driver);
+            return new PaymentThankYouPage(TestBase.driver);
         }
         public PaymentPage getPayment()
         {

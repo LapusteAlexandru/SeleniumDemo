@@ -36,11 +36,8 @@ namespace EditApplicationTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.uiUsername);
             foreach (var e in editPage.GetMainElements())
             {
                 bool display = e.Displayed;
@@ -58,11 +55,8 @@ namespace EditApplicationTests
         [Test, Order(1)]
         public void TestAccountDetailsPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.uiUsername);
             AccountDetailsPage accountDetailsPage = editPage.getAccountDetails();
             foreach (var e in accountDetailsPage.GetMainElements())
             {
@@ -73,11 +67,8 @@ namespace EditApplicationTests
         [Test, Order(1)]
         public void TestProbityStatementsPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.uiUsername);
             ProbityStatementsPage probityStatementsPage = editPage.getProbityStatements();
             foreach (var e in probityStatementsPage.GetMainElements())
             {
@@ -88,11 +79,8 @@ namespace EditApplicationTests
         [Test, Order(1)]
         public void TestInsurancePageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.uiUsername);
             ProfessionalInsurancePage professionalInsurancePage = editPage.getProfessionalInsurance();
             foreach (var e in professionalInsurancePage.GetMainElements())
             {
@@ -103,11 +91,8 @@ namespace EditApplicationTests
         [Test, Order(1)]
         public void TestProfessionalBehavioursPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.uiUsername);
             ProfessionalBehavioursPage professionalBehavioursPage = editPage.getProfessionalBehaviours();
             foreach (var e in professionalBehavioursPage.GetMainElements())
             {
@@ -118,11 +103,8 @@ namespace EditApplicationTests
         [Test, Order(1)]
         public void TestRevalidationPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.uiUsername);
             RevalidationPage revalidationPage = editPage.getRevalidation();
             foreach (var e in revalidationPage.GetMainElements())
             {
@@ -133,11 +115,8 @@ namespace EditApplicationTests
         [Test, Order(1)]
         public void TestOperationNumbersPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.uiUsername);
             OperationNumbersPage OperationNumbersPage = editPage.getOperativeExposure();
             foreach (var e in OperationNumbersPage.GetMainElements())
             {
@@ -148,11 +127,8 @@ namespace EditApplicationTests
         [Test, Order(1)]
         public void TestClinicalOutcomesPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.uiUsername);
             ClinicalOutcomesPage clinicalOutcomesPage = editPage.getClinicalOutcomes();
             foreach (var e in clinicalOutcomesPage.GetMainElements())
             {
@@ -163,11 +139,8 @@ namespace EditApplicationTests
         [Test, Order(1)]
         public void TestProfessionalDevelopmentPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.uiUsername);
             ContinuingDevelopmentPage continuingDevelopmentPage = editPage.getProfessionalDevelopment();
             foreach (var e in continuingDevelopmentPage.GetMainElements())
             {
@@ -178,11 +151,8 @@ namespace EditApplicationTests
         [Test, Order(1)]
         public void TestPracticePageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.uiUsername);
             ReflectionOnPracticePage reflectionOnPracticePage = editPage.getReflectionOnPractice();
             foreach (var e in reflectionOnPracticePage.GetMainElements())
             {
@@ -193,11 +163,8 @@ namespace EditApplicationTests
         [Test, Order(1)]
         public void TestReferencePageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.uiUsername);
             ReferencesPage referencesPage = editPage.getReference();
             foreach (var e in referencesPage.GetMainElements())
             {
@@ -208,11 +175,8 @@ namespace EditApplicationTests
         [Test, Order(2)]
         public void TestProbityStatementsRequiredMsgs()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests(); 
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.username);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.username);
             ProbityStatementsPage probityStatementsPage = editPage.getProbityStatements();
             probityStatementsPage.saveBtn.Click();
             Thread.Sleep(300);
@@ -224,11 +188,8 @@ namespace EditApplicationTests
         [Test, Order(2)]
         public void TestProfessionalInsuranceRequiredMsgs()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests(); 
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.username);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.username);
             ProfessionalInsurancePage professionalInsurancePage = editPage.getProfessionalInsurance();
             professionalInsurancePage.saveBtn.Click();
             Thread.Sleep(300);
@@ -239,11 +200,8 @@ namespace EditApplicationTests
         [Test, Order(2)]
         public void TestProfessionalBehaviourRequiredMsgs()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests(); 
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.username);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.username);
             ProfessionalBehavioursPage professionalBehavioursPage = editPage.getProfessionalBehaviours();
             professionalBehavioursPage.saveBtn.Click();
             Thread.Sleep(300);
@@ -255,11 +213,8 @@ namespace EditApplicationTests
         [Test, Order(2)]
         public void TestRevalidationRequiredMsgs()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests(); 
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.username);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.username);
             RevalidationPage revalidationPage = editPage.getRevalidation();
             revalidationPage.saveBtn.Click();
             Thread.Sleep(300);
@@ -271,11 +226,8 @@ namespace EditApplicationTests
         [Test, Order(2)]
         public void TestOperativeExposureRequiredMsgs()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests(); 
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.username);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.username);
             OperationNumbersPage OperationNumbersPage = editPage.getOperativeExposure();
             OperationNumbersPage.saveBtn.Click();
             Thread.Sleep(300);
@@ -287,11 +239,8 @@ namespace EditApplicationTests
         [Test, Order(2)]
         public void TestClinicalOutcomesRequiredMsgs()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests(); 
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.username);
+
+            EditApplicationPage editPage = getEditAppPopup(TestBase.username);
             ClinicalOutcomesPage clinicalOutcomesPage = editPage.getClinicalOutcomes();
             clinicalOutcomesPage.saveBtn.Click();
             Thread.Sleep(300);
@@ -303,11 +252,7 @@ namespace EditApplicationTests
         [Test, Order(2)]
         public void TestReflectionOnPracticeRequiredMsgs()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests(); 
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.username);
+            EditApplicationPage editPage = getEditAppPopup(TestBase.username);
             ReflectionOnPracticePage reflectionOnPracticePage = editPage.getReflectionOnPractice();
             reflectionOnPracticePage.submitBtn.Click();
             foreach (var e in reflectionOnPracticePage.GetFormTabs())
@@ -333,7 +278,7 @@ namespace EditApplicationTests
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword); 
             ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.appUsername);
+            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
             ProbityStatementsPage probityStatementsPage = editPage.getProbityStatements();
             ProbityRadio radioOption = ProbityRadio.Nothing;
             if (probityStatementsPage.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"))
@@ -344,7 +289,7 @@ namespace EditApplicationTests
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(dashboardPage.logoutBtn));
             dashboardPage.logout();
             homePage.GetLogin(); 
-            loginPage.DoLogin(TestBase.appUsername, TestBase.password);
+            loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             dashboardPage.getProbityStatements();
             Assert.That(probityStatementsPage.professionalObligationsCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(probityStatementsPage.suspensionCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
@@ -361,7 +306,7 @@ namespace EditApplicationTests
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword); 
             ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.appUsername);
+            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
             ProfessionalInsurancePage professionalInsurancePage = editPage.getProfessionalInsurance();
             YesOrNoRadio radioOption = YesOrNoRadio.No; 
             if (professionalInsurancePage.noPracticeRadio.GetAttribute("class").Contains("mat-radio-checked"))
@@ -372,7 +317,7 @@ namespace EditApplicationTests
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(dashboardPage.logoutBtn));
             dashboardPage.logout();
             homePage.GetLogin(); 
-            loginPage.DoLogin(TestBase.appUsername, TestBase.password);
+            loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             dashboardPage.getProfessionalInsurance();
             
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(professionalInsurancePage.title));
@@ -392,7 +337,7 @@ namespace EditApplicationTests
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword); 
             ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
-            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.appUsername);
+            EditApplicationPage editPage = applicationRequestsPage.EditUser(TestBase.uiUsername);
             RevalidationPage revalidationPage = editPage.getRevalidation();
             YesOrNoRadio radioOption = YesOrNoRadio.No; 
             if (revalidationPage.declareAppraisalNo.GetAttribute("class").Contains("mat-radio-checked"))
@@ -403,7 +348,7 @@ namespace EditApplicationTests
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(dashboardPage.logoutBtn));
             dashboardPage.logout();
             homePage.GetLogin(); 
-            loginPage.DoLogin(TestBase.appUsername, TestBase.password);
+            loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             dashboardPage.getRevalidation();
             
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(revalidationPage.title));
@@ -414,6 +359,16 @@ namespace EditApplicationTests
                 Assert.That(revalidationPage.declareAppraisalYes.GetAttribute("class").Contains("mat-radio-checked"));
 
             Assert.That(revalidationPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
+        }
+
+        private EditApplicationPage getEditAppPopup(string username)
+        {
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+            EditApplicationPage editPage = applicationRequestsPage.EditUser(username);
+            return editPage;
         }
     }
 }

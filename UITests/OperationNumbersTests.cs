@@ -31,41 +31,41 @@ namespace OperativeExposureTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            OperationNumbersPage ope = dashboardPage.getOperationNUmbers();
-            foreach (var e in ope.GetMainElements())
+            var operationNumbersPage = getOperationNumbers().Item1;
+            foreach (var e in operationNumbersPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test, Order(1)]
         public void TestRequiredMsgs()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            OperationNumbersPage OperationNumbersPage = dashboardPage.getOperationNUmbers();
-            OperationNumbersPage.saveBtn.Click();
+            var operationNumbersPage = getOperationNumbers().Item1;
+            operationNumbersPage.saveBtn.Click();
             Thread.Sleep(300);
-            foreach (var e in OperationNumbersPage.requiredMsgs)
+            foreach (var e in operationNumbersPage.requiredMsgs)
                 Assert.That(e.Displayed);
-            Assert.That(OperationNumbersPage.requiredMsgs.Count.Equals(3));
+            Assert.That(operationNumbersPage.requiredMsgs.Count.Equals(3));
         }
         [Test]
         public void TestSubmitSuccessfully()
         {
+            var(operationNumbersPage, dashboardPage) = getOperationNumbers(); 
+            operationNumbersPage.CompleteForm("png");
+            TestBase.driver.Navigate().Refresh();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(operationNumbersPage.title));
+            Assert.That(operationNumbersPage.proceduresCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            Assert.That(operationNumbersPage.operativeExposureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
+            dashboardPage.openSideMenuIfClosed();
+            dashboardPage.openCurrentAppIfClosed();
+            Assert.That(operationNumbersPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
+        }
+
+        private (OperationNumbersPage,DashboardPage) getOperationNumbers()
+        {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
             DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            OperationNumbersPage OperationNumbersPage = dashboardPage.getOperationNUmbers();
-            OperationNumbersPage.CompleteForm("png");
-            TestBase.driver.Navigate().Refresh();
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(OperationNumbersPage.title));
-            Assert.That(OperationNumbersPage.proceduresCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            Assert.That(OperationNumbersPage.operativeExposureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
-            dashboardPage.openSideMenuIfClosed();
-            dashboardPage.openCurrentAppIfClosed();
-            Assert.That(OperationNumbersPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
+            OperationNumbersPage operationNumbersPage = dashboardPage.getOperationNUmbers();
+            return (operationNumbersPage, dashboardPage);
         }
     }
 }

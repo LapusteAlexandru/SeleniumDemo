@@ -29,10 +29,8 @@ namespace AccountDetailsTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            loginPage.DoLogin(TestBase.username, TestBase.password);
-            AccountDetailsPage accountDetailsPage = new AccountDetailsPage(TestBase.driver);
+
+            AccountDetailsPage accountDetailsPage = getAccountDetails(TestBase.username, TestBase.password);
             foreach (var e in accountDetailsPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
@@ -40,10 +38,8 @@ namespace AccountDetailsTests
         [Test, Order(1)]
         public void TestEvaluatorPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.evaluatorUsername, TestBase.password);
-            AccountDetailsPage accountDetailsPage = new AccountDetailsPage(TestBase.driver);
+
+            AccountDetailsPage accountDetailsPage = getAccountDetails(TestBase.evaluatorUsername, TestBase.password);
             foreach (var e in accountDetailsPage.GetEvaluatorMainElements())
                 Assert.That(e.Displayed);
         }
@@ -174,10 +170,8 @@ namespace AccountDetailsTests
         private AccountDetailsPage OpenInfoPanel(string username)
         {
 
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(username, TestBase.password);
-            AccountDetailsPage accountDetailsPage = new AccountDetailsPage(TestBase.driver);
+
+            AccountDetailsPage accountDetailsPage = getAccountDetails(username, TestBase.password);
             if (TestBase.ElementIsPresent(accountDetailsPage.inforPanelContent))
             {
                 accountDetailsPage.inforPanel.Click();
@@ -192,10 +186,8 @@ namespace AccountDetailsTests
         private AccountDetailsPage CloseInfoPanel(string username)
         {
 
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(username, TestBase.password);
-            AccountDetailsPage accountDetailsPage = new AccountDetailsPage(TestBase.driver);
+
+            AccountDetailsPage accountDetailsPage = getAccountDetails(username, TestBase.password);
             if (TestBase.ElementIsPresent(accountDetailsPage.inforPanelContent))
                 accountDetailsPage.inforPanel.Click();
             else
@@ -209,20 +201,16 @@ namespace AccountDetailsTests
         private AccountDetailsPage TriggerCharLimitErrors(string username)
         {
             string testText = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum";
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(username, TestBase.password);
-            AccountDetailsPage accountDetailsPage = new AccountDetailsPage(TestBase.driver);
+
+            AccountDetailsPage accountDetailsPage = getAccountDetails(username, TestBase.password);
             accountDetailsPage.CompleteForm(testText, testText, testText, testText, testText, TestBase.userGender, TestBase.userGmcNumber.ToString(), TestBase.userGmcSpecialty, TestBase.userCareerGrade);
             return accountDetailsPage;
         }
 
         private AccountDetailsPage Submit(string username,string gmcNumber)
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(username, TestBase.password);
-            AccountDetailsPage accountDetailsPage = new AccountDetailsPage(TestBase.driver);
+
+            AccountDetailsPage accountDetailsPage = getAccountDetails(username, TestBase.password);
             accountDetailsPage.CompleteForm(TestBase.userTitle, TestBase.userFirstName, TestBase.userLastName, TestBase.userAddress, TestBase.userPhone, TestBase.userGender, gmcNumber, TestBase.userGmcSpecialty, TestBase.userCareerGrade);
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(accountDetailsPage.accountSubmittedMsg));
             return accountDetailsPage;
@@ -230,10 +218,8 @@ namespace AccountDetailsTests
 
         private AccountDetailsPage TriggerGMCNumberValidatio(string username)
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(username, TestBase.password);
-            AccountDetailsPage accountDetailsPage = new AccountDetailsPage(TestBase.driver);
+
+            AccountDetailsPage accountDetailsPage = getAccountDetails(username, TestBase.password);
             accountDetailsPage.gmcNumberInput.SendKeys("123");
             accountDetailsPage.submitBtn.Click();
             return accountDetailsPage;
@@ -241,12 +227,19 @@ namespace AccountDetailsTests
 
         private AccountDetailsPage TriggerRequiredMsgs(string username)
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(username, TestBase.password);
-            AccountDetailsPage accountDetailsPage = new AccountDetailsPage(TestBase.driver);
+            AccountDetailsPage accountDetailsPage = getAccountDetails(username,TestBase.password);
             accountDetailsPage.submitBtn.Click();
             Thread.Sleep(300);
+            return accountDetailsPage;
+        }
+
+        private AccountDetailsPage getAccountDetails(string username,string password)
+        {
+
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            loginPage.DoLogin(username, password);
+            AccountDetailsPage accountDetailsPage = new AccountDetailsPage(TestBase.driver);
             return accountDetailsPage;
         }
     }

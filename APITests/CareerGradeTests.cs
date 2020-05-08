@@ -28,9 +28,9 @@ namespace APITests
             var actualGrades = JsonConvert.DeserializeObject<List<GradesModel>>(response.Content);
             // assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            for (int i = 0; i < actualGrades.Count; i++)
+            foreach (var actualGrade in actualGrades)
             {
-                Assert.That(actualGrades[i].description.Equals(expectedGrades[i]));
+                Assert.That(expectedGrades.Contains(actualGrade.description));
             }
         }
     }

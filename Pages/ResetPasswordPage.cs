@@ -25,6 +25,9 @@ namespace Pages
         [FindsBy(How = How.Id, Using = "Password")]
         public IWebElement passwordInput { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//h1[text()='Reset password']")]
+        public IWebElement title { get; set; }
+
         [FindsBy(How = How.Id, Using = "ConfirmPassword")]
         public IWebElement confirmPasswordInput { get; set; }
 

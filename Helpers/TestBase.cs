@@ -53,9 +53,9 @@ namespace RCoS
         public static int currentDay = dt.Day;
         public static string currentDayNumber = dt.Day.ToString();
         public static string currentYear = dt.Year.ToString();
-        public static string currentDate = currentMonth + " " + currentDay + ", " + currentYear;
+        public static string currentDate = currentMonth + " " + currentDay.ToString("00") + ", " + currentYear;
         public static string userBirthday = currentMonth + " 01, " + currentYear;
-        public static string caseDate = dt.Month + "/1/" + currentYear;
+        public static string caseDate = "1/"+ dt.Month + "/" + currentYear;
         public static List<string> userData = new List<string> {userGender, currentDate, username, userBirthday, userGmcNumber.ToString(),userGmcSpecialty,userCareerGrade };
         public static List<string> applicantData = new List<string> {appUsername, appUserGmcNumber.ToString(),userGmcSpecialty};
         public static List<string> expandableUserData = new List<string> {userPhone,userAddress};
@@ -148,7 +148,7 @@ namespace RCoS
             jwt = responseBody.GetValue("access_token").ToString();
             return jwt;
         }
-        public static int getObjectID(string endpoint,string jwt,int id)
+        public static int getObjectID(string endpoint,string jwt,int id=0)
         {
             int objectId;
             RestClient apiClient = new RestClient("https://rcs-cosmetics-api-dev.azurewebsites.net");
@@ -173,10 +173,6 @@ namespace RCoS
                 objectId = (int)responseBody.GetValue("id");
             }
             return objectId;
-        }
-        public static int getObjectID(string endpoint, string jwt)
-        {
-            return getObjectID(endpoint, jwt, 0);
         }
             public static void uploadField(string fileName,string fileExtension)
         {
@@ -210,20 +206,26 @@ namespace RCoS
                 connetionString = TestContext.Parameters["identityConnectionString"];
             else
                 connetionString = TestContext.Parameters["cosmeticsConnectionString"];
-            cnn = new SqlConnection(connetionString);
-            cnn.Open();
-            if (cnn.State == ConnectionState.Open)
-                Console.WriteLine("Connected successfully!");
-            if (tableName.Contains("AssignedApplications") || tableName.Contains("ApplicationReviews"))
+            using (cnn = new SqlConnection(connetionString))
             {
+                cnn.Open();
                 var id = getUserId(username);
-                sql = $"DELETE FROM {tableName} WHERE EvaluatorID = {id}";
+                if (cnn.State == ConnectionState.Open)
+                    Console.WriteLine("Connected successfully!");
+                if (tableName.Contains("AssignedApplications") || tableName.Contains("ApplicationReviews"))
+                {
+                    sql = $"DELETE FROM {tableName} WHERE UserId = {id}";
+                }
+                else
+                    sql = $"DELETE FROM {tableName} WHERE Email = '{username}'";
+                if (tableName.Contains("[dbo].[Applications]") && username.Equals(appUsername))
+                    sql = $"DELETE FROM {tableName} WHERE UserId = {id} AND Status <> 4";
+                else 
+                    if (tableName.Contains("[dbo].[Applications]"))
+                        sql = $"DELETE FROM {tableName} WHERE UserId = {id}";
+                using (command = new SqlCommand(sql, cnn))
+                    command.ExecuteNonQuery();
             }
-            else
-                sql = $"DELETE FROM {tableName} WHERE Email = '{username}'";
-            command = new SqlCommand(sql, cnn);
-            command.ExecuteNonQuery();
-            command.Dispose();
         }
         public static void deleteSectionData(string tableName, string username, string section="",int statusValue=1)
         {
@@ -234,61 +236,69 @@ namespace RCoS
             string connetionString = TestContext.Parameters["cosmeticsConnectionString"];
             var jwt = getJWT(username, password);
             var id = getObjectID("/api/applicants", jwt);
-            cnn = new SqlConnection(connetionString);
-            cnn.Open();
-            if (cnn.State == ConnectionState.Open)
-                Console.WriteLine("Connected successfully!");
-            if (section != "" && section !="Status")
+            using (cnn = new SqlConnection(connetionString))
             {
-                sql = $"SELECT {section}Id FROM [dbo].[Applications] WHERE ApplicantId ={id}";
-                command = new SqlCommand(sql, cnn);
-                try { result = command.ExecuteScalar(); }
-                catch(Exception e) { Console.WriteLine(e.Message); }
-                if (result is System.DBNull)
-                    return;
+                cnn.Open();
+                if (cnn.State == ConnectionState.Open)
+                    Console.WriteLine("Connected successfully!");
+                if (section != "" && section != "Status" && section != "Payments")
+                {
+                    sql = $"SELECT {section}Id FROM [dbo].[Applications] WHERE UserId ={id}";
+                    command = new SqlCommand(sql, cnn);
+                    try { result = command.ExecuteScalar(); }
+                    catch (Exception e) { Console.WriteLine(e.Message); }
+                    if (result is System.DBNull)
+                        return;
+                    else
+                        sectionId = (int)(result);
+                    sql = $"UPDATE [dbo].[Applications] SET {section}Id = null WHERE UserId ={id}";
+                    using (command = new SqlCommand(sql, cnn))
+                        command.ExecuteNonQuery();
+                }
+            if(tableName.Contains("Applications") && section == "Status")
+            {
+                sql = $"UPDATE [dbo].[Applications] SET {section} = {statusValue} WHERE Id in (SELECT Id FROM [dbo].[Applications] WHERE UserId ={id})";
+                using (command = new SqlCommand(sql, cnn))
+                        command.ExecuteNonQuery();
+            }
+            if(tableName.Contains("Users") && section == "Payments")
+            {
+                sql = $"UPDATE [dbo].[Users] SET Status = {statusValue} WHERE Id = {getUserId(username)}";
+                using (command = new SqlCommand(sql, cnn))
+                        command.ExecuteNonQuery();
+            }
+            if (tableName.Contains("Documents"))
+            {
+                if (username.Equals(TestBase.appUsername))
+                    sql = $"DELETE FROM {tableName} WHERE ApplicationId in ( SELECT Id FROM [dbo].[Applications] WHERE UserId ={id} AND Status <> 4 ) ";
                 else
-                    sectionId = (int)(result);
-                sql = $"UPDATE [dbo].[Applications] SET {section}Id = null WHERE ApplicantId ={id}" ;
-                command = new SqlCommand(sql, cnn);
-                command.ExecuteNonQuery();
-                command.Dispose();
-            }
-            if(section == "Status")
-            {
-                sql = $"UPDATE [dbo].[Applications] SET {section} = {statusValue} WHERE Id in (SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={id})";
-                command = new SqlCommand(sql, cnn);
-                command.ExecuteNonQuery();
-                command.Dispose();
-            }
-            if (tableName.Contains("Documents") || tableName.Contains("Practice"))
-            {
-                sql = $"DELETE a FROM {tableName} a INNER JOIN [dbo].[Applications] b ON a.ApplicationId = b.Id WHERE b.ApplicantId={id}";
-                command = new SqlCommand(sql, cnn);
-                command.ExecuteNonQuery();
-                command.Dispose();
+                    sql = $"DELETE FROM {tableName} WHERE ApplicationId in ( SELECT Id FROM [dbo].[Applications] WHERE UserId ={id})";
+                using (command = new SqlCommand(sql, cnn))
+                    command.ExecuteNonQuery();
             }
             else if (!tableName.Contains("Applications"))
             {
                 sql = $"DELETE FROM {tableName} WHERE Id ={sectionId}"; 
-                command = new SqlCommand(sql, cnn);
-                command.ExecuteNonQuery();
-                command.Dispose();
+                using (command = new SqlCommand(sql, cnn))
+                        command.ExecuteNonQuery();
             }
-            
+
+            }
         }
 
         public static int getApplicationId(int applicantId)
         {
             SqlConnection cnn;
             SqlCommand command;
-            string sql;
+            string sql; int applicationId;
             string connetionString = TestContext.Parameters["cosmeticsConnectionString"];
-            cnn = new SqlConnection(connetionString);
-            cnn.Open();
-            sql = $"SELECT Id FROM [dbo].[Applications] WHERE ApplicantId ={applicantId}";
-            command = new SqlCommand(sql, cnn);
-            int applicationId = (int)(command.ExecuteScalar());
-            command.Dispose();
+            using (cnn = new SqlConnection(connetionString))
+            {
+                cnn.Open();
+                sql = $"SELECT Id FROM [dbo].[Applications] WHERE UserId ={applicantId}";
+                using (command = new SqlCommand(sql, cnn))
+                    applicationId = (int)(command.ExecuteScalar());
+            }
             return applicationId;
         }
         
@@ -297,35 +307,37 @@ namespace RCoS
             SqlConnection cnn;
             SqlCommand command;
             string sql;
+            int userId = -1;
             string connetionString = TestContext.Parameters["cosmeticsConnectionString"];
-            cnn = new SqlConnection(connetionString);
-            cnn.Open();
-            sql = $"SELECT Id FROM [dbo].[Users] WHERE Email ='{username}'";
-            command = new SqlCommand(sql, cnn);
-            int userId=-1;
-            try
-            { 
-            userId = (int)(command.ExecuteScalar());
-            }
-            catch(NullReferenceException e) 
+            using (cnn = new SqlConnection(connetionString))
             {
-                Console.WriteLine(e.Message);
+                cnn.Open();
+                sql = $"SELECT Id FROM [dbo].[Users] WHERE Email ='{username}'";
+                using (command = new SqlCommand(sql, cnn))
+                    try
+                    {
+                        userId = (int)(command.ExecuteScalar());
+                    }
+                    catch (NullReferenceException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
             }
-            command.Dispose();
             return userId;
         }
         public static int getRegistrationId(int userId)
         {
             SqlConnection cnn;
             SqlCommand command;
-            string sql;
+            string sql; int registrationId;
             string connetionString = TestContext.Parameters["cosmeticsConnectionString"];
-            cnn = new SqlConnection(connetionString);
-            cnn.Open();
-            sql = $"SELECT Id FROM [dbo].[RegistrationRequests] WHERE UserId ={userId}";
-            command = new SqlCommand(sql, cnn);
-            int registrationId = (int)(command.ExecuteScalar());
-            command.Dispose();
+            using (cnn = new SqlConnection(connetionString))
+            {
+                cnn.Open();
+                sql = $"SELECT Id FROM [dbo].[RegistrationRequests] WHERE UserId ={userId}";
+                using (command = new SqlCommand(sql, cnn))
+                    registrationId = (int)(command.ExecuteScalar());
+            }
             return registrationId;
         }
     }

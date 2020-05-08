@@ -38,10 +38,7 @@ namespace ApplicationRequestsTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+            ApplicationRequestsPage applicationRequestsPage = getApplicationRequests();
             foreach (var e in applicationRequestsPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
@@ -50,10 +47,7 @@ namespace ApplicationRequestsTests
         {
 
             string expectedText = "Congratulations";
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+            ApplicationRequestsPage applicationRequestsPage = getApplicationRequests();
             applicationRequestsPage.filterInput.Clear();
             applicationRequestsPage.filterInput.SendKeys(TestBase.appUsername);
             string rowValue;
@@ -79,10 +73,7 @@ namespace ApplicationRequestsTests
         [Test, Order(2)]
         public void TestAddColumn()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+            ApplicationRequestsPage applicationRequestsPage = getApplicationRequests();
             applicationRequestsPage.addColumnBtn.Click();
             Assert.That(applicationRequestsPage.careerGradeTableHeader.Displayed);
             applicationRequestsPage.addColumnBtn.Click();
@@ -93,10 +84,7 @@ namespace ApplicationRequestsTests
         [Test, Order(2)]
         public void TestRemoveColumn()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+            ApplicationRequestsPage applicationRequestsPage = getApplicationRequests();
             applicationRequestsPage.addColumnBtn.Click();
             applicationRequestsPage.addColumnBtn.Click();
             applicationRequestsPage.addColumnBtn.Click();
@@ -111,10 +99,7 @@ namespace ApplicationRequestsTests
         [Test, Order(2)]
         public void TestCancelAccept()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+            ApplicationRequestsPage applicationRequestsPage = getApplicationRequests();
             applicationRequestsPage.filterInput.Clear();
             applicationRequestsPage.filterInput.SendKeys(TestBase.appUsername);
             IWebElement accept = TestBase.driver.FindElement(By.XPath(string.Format(applicationRequestsPage.approveBtn, TestBase.appUsername)));
@@ -133,10 +118,7 @@ namespace ApplicationRequestsTests
         [Test, Order(1)]
         public void TestDataIsLoaded()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
-            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+            ApplicationRequestsPage applicationRequestsPage = getApplicationRequests();
             applicationRequestsPage.filterInput.Clear();
             applicationRequestsPage.filterInput.SendKeys(TestBase.appUsername);
             string rowValue;
@@ -147,6 +129,15 @@ namespace ApplicationRequestsTests
             rowValue = TestBase.driver.FindElement(By.XPath(string.Format(applicationRequestsPage.GMCSpecialtyCell,TestBase.appUsername))).Text;
             Assert.That(rowValue.Equals(TestBase.applicantData[2]));
             
+        }
+        private ApplicationRequestsPage getApplicationRequests()
+        {
+
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.adminUsername, TestBase.adminPassword);
+            ApplicationRequestsPage applicationRequestsPage = dashboardPage.getApplicationRequests();
+            return applicationRequestsPage;
         }
     }
 }

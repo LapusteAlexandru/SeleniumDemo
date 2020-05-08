@@ -31,9 +31,9 @@ namespace APITests
             var actualSpecialties = JsonConvert.DeserializeObject<List<GMCSPecialtiesModel>>(response.Content);
             // assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            for (int i = 0; i < actualSpecialties.Count; i++)
+            foreach (var actualSpecialtie in actualSpecialties)
             {
-                Assert.That(actualSpecialties[i].description.Equals(expectedSpecialties[i]));
+                Assert.That(expectedSpecialties.Contains(actualSpecialtie.description));
             }
         }
     }

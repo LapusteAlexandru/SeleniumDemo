@@ -35,10 +35,8 @@ namespace ProbityStatementsTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
+
+            ProbityStatementsPage probityStatementsPage = getProbityStatements().Item1;
             foreach (var e in probityStatementsPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
@@ -57,10 +55,8 @@ namespace ProbityStatementsTests
         [Test, Order(2)]
         public void TestRequiredMsgs()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
+           
+            ProbityStatementsPage probityStatementsPage = getProbityStatements().Item1;
             probityStatementsPage.saveBtn.Click();
             Thread.Sleep(300);
             foreach (var e in probityStatementsPage.requiredMsgs)
@@ -70,10 +66,8 @@ namespace ProbityStatementsTests
         [Test, Order(3)]
         public void TestSubmitSuccessfully()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
+
+            var (probityStatementsPage, dashboardPage) = getProbityStatements();
             ProbityRadio radioOption = ProbityRadio.Nothing;
             probityStatementsPage.CompleteForm(radioOption);
             TestBase.driver.Navigate().Refresh();
@@ -88,10 +82,7 @@ namespace ProbityStatementsTests
         [Test]
         public void TestEditSuccessfully()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
+            var (probityStatementsPage, dashboardPage) = getProbityStatements();
             ProbityRadio radioOption = ProbityRadio.Nothing;
             if (probityStatementsPage.nothingToDeclareRadio.GetAttribute("class").Contains("mat-radio-checked"))
                 radioOption = ProbityRadio.Something;
@@ -107,6 +98,16 @@ namespace ProbityStatementsTests
             dashboardPage.openSideMenuIfClosed();
             dashboardPage.openSideMenuIfClosed();
             Assert.That(probityStatementsPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
+        }
+
+        private (ProbityStatementsPage,DashboardPage) getProbityStatements()
+        {
+
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
+            ProbityStatementsPage probityStatementsPage = dashboardPage.getProbityStatements();
+            return (probityStatementsPage, dashboardPage);
         }
     }
 }

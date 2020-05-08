@@ -31,20 +31,16 @@ namespace ClinicalOutcomesTests
         [Test, Order(1)]
         public void TestPageLoads()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ClinicalOutcomesPage clinicalOutcomesPage = dashboardPage.getClinicalOutcomes();
+
+            var clinicalOutcomesPage = getClinicalOutcomes().Item1;
             foreach (var e in clinicalOutcomesPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
         [Test, Order(1)]
         public void TestRequiredMsgs()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ClinicalOutcomesPage clinicalOutcomesPage = dashboardPage.getClinicalOutcomes();
+
+            var clinicalOutcomesPage = getClinicalOutcomes().Item1;
             clinicalOutcomesPage.saveBtn.Click();
             Thread.Sleep(300);
             foreach (var e in clinicalOutcomesPage.requiredMsgs)
@@ -54,10 +50,8 @@ namespace ClinicalOutcomesTests
         [Test,Order(2)]
         public void TestSubmitSuccessfully()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ClinicalOutcomesPage clinicalOutcomesPage = dashboardPage.getClinicalOutcomes();
+
+            var (clinicalOutcomesPage, dashboardPage) = getClinicalOutcomes();
             clinicalOutcomesPage.CompleteForm("PHINLink","png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(clinicalOutcomesPage.title));
@@ -72,10 +66,7 @@ namespace ClinicalOutcomesTests
         [Test]
         public void TestEditSuccessfully()
         {
-            HomePage homePage = new HomePage(TestBase.driver);
-            LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
-            ClinicalOutcomesPage clinicalOutcomesPage = dashboardPage.getClinicalOutcomes();
+            var (clinicalOutcomesPage, dashboardPage) = getClinicalOutcomes();
             clinicalOutcomesPage.CompleteForm("UpdatedPHINLink","png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(clinicalOutcomesPage.title));
@@ -84,6 +75,16 @@ namespace ClinicalOutcomesTests
             dashboardPage.openSideMenuIfClosed();
             dashboardPage.openCurrentAppIfClosed();
             Assert.That(clinicalOutcomesPage.statusIndicator.GetAttribute("mattooltip").Contains("Completed"));
+        }
+
+        private (ClinicalOutcomesPage,DashboardPage) getClinicalOutcomes()
+        {
+
+            HomePage homePage = new HomePage(TestBase.driver);
+            LoginPage loginPage = homePage.GetLogin();
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
+            ClinicalOutcomesPage clinicalOutcomesPage = dashboardPage.getClinicalOutcomes();
+            return (clinicalOutcomesPage,dashboardPage);
         }
     }
 }
