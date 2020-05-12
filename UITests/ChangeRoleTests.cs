@@ -7,6 +7,8 @@ using System.Text;
 
 namespace ChangeRoleTests
 {
+    [TestFixture]
+    [Category("ChangeRole")]
     class ChangeRoleTests
     {
         [OneTimeSetUp]
