@@ -84,6 +84,9 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Application Requests')]")]
         public IWebElement applicationRequestsBtn { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Users')]")]
+        public IWebElement usersBtn { get; set; }
+
         [FindsBy(How = How.XPath, Using = "//*[contains(@class,'user-info')]")]
         public IWebElement username { get; set; }
 
@@ -269,6 +272,14 @@ namespace Pages
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(applicationRequestsBtn));
             applicationRequestsBtn.Click();
             return new ApplicationRequestsPage(TestBase.driver);
+        }
+        public AdminUsersPage getUsers()
+        {
+            openSideMenuIfClosed();
+            openCurrentAppIfClosed();
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(usersBtn));
+            usersBtn.Click();
+            return new AdminUsersPage(TestBase.driver);
         }
         public NewApplicationPage getNewApp()
         {

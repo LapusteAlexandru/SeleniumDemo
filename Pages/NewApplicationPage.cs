@@ -45,6 +45,8 @@ namespace Pages
         {
             string paymentCheckBtn = "//div[contains(text(),'Payment Check')]";
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(prefilledBtn));
+            IWebElement earsSurgeryCheckbox = TestBase.driver.FindElement(By.XPath("//span[contains(text(),'Cosmetic surgery of the face/nose/periorbital region/ears')]/ancestor::mat-checkbox"));
+            earsSurgeryCheckbox.Click();
             prefilledBtn.Click();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(paymentCheckBtn)));
             TestBase.driver.FindElement(By.XPath(paymentCheckBtn)).Click();
@@ -53,7 +55,9 @@ namespace Pages
         public PaymentCheckPage CreateEmptyApplication()
         {
             string paymentCheckBtn = "//div[contains(text(),'Payment Check')]";
-            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(emptyBtn));
+            TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(prefilledBtn));
+            IWebElement earsSurgeryCheckbox = TestBase.driver.FindElement(By.XPath("//span[contains(text(),'Cosmetic surgery of the face/nose/periorbital region/ears')]/ancestor::mat-checkbox"));
+            earsSurgeryCheckbox.Click();
             emptyBtn.Click();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(paymentCheckBtn)));
             TestBase.driver.FindElement(By.XPath(paymentCheckBtn)).Click();

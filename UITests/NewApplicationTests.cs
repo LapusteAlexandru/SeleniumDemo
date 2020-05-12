@@ -16,8 +16,7 @@ namespace NewApplicationTests
         [OneTimeSetUp]
         public void Clear()
         {
-            TestBase.deleteSectionData("[dbo].[Documents]", TestBase.appUsername);
-            TestBase.deleteUserData("[dbo].[Applications]", TestBase.appUsername);
+            TestBase.deleteSectionData("[dbo].[Applications]", TestBase.appUsername, "Status", 4);
         }
         [SetUp]
         public void Setup()
@@ -28,6 +27,9 @@ namespace NewApplicationTests
         [TearDown]
         public void Teardown()
         {
+            TestBase.deleteSectionData("[dbo].[Documents]", TestBase.appUsername);
+            TestBase.deleteUserData("[dbo].[Applications]", TestBase.appUsername);
+
             TestBase.TakeScreenShot();
             TestBase.driver.Quit();
         }
