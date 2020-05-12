@@ -70,9 +70,10 @@ namespace ResetPasswordTests
         public void TestCancelBtn()
         {
 
+            HomePage home = new HomePage(TestBase.driver);
             ResetPasswordPage resetPasswordPage = getResetPassword();
             resetPasswordPage.ClickCancel();
-            Assert.That(!resetPasswordPage.title.Displayed);
+            Assert.That(home.title.Displayed);
         }
         [Test]
         public void TestResetPassword()
@@ -88,9 +89,10 @@ namespace ResetPasswordTests
         [Test]
         public void TestAlreadyHaveAccountBtn()
         {
+            LoginPage login = new LoginPage(TestBase.driver);
             ResetPasswordPage resetPasswordPage = getResetPassword();
             resetPasswordPage.ClickAlreadyHaveAccount();
-            Assert.That(!resetPasswordPage.title.Displayed);
+            Assert.That(login.title.Displayed);
         }
 
         private ResetPasswordPage getResetPassword()

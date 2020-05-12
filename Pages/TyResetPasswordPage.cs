@@ -22,10 +22,10 @@ namespace Pages
             }
             PageFactory.InitElements(driver, this);
         }
-        [FindsBy(How = How.XPath, Using = "//h4[text()='Password reset successfully. You can sign-in using new password. ']")]
+        [FindsBy(How = How.XPath, Using = "//h2[text()='Password reset successfully. You can sign-in using new password. ']")]
         public IWebElement tyMsg { get; set; }
         
-        [FindsBy(How = How.XPath, Using = "//a[contains(@href,'/authentication/login')]")]
+        [FindsBy(How = How.XPath, Using = "//a[contains(@href,'Login')]")]
         public IWebElement loginBtn { get; set; }
         public IList<IWebElement> mainElements = new List<IWebElement>();
 

@@ -7,6 +7,7 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using RestSharp;
 using SeleniumExtras.WaitHelpers;
@@ -233,6 +234,7 @@ namespace RCoS
             SqlCommand command;
             object result = null;
             string sql;
+
             string connetionString = TestContext.Parameters["cosmeticsConnectionString"];
             var jwt = getJWT(username, password);
             var id = getObjectID("/api/applicants", jwt);
@@ -255,33 +257,40 @@ namespace RCoS
                     using (command = new SqlCommand(sql, cnn))
                         command.ExecuteNonQuery();
                 }
-            if(tableName.Contains("Applications") && section == "Status")
-            {
-                sql = $"UPDATE [dbo].[Applications] SET {section} = {statusValue} WHERE Id in (SELECT Id FROM [dbo].[Applications] WHERE UserId ={id})";
-                using (command = new SqlCommand(sql, cnn))
+                if(tableName.Contains("Applications") && section == "Status")
+                {
+                    sql = $"UPDATE [dbo].[Applications] SET {section} = {statusValue} WHERE Id in (SELECT Id FROM [dbo].[Applications] WHERE UserId ={id})";
+                    using (command = new SqlCommand(sql, cnn))
+                            command.ExecuteNonQuery();
+                }
+                if(tableName.Contains("Users") && section == "Payments")
+                {
+                    sql = $"UPDATE [dbo].[Users] SET Status = {statusValue} WHERE Id = {getUserId(username)}";
+                    using (command = new SqlCommand(sql, cnn))
+                            command.ExecuteNonQuery();
+                }
+                if (tableName.Contains("Documents"))
+                {
+                    if (username.Equals(appUsername))
+                        sql = $"DELETE FROM {tableName} WHERE ApplicationId in ( SELECT Id FROM [dbo].[Applications] WHERE UserId ={id} AND Status <> 4 ) ";
+                    else
+                        sql = $"DELETE FROM {tableName} WHERE ApplicationId in ( SELECT Id FROM [dbo].[Applications] WHERE UserId ={id})";
+                    using (command = new SqlCommand(sql, cnn))
                         command.ExecuteNonQuery();
-            }
-            if(tableName.Contains("Users") && section == "Payments")
-            {
-                sql = $"UPDATE [dbo].[Users] SET Status = {statusValue} WHERE Id = {getUserId(username)}";
-                using (command = new SqlCommand(sql, cnn))
+                }
+                if (tableName.Contains("ReflectionsOnPractices"))
+                {
+                    sql = $"DELETE FROM {tableName} WHERE ApplicationId in (SELECT Id FROM [dbo].[Applications] WHERE UserId ={id})";
+                    using (command = new SqlCommand(sql, cnn))
                         command.ExecuteNonQuery();
-            }
-            if (tableName.Contains("Documents"))
-            {
-                if (username.Equals(TestBase.appUsername))
-                    sql = $"DELETE FROM {tableName} WHERE ApplicationId in ( SELECT Id FROM [dbo].[Applications] WHERE UserId ={id} AND Status <> 4 ) ";
-                else
-                    sql = $"DELETE FROM {tableName} WHERE ApplicationId in ( SELECT Id FROM [dbo].[Applications] WHERE UserId ={id})";
-                using (command = new SqlCommand(sql, cnn))
-                    command.ExecuteNonQuery();
-            }
-            else if (!tableName.Contains("Applications"))
-            {
-                sql = $"DELETE FROM {tableName} WHERE Id ={sectionId}"; 
-                using (command = new SqlCommand(sql, cnn))
-                        command.ExecuteNonQuery();
-            }
+                }
+                else if (!tableName.Contains("Applications"))
+                {
+
+                    sql = $"DELETE FROM {tableName} WHERE Id ={sectionId}"; 
+                    using (command = new SqlCommand(sql, cnn))
+                            command.ExecuteNonQuery();
+                }
 
             }
         }
@@ -339,6 +348,14 @@ namespace RCoS
                     registrationId = (int)(command.ExecuteScalar());
             }
             return registrationId;
+        }
+
+        public static void ScrollToElemnent(string xpath)
+        {
+            var element = driver.FindElement(By.XPath(xpath));
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(element);
+            actions.Perform();
         }
     }
 }
