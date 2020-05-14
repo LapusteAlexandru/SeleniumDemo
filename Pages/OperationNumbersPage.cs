@@ -37,11 +37,24 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//input[@type='file']/ancestor::button")]
         public IWebElement uploadInput { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//input[@formcontrolname='phinLink']")]
+        public IWebElement phinLinkInput { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//b[contains(text(),'Option 1')]/ancestor::mat-radio-button")]
+        public IWebElement option1 { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//b[contains(text(),'Option 2')]/ancestor::mat-radio-button")]
+        public IWebElement option2 { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//b[contains(text(),'Option 3')]/ancestor::mat-radio-button")]
+        public IWebElement option3 { get; set; }
+
         [FindsBy(How = How.XPath, Using = "//button[@type='submit']")]
         public IWebElement saveBtn { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//mat-error[contains(text(),'required') or contains(text(),'At least one file')]")]
+        [FindsBy(How = How.XPath, Using = "//mat-error[contains(text(),'required') or contains(text(),'At least one file') or contains(text(),'One option should be selected')]")]
         public IList<IWebElement> requiredMsgs { get; set; }
+
 
         [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Operation Numbers')]/..//i[contains(@class,'far')]")]
         public IWebElement statusIndicator { get; set; }
@@ -54,6 +67,10 @@ namespace Pages
         {
             mainElements.Add(infoPanel);
             mainElements.Add(title);
+            mainElements.Add(option1);
+            mainElements.Add(option2);
+            mainElements.Add(option3);
+            mainElements.Add(phinLinkInput);
             mainElements.Add(proceduresCheckbox);
             mainElements.Add(operativeExposureCheckbox);
             mainElements.Add(uploadInput);
@@ -63,6 +80,7 @@ namespace Pages
 
         public void CompleteForm(string filename)
         {
+            option1.Click();
             if (!proceduresCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"))
                 proceduresCheckbox.Click();
             if (!operativeExposureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"))

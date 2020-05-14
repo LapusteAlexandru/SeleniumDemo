@@ -52,6 +52,7 @@ namespace OperativeExposureTests
             operationNumbersPage.CompleteForm("png");
             TestBase.driver.Navigate().Refresh();
             TestBase.wait.Until(ExpectedConditions.ElementToBeClickable(operationNumbersPage.title));
+            Assert.That(operationNumbersPage.option1.GetAttribute("class").Contains("mat-radio-checked"));
             Assert.That(operationNumbersPage.proceduresCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             Assert.That(operationNumbersPage.operativeExposureCheckbox.GetAttribute("class").Contains("mat-checkbox-checked"));
             dashboardPage.openSideMenuIfClosed();

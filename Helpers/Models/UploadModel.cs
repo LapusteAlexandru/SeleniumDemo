@@ -15,14 +15,14 @@ namespace Helpers
         [FindsBy(How = How.XPath, Using = "//input[@type='file']")]
         public IWebElement uploadInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Size cannot exceed 10 mb')]")]
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'File size cannot exceed 10 mb')]")]
         public IWebElement sizeLimitMsg { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Unaccepted file format')]")]
         public IWebElement formatValidationMsg { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Size cannot be zero')]")]
-        public IWebElement emptyFileMsg { get; set; }
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'File name cannot exceed 100 characters')]")]
+        public IWebElement longNameFileMsg { get; set; }
 
 
 

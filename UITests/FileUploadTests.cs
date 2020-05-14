@@ -11,6 +11,11 @@ namespace FileUploadTests
     [Category("FileUpload")]
     class FileUploadTests
     {
+        [OneTimeSetUp]
+        public void Clear()
+        {
+            TestBase.deleteSectionData("[dbo].[Applications]", TestBase.uiUsername, "Status");
+        }
         [SetUp]
         public void Setup()
         {
@@ -36,17 +41,17 @@ namespace FileUploadTests
             Assert.That(uploadModel.formatValidationMsg.Displayed);
         }
         [Test]
-        public void TestUploadEmptyFile()
+        public void TestUploadLongNameFile()
         {
-            UploadModel uploadModel = Upload("empty", "doc");
-            Assert.That(uploadModel.emptyFileMsg.Displayed);
+            UploadModel uploadModel = Upload("LongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongNameLongName", "png");
+            Assert.That(uploadModel.longNameFileMsg.Displayed);
         }
 
         private UploadModel Upload(string fileName, string fileExtension)
         {
             HomePage homePage = new HomePage(TestBase.driver);
             LoginPage loginPage = homePage.GetLogin();
-            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.username, TestBase.password);
+            DashboardPage dashboardPage = loginPage.DoLogin(TestBase.uiUsername, TestBase.password);
             dashboardPage.getReferences();
             IWebElement uploadInput = TestBase.driver.FindElement(By.XPath("//input[@type='file']"));
             uploadInput.SendKeys(TestContext.Parameters["uploadFilesPath"] + fileName + "." + fileExtension);
