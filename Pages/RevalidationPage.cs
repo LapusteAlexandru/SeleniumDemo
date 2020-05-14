@@ -16,7 +16,7 @@ namespace Pages
         {
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-revalidation//form")));
+                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-revalidation//form//h4")));
             }
             catch (Exception e)
             {

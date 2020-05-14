@@ -16,7 +16,7 @@ namespace Pages
         {
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-account-details//form")));
+                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-account-details//form//h4[contains(text(),'Account')]")));
             }
             catch (Exception e)
             {
