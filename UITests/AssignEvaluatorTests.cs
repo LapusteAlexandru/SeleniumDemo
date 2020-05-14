@@ -34,7 +34,7 @@ namespace AssignEvaluatorTests
         {
 
 
-            AssignEvaluatorsPage assignEvaluatorsPage = getAssignEvaluatorPopup(TestBase.appUsername);
+            AssignEvaluatorsPage assignEvaluatorsPage = getAssignEvaluator(TestBase.appUsername);
             foreach (var e in assignEvaluatorsPage.GetMainElements())
                 Assert.That(e.Displayed);
         }
@@ -43,7 +43,7 @@ namespace AssignEvaluatorTests
         public void TestSelectEvaluator()
         {
 
-            AssignEvaluatorsPage assignEvaluatorsPage = getAssignEvaluatorPopup(TestBase.appUsername);
+            AssignEvaluatorsPage assignEvaluatorsPage = getAssignEvaluator(TestBase.appUsername);
             assignEvaluatorsPage.AssignEvaluator();
             Assert.That(TestBase.driver.FindElement(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorName, TestBase.userFirstName))).Displayed);
         }
@@ -51,7 +51,7 @@ namespace AssignEvaluatorTests
         public void TestRemoveSelectedEvaluator()
         {
 
-            AssignEvaluatorsPage assignEvaluatorsPage = getAssignEvaluatorPopup(TestBase.appUsername);
+            AssignEvaluatorsPage assignEvaluatorsPage = getAssignEvaluator(TestBase.appUsername);
             assignEvaluatorsPage.AssignEvaluator();
             IWebElement selectedEvaluator = TestBase.driver.FindElement(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorName, TestBase.userFirstName)));
             Assert.That(selectedEvaluator.Displayed);
@@ -64,13 +64,14 @@ namespace AssignEvaluatorTests
         public void TestCancelAssignEvaluator()
         {
 
-            AssignEvaluatorsPage assignEvaluatorsPage = getAssignEvaluatorPopup(TestBase.appUsername);
+            AssignEvaluatorsPage assignEvaluatorsPage = getAssignEvaluator(TestBase.appUsername);
             assignEvaluatorsPage.AssignEvaluator();
             IWebElement selectedEvaluator = TestBase.driver.FindElement(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorName, TestBase.userFirstName)));
             Assert.That(selectedEvaluator.Displayed);
             assignEvaluatorsPage.cancelBtn.Click();
             TestBase.driver.Navigate().Refresh();
-            assignEvaluatorsPage = getAssignEvaluatorPopup(TestBase.appUsername);
+            ApplicationRequestsPage applicationRequestsPage = new ApplicationRequestsPage(TestBase.driver);
+            applicationRequestsPage.GetAssignEvaluatorsPanel(TestBase.appUsername);
             Assert.That(TestBase.driver.FindElements(By.XPath(string.Format(assignEvaluatorsPage.assignedEvaluatorName, TestBase.userFirstName))).Count.Equals(0));
 
         }
@@ -125,7 +126,7 @@ namespace AssignEvaluatorTests
             Assert.That(applicationRequestsPage.noRequestsMsg.Displayed);
         }
 
-        private AssignEvaluatorsPage getAssignEvaluatorPopup(string username)
+        private AssignEvaluatorsPage getAssignEvaluator(string username)
         {
 
             HomePage homePage = new HomePage(TestBase.driver);

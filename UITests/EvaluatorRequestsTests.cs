@@ -13,6 +13,11 @@ namespace EvaluatorRequestsTests
     [Category("EvaluatorRequests")]
     class EvaluatorRequestsTests
     {
+        [OneTimeSetUp]
+        public void Clear()
+        {
+            TestBase.deleteSectionData("[dbo].[Applications]", TestBase.uiUsername, "Status", 2);
+        }
         [SetUp]
         public void Setup()
         {
@@ -37,12 +42,12 @@ namespace EvaluatorRequestsTests
             applicationRequestsPage.AcceptRequest(TestBase.appUsername);
             TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[text()='Filter']/ancestor::div[@class='mat-form-field-infix']//input")));
             applicationRequestsPage.filterInput.Clear();
-            applicationRequestsPage.filterInput.SendKeys(TestBase.appUsername);
-            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(string.Format(applicationRequestsPage.emailCell, TestBase.appUsername))));
-            rowValue = TestBase.driver.FindElement(By.XPath(string.Format(applicationRequestsPage.statusCell, TestBase.appUsername))).Text;
+            applicationRequestsPage.filterInput.SendKeys(TestBase.uiUsername);
+            TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(string.Format(applicationRequestsPage.emailCell, TestBase.uiUsername))));
+            rowValue = TestBase.driver.FindElement(By.XPath(string.Format(applicationRequestsPage.statusCell, TestBase.uiUsername))).Text;
             Assert.That(rowValue.Equals("Reviewed by Evaluator"));
             
-            Assert.That(applicationRequestsPage.ReadComment(TestBase.appUsername, TestBase.userLastName).Equals(expectedText));
+            Assert.That(applicationRequestsPage.ReadComment(TestBase.uiUsername, TestBase.userLastName).Equals(expectedText));
             string status = TestBase.driver.FindElement(By.XPath(string.Format(applicationRequestsPage.feedbackStatus, TestBase.userLastName))).Text;
             Assert.That(status.Contains("Approved"));
 //            var mailRepository = new MailRepository("imap.gmail.com", 993, true, TestBase.appUsername, TestBase.password);
