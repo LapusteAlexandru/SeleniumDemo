@@ -27,7 +27,7 @@ namespace ForgotPasswordTests
             TestBase.driver.Quit();
         }
 
-        [Test, Order(1)]
+        [Test]
         public void TestPageLoads()
         {
             HomePage homePage = new HomePage(TestBase.driver);

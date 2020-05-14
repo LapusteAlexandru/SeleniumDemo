@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
 using System.Threading;
 
@@ -76,7 +77,7 @@ namespace RCoS
             if (baseURL == null || baseURL == "")
                 driver.Url = "https://rcs-cosmetics-client-dev.azurewebsites.net/";
             else
-                driver.Url = baseURL; 
+                driver.Url = baseURL;
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
             uploadWait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
             try

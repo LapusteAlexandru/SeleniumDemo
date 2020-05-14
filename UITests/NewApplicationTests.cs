@@ -34,7 +34,7 @@ namespace NewApplicationTests
             TestBase.driver.Quit();
         }
 
-        [Test, Order(1)]
+        [Test]
         public void TestPageLoads()
         {
             var (newApp, dashboardPage) = getNewApp();

@@ -33,7 +33,7 @@ namespace ResetPasswordTests
             TestBase.driver.Quit();
         }
 
-        [Test, Order(1)]
+        [Test]
         public void TestPageLoads()
         {
             ResetPasswordPage resetPasswordPage = getResetPassword();
