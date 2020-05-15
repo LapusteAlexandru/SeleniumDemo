@@ -151,7 +151,7 @@ namespace Pages
         {
 
             filterInput.Clear();
-            filterInput.SendKeys(TestBase.appUsername);
+            filterInput.SendKeys(user);
             IWebElement accept = TestBase.driver.FindElement(By.XPath(string.Format(approveBtn, user)));
             accept.Click(); 
             Thread.Sleep(300);
@@ -162,7 +162,7 @@ namespace Pages
         public void RejectRequest(string user)
         {
             filterInput.Clear();
-            filterInput.SendKeys(TestBase.appUsername);
+            filterInput.SendKeys(user);
             IWebElement accept = TestBase.driver.FindElement(By.XPath(string.Format(approveBtn, user)));
             accept.Click(); 
             Thread.Sleep(300);

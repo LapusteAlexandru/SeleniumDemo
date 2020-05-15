@@ -39,7 +39,7 @@ namespace EvaluatorRequestsTests
             string expectedText = "Test accept " + day;
 
             ApplicationRequestsPage applicationRequestsPage = getApplicationRequests();
-            applicationRequestsPage.AcceptRequest(TestBase.appUsername);
+            applicationRequestsPage.AcceptRequest(TestBase.uiUsername);
             TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[text()='Filter']/ancestor::div[@class='mat-form-field-infix']//input")));
             applicationRequestsPage.filterInput.Clear();
             applicationRequestsPage.filterInput.SendKeys(TestBase.uiUsername);
@@ -63,7 +63,7 @@ namespace EvaluatorRequestsTests
             int day = TestBase.currentDay;
             string expectedText = "Test reject " + day;
             ApplicationRequestsPage applicationRequestsPage = getApplicationRequests();
-            applicationRequestsPage.RejectRequest(TestBase.appUsername);
+            applicationRequestsPage.RejectRequest(TestBase.uiUsername);
             TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[text()='Filter']/ancestor::div[@class='mat-form-field-infix']//input")));
             applicationRequestsPage.filterInput.Clear();
             applicationRequestsPage.filterInput.SendKeys(TestBase.appUsername);

@@ -43,7 +43,7 @@ namespace OperativeExposureTests
             Thread.Sleep(300);
             foreach (var e in operationNumbersPage.requiredMsgs)
                 Assert.That(e.Displayed);
-            Assert.That(operationNumbersPage.requiredMsgs.Count.Equals(3));
+            Assert.That(operationNumbersPage.requiredMsgs.Count.Equals(4));
         }
         [Test]
         public void TestSubmitSuccessfully()
