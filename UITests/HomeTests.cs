@@ -8,6 +8,7 @@ using System.Threading;
 namespace HomeTests
 {
     [TestFixture]
+    [Parallelizable]
     [Category("Home")]
     public class HomeTests
     {
