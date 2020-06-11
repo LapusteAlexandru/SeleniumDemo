@@ -234,7 +234,7 @@ namespace EditApplicationTests
             foreach (var e in OperationNumbersPage.requiredMsgs)
                 Assert.That(e.Displayed);
 
-            Assert.That(OperationNumbersPage.requiredMsgs.Count.Equals(3));
+            Assert.That(OperationNumbersPage.requiredMsgs.Count.Equals(4));
         }
         [Test, Order(2)]
         public void TestClinicalOutcomesRequiredMsgs()

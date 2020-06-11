@@ -17,7 +17,7 @@ namespace Pages
         {
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementExists(By.XPath("//app-edit-application")));
+                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//app-edit-application//h4[contains(text(),'Account')]")));
             }
             catch (Exception e)
             {

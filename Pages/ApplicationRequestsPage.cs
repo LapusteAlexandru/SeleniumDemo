@@ -25,9 +25,9 @@ namespace Pages
         }
         public string approveBtn = "//span[contains(text(),'{0}')]/ancestor::tr//i[contains(@class,'fa-check-circle')]/ancestor::button";
         public string feedBackBtn = "//span[contains(text(),'{0}')]/ancestor::tr//i[contains(@class,'fa-comments')]/ancestor::button";
-        public string feedbackExpansionPanel = "//div[contains(text(),'{0}')]/..//mat-expansion-panel";
-        public string feedbackComment = "//div[contains(text(),'{0}')]/..//div[contains(@class,'comments')]";
-        public string feedbackStatus = "//app-evaluators-comments-dialog//div[contains(text(),'{0}')]";
+        public string feedbackExpansionPanel = "(//mat-expansion-panel)[1]";
+        public string feedbackComment = "(//div[contains(@class,'comments')])[1]";
+        public string feedbackStatus = "(//app-evaluators-comments-dialog//app-expandable-text/following-sibling::p)[1]";
         public string editBtn = "//span[contains(text(),'{0}')]/ancestor::tr//i[contains(@class,'fa-edit')]/ancestor::button";
         public string assignEvaluatorBtn = "//span[contains(text(),'{0}')]/ancestor::tr//i[contains(@class,'fa-tasks')]/ancestor::button";
         public string fullNameCell = "//span[contains(text(),'{0}')]/ancestor::tr//td[contains(@class,'cdk-column-fullName')]";
