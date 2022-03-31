@@ -1,5 +1,5 @@
-﻿using OpenQA.Selenium;
-using RCoS;
+﻿using Helpers;
+using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -8,13 +8,13 @@ using System.Text;
 
 namespace Pages
 {
-    class SignUpTyPage
+    class WomenPage
     {
-        public SignUpTyPage(IWebDriver driver)
+        public WomenPage(IWebDriver driver)
         {
             try
             {
-                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[contains(@class,'content')]")));
+                TestBase.wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//title[text()='Women - My Store']")));
             }
             catch (Exception e)
             {
@@ -22,8 +22,7 @@ namespace Pages
             }
             PageFactory.InitElements(driver, this);
         }
-        [FindsBy(How = How.XPath, Using = "//div[contains(@class,'thank-you-block')]")]
-        public IWebElement tyMessage { get; set; }
-
+        [FindsBy(How = How.LinkText, Using = "Women")]
+        public IWebElement womenTab { get; set; }
     }
 }
